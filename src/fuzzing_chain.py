@@ -7,7 +7,11 @@ from eth_typing import Address
 from eth_utils import decode_hex
 from eth_keys import keys
 
-from pprint import pprint
+from eth_abi import encode_abi
+
+from random import choice
+
+from fuzzer import SolidityFuzzer
 
 class FuzzingChain(MiningChain):
     @classmethod
@@ -29,6 +33,8 @@ class FuzzingChain(MiningChain):
         }
 
         chain = cls.from_genesis(AtomicDB(), GENESIS_PARAMS)
+
+        chain.fuzzer = SolidityFuzzer()
 
         # Private key of adress from which all transactions will be sent.
         chain.sk = keys.PrivateKey((1).to_bytes(32, byteorder='big'))
@@ -104,4 +110,34 @@ class FuzzingChain(MiningChain):
     def fuzz(self, n_transactions = 10, log = None):
         '''Mines a block, executing a number of transactions to fuzz the contracts being tested.
         '''
-        pass
+        for _ in range(n_transactions):
+            contract_address = choice([self.contracts.keys()])
+            function_hash = choice([self.contracts[contract_address].keys()])
+
+            encoded_args = self.fuzzer.generate_args(self.contracts[function_hash]['args'])
+
+            nonce = self.get_vm().state.account_db.get_nonce(self.pk)
+
+            tx = self.get_vm().create_unsigned_transaction(
+                nonce = nonce,
+                gas_price = 0,
+                gas = 1000000,
+                to = contract_address,
+                value = 0,
+                data = b''.join([function_hash, encoded_args])
+            )
+
+            signed_tx = tx.as_signed_transaction(self.sk)
+
+            _, _, computation = self.apply_transaction(signed_tx)
+        
+
+        block = self.get_vm().finalize_block(self.get_block())
+
+        nonce, mix_hash = mine_pow_nonce(
+            block.number,
+            block.header.mining_hash,
+            block.header.difficulty
+        )
+
+        self.mine_block(mix_hash=mix_hash, nonce=nonce)
