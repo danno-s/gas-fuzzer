@@ -1,14 +1,17 @@
 from eth import constants
 from eth.chains.base import MiningChain
 from eth.db.atomic import AtomicDB
+from eth.consensus.pow import mine_pow_nonce
 
 from eth_typing import Address
-from eth_utils import decode_hex, encode_hex, keccak
+from eth_utils import decode_hex
 from eth_keys import keys
+
+from pprint import pprint
 
 class FuzzingChain(MiningChain):
     @classmethod
-    def init(cls, contract_bytecodes = [], tx = 10):
+    def init(cls, standard_output, tx = 10):
         '''Builds a new MiningChain, with the given contract bytecodes, and an AtomicDB database.
         '''
         GENESIS_PARAMS = {
@@ -37,36 +40,64 @@ class FuzzingChain(MiningChain):
         
         vm = chain.get_vm()
 
-        # Adresses of all the contracts being tested
-        # Dictionary defined as {[address] => {[function] => [args]}}
+        """
+        Adresses of all the contracts being tested
+        Dictionary defined as :
+        {
+            [address]: {
+                [function]: {
+                    'hash': [hash],
+                    'args: [
+                        arg1,
+                        arg2,
+                        ...
+                    ],
+                    'compilation_estimate': [estimate]
+                }
+            }
+        }
+        """
         chain.contracts = {}
 
-        for bytecode_path in contract_bytecodes:
-            nonce = vm.state.account_db.get_nonce(chain.pk)
+        for file, contracts in standard_output.items():
+            for contract, desc in contracts.items():
+                nonce = vm.state.account_db.get_nonce(chain.pk)
 
-            with open(bytecode_path) as bytecode:
                 tx = vm.create_unsigned_transaction(
                     nonce = nonce,
                     gas_price = 0,
                     gas = 1000000,
                     to = constants.CREATE_CONTRACT_ADDRESS,
                     value = 0,
-                    data = decode_hex(bytecode.read())
+                    data = decode_hex(desc['evm']['bytecode']['object'])
                 )
 
-            signed_tx = tx.as_signed_transaction(chain.sk)
+                signed_tx = tx.as_signed_transaction(chain.sk)
 
-            _, _, computation = chain.apply_transaction(signed_tx)
+                _, _, computation = chain.apply_transaction(signed_tx)
 
-            contract_address = computation.msg.storage_address
+                contract_address = computation.msg.storage_address
 
-            chain.contracts[contract_address] = {
-
-            }
+                chain.contracts[contract_address] = {}
+                
+                for function, fhash in desc['evm']['methodIdentifiers'].items():
+                    fname = function.split("(")[0]
+                    fargs = [arg for arg in function.split("(")[1:][0][:-1].split(",") if arg != ""]
+                    chain.contracts[contract_address][fname] = {
+                        'hash': decode_hex(fhash),
+                        'args': fargs,
+                        'compilation_estimate': desc['evm']['gasEstimates']['external'][function]
+                    }
 
         block = chain.get_vm().finalize_block(chain.get_block())
 
-        # TODO: mine this block
+        nonce, mix_hash = mine_pow_nonce(
+            block.number,
+            block.header.mining_hash,
+            block.header.difficulty
+        )
+
+        chain.mine_block(mix_hash=mix_hash, nonce=nonce)
 
         return chain
 
