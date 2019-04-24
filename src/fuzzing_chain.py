@@ -3,7 +3,7 @@ from eth.chains.base import MiningChain
 from eth.db.atomic import AtomicDB
 
 from eth_typing import Address
-from eth_utils import decode_hex
+from eth_utils import decode_hex, encode_hex, keccak
 from eth_keys import keys
 
 class FuzzingChain(MiningChain):
@@ -37,6 +37,10 @@ class FuzzingChain(MiningChain):
         
         vm = chain.get_vm()
 
+        # Adresses of all the contracts being tested
+        # Dictionary defined as {[address] => {[function] => [args]}}
+        chain.contracts = {}
+
         for bytecode_path in contract_bytecodes:
             nonce = vm.state.account_db.get_nonce(chain.pk)
 
@@ -52,14 +56,17 @@ class FuzzingChain(MiningChain):
 
             signed_tx = tx.as_signed_transaction(chain.sk)
 
-            chain.apply_transaction(signed_tx)
+            _, _, computation = chain.apply_transaction(signed_tx)
+
+            contract_address = computation.msg.storage_address
+
+            chain.contracts[contract_address] = {
+
+            }
 
         block = chain.get_vm().finalize_block(chain.get_block())
 
-        # Adresses of all the contracts being tested
-        chain.contracts = []
-
-
+        # TODO: mine this block
 
         return chain
 
