@@ -7,7 +7,7 @@ from eth_typing import Address
 from eth_utils import decode_hex
 from eth_keys import keys
 
-from eth_abi import encode_abi
+from eth_abi import decode_abi
 
 from random import choice
 
@@ -86,14 +86,21 @@ class FuzzingChain(MiningChain):
 
                 chain.contracts[contract_address] = {}
                 
+                for abi in desc['abi']:
+                    if abi['type'] != 'function':
+                        continue
+                    fname = abi['name']
+                    fin = [inp for inp in abi['inputs']]
+                    fout = [out for out in abi['outputs']]
+                    chain.contracts[contract_address][fname] = {
+                        'in': fin,
+                        'out': fout
+                    }
+
                 for function, fhash in desc['evm']['methodIdentifiers'].items():
                     fname = function.split("(")[0]
-                    fargs = [arg for arg in function.split("(")[1:][0][:-1].split(",") if arg != ""]
-                    chain.contracts[contract_address][fname] = {
-                        'hash': decode_hex(fhash),
-                        'args': fargs,
-                        'compilation_estimate': desc['evm']['gasEstimates']['external'][function]
-                    }
+                    chain.contracts[contract_address][fname]['hash'] = decode_hex(fhash)
+                    chain.contracts[contract_address][fname]['compilation_estimate'] = desc['evm']['gasEstimates']['external'][function]
 
         block = chain.get_vm().finalize_block(chain.get_block())
 
@@ -107,21 +114,22 @@ class FuzzingChain(MiningChain):
 
         return chain
 
-    def fuzz(self, n_transactions = 10, log = None):
+    def fuzz(self, log = None):
         '''Mines a block, executing a number of transactions to fuzz the contracts being tested.
         '''
-        for _ in range(n_transactions):
-            contract_address = choice([self.contracts.keys()])
-            function_hash = choice([self.contracts[contract_address].keys()])
+        for _ in range(self.txs):
+            contract_address = choice(list(self.contracts))
+            function_name = choice(list(self.contracts[contract_address]))
 
-            encoded_args = self.fuzzer.generate_args(self.contracts[function_hash]['args'])
+            function_hash = self.contracts[contract_address][function_name]['hash']
+            encoded_args = self.fuzzer.generate_args([arg['type'] for arg in self.contracts[contract_address][function_name]['in']])
 
             nonce = self.get_vm().state.account_db.get_nonce(self.pk)
 
             tx = self.get_vm().create_unsigned_transaction(
                 nonce = nonce,
                 gas_price = 0,
-                gas = 1000000,
+                gas = 100000,
                 to = contract_address,
                 value = 0,
                 data = b''.join([function_hash, encoded_args])
@@ -130,6 +138,10 @@ class FuzzingChain(MiningChain):
             signed_tx = tx.as_signed_transaction(self.sk)
 
             _, _, computation = self.apply_transaction(signed_tx)
+
+            print(f"Total gas used in call of function {function_name}: {computation.get_gas_used()}")
+            out_types = [arg['type'] for arg in self.contracts[contract_address][function_name]['out']]
+            print(f"Returned value: {[decode_abi(out_types, computation.output)]}")
         
 
         block = self.get_vm().finalize_block(self.get_block())

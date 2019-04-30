@@ -1,41 +1,15 @@
-SOLIDITY_TYPE_GRAMMAR = {
-    '<address>': [
-        '0x<hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte><hexbyte>'
-    ],
-    '<bool>': [
-        'true',
-        'false'
-    ],
-    '<string>': [
-        '<single-quote><string-content><single-quote>',
-        '<double-quote><string-content><double-quote>',
-        '<single-quote><string-content><double-quote><string-content><double-quote><string-content><single-quote>',
-        '<double-quote><string-content><single-quote><string-content><single-quote><string-content><double-quote>'
-    ],
-    '<string-content>': [
-        '<symbol>',
-        '<symbol><string-content>'
-    ],
-    '<symbol>': [
+from eth_abi import encode_single
+from type_fuzzers import get_fuzzer
 
-    ],
-    '<hexbyte>': [
-        '<hex><hex>'
-    ],
-    '<hex>': [
-        '<digit>', 'a', 'b', 'c', 'd', 'e', 'f'
-    ],
-    '<digit>': [
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-    ]
-}
+from random import random
+
 
 class SolidityFuzzer():
-    def __init__(self, seed):
-        self.seed = seed
+    def __init__(self, seed = None):
+        self.seed = seed if seed else random() * 1000000
 
-    def generate_args(self, args):
-        return b''.join(self.fuzz_arg(arg) for arg in args)
+    def generate_args(self, types):
+        return b''.join(self.fuzz_arg(_type) for _type in types)
 
-    def fuzz_arg(self, arg):
-        pass
+    def fuzz_arg(self, _type):
+        return encode_single(_type, get_fuzzer(_type)())

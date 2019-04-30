@@ -12,6 +12,8 @@ from fuzzing_chain import FuzzingChain
 from eth import constants
 from eth.vm import forks
 
+from solc import install_solc
+
 from pprint import pprint
 
 def main():
@@ -47,7 +49,6 @@ def main():
 
     for _ in range(args.iterations):
         chain.fuzz(log=log)
-        pass
 
 def getEvmVersion(fork):
     if fork == forks.FrontierVM or fork == forks.HomesteadVM:
@@ -62,7 +63,10 @@ def getEvmVersion(fork):
     return "byzantium"
 
 def compile(files, fork):
-    solc_path = os.environ["HOME"] + "/.py-solc/solc-v0.4.25/bin/solc"
+    solc_path = os.path.join(os.environ["HOME"], ".py-solc/solc-v0.4.25/bin/solc")
+
+    if not os.path.isfile(solc_path):
+        install_solc('v0.4.25')
 
     sources = {}
     allow_paths = []
@@ -93,6 +97,7 @@ def compile(files, fork):
             'outputSelection': {
                 "*": {
                     "*": [
+                        "abi",
                         "evm.bytecode.object",
                         "evm.methodIdentifiers",
                         "evm.gasEstimates"

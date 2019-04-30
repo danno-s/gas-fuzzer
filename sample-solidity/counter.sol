@@ -8,12 +8,10 @@ contract Counter {
     }
     
     function add() public {
-        for (uint i = 0; i < count; i++) {
-            count++;
-        }
+        count += count;
     }
 
-    function read(uint unused1, uint unused2) public view returns(uint) {
-        return count + unused1 - unused2;
+    function read() public view returns(uint) {
+        return count;
     }
 }
