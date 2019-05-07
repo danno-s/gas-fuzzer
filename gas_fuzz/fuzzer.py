@@ -11,7 +11,7 @@ class SolidityFuzzer():
                  faucet_callback,
                  faucet_sk = None,
                  new_account_chance = 0.25, 
-                 max_balance = 10 ** 10,
+                 max_balance = 1000,
                  rules = None):
         self.max_balance = max_balance
         self.rules = rules
@@ -29,14 +29,16 @@ class SolidityFuzzer():
 
         self.new_account()
 
-    def generate_args(self, func, types):
+    def generate_args(self, func, args, value=True):
         func_rules = self.rules[func] if self.rules and func in self.rules else None
         sk, pk = self.get_account()
+        primitive_args = [(arg['name'], arg['type'], self.fuzz_arg(arg['type'], func_rules)) for arg in args]
         return {
             'sk': sk,
             'pk': pk,
-            'value': self.randvalue(pk),
-            'args': b''.join(self.fuzz_arg(_type, func_rules) for _type in types)
+            'value': self.randvalue(pk) if value else 0,
+            'args': primitive_args,
+            'data': b''.join(encode_single(_type, arg) for _, _type, arg in primitive_args)
         }
 
     def fuzz_arg(self, _type, func_rules):
@@ -44,7 +46,7 @@ class SolidityFuzzer():
         if _type not in self.type_fuzzers:
             self.type_fuzzers[_type] = fuzzer_from_type(_type, rules=func_rules)
 
-        return encode_single(_type, self.type_fuzzers[_type]())
+        return self.type_fuzzers[_type]()
 
     def get_account(self):
         if random() < self.prob['new_account']:

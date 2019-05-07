@@ -15,6 +15,8 @@ from fuzzer import SolidityFuzzer
 
 from pprint import pprint
 
+import logging
+
 class FuzzingChain(MiningChain):
     @classmethod
     def init(cls, standard_output, tx = 10, **kwargs):
@@ -55,6 +57,7 @@ class FuzzingChain(MiningChain):
         chain = cls.from_genesis(AtomicDB(), GENESIS_PARAMS, GENESIS_STATE)
 
         chain._faucet = _faucet
+        logging.info(f"Faucet initialized at address: {pk}")
 
         chain.fuzzer = SolidityFuzzer(
             chain.transfer_from_faucet,
@@ -84,10 +87,12 @@ class FuzzingChain(MiningChain):
         """
         chain.contracts = {}
 
+        logging.info("CONTRACT TRANSACTIONS BEGIN\n")
+
         for _, contracts in standard_output.items():
-            for _, desc in contracts.items():
+            for contract_name, desc in contracts.items():
                 constructor = [abi for abi in desc['abi'] if abi['type'] == 'constructor'][0]
-                call = chain.fuzzer.generate_args('__constructor__', [arg['type'] for arg in constructor['inputs']])
+                call = chain.fuzzer.generate_args('__constructor__', [arg for arg in constructor['inputs']], value=False)
 
                 _, _, computation = chain.call_function(
                     constants.CREATE_CONTRACT_ADDRESS, 
@@ -95,7 +100,7 @@ class FuzzingChain(MiningChain):
                     call
                 )
 
-                print(f"Total gas consumed in constructor: {computation.get_gas_used()}")
+                log_function_call(f"constructor {contract_name}", call['args'], call['value'], computation.get_gas_used())
 
                 contract_address = computation.msg.storage_address
 
@@ -111,11 +116,14 @@ class FuzzingChain(MiningChain):
                         'in': fin,
                         'out': fout
                     }
+                
+                logging.info("Compilation gas estimates:")
 
                 for function, fhash in desc['evm']['methodIdentifiers'].items():
                     fname = function.split("(")[0]
                     chain.contracts[contract_address][fname]['hash'] = decode_hex(fhash)
                     chain.contracts[contract_address][fname]['compilation_estimate'] = desc['evm']['gasEstimates']['external'][function]
+                    logging.info(f"{function}: {desc['evm']['gasEstimates']['external'][function]}")
 
         block = chain.get_vm().finalize_block(chain.get_block())
 
@@ -137,14 +145,14 @@ class FuzzingChain(MiningChain):
             function_name = choice(list(self.contracts[contract_address]))
 
             function_hash = self.contracts[contract_address][function_name]['hash']
-            call = self.fuzzer.generate_args(function_name, [arg['type'] for arg in self.contracts[contract_address][function_name]['in']])
+            call = self.fuzzer.generate_args(function_name, [arg for arg in self.contracts[contract_address][function_name]['in']])
 
             _, _, computation = self.call_function(contract_address, function_hash, call)
 
-            print(f"Total gas used in call of function {function_name}: {computation.get_gas_used()}")
+            log_function_call(function_name, call['args'], call['value'], computation.get_gas_used())
             out_types = [arg['type'] for arg in self.contracts[contract_address][function_name]['out']]
             if not computation.is_error:
-                print(f"Returned value: {[decode_abi(out_types, computation.output)]}")
+                logging.info(f"Returned value: {[decode_abi(out_types, computation.output)]}")
         
 
         block = self.get_vm().finalize_block(self.get_block())
@@ -165,8 +173,8 @@ class FuzzingChain(MiningChain):
             gas_price = 0,
             gas = 1000000,
             to = to,
-            value = call['value'],
-            data = b''.join([function_hash, call['args']])
+            value = 0,
+            data = b''.join([function_hash, call['data']])
         )
 
         signed_tx = tx.as_signed_transaction(call['sk'])
@@ -182,8 +190,11 @@ class FuzzingChain(MiningChain):
             {
                 'pk': self._faucet['pk'],
                 'sk': self._faucet['sk'],
-                'args': b'',
+                'data': b'',
                 'value': value
             }
         )
         computation.raise_if_error()
+
+def log_function_call(fname, primitive_args, value, gas_used):
+    logging.info(f''' FUNCTION CALL: {fname}({", ".join(f"{_type} {name}: {value}" for name, _type, value in primitive_args)}) VALUE: {value} GAS SPENT: {gas_used}''')

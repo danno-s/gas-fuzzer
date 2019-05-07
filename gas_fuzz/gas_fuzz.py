@@ -16,6 +16,8 @@ from solc import install_solc
 
 from pprint import pprint
 
+import logging
+
 def main():
     # Receives a list of source files to fuzz.
 
@@ -33,8 +35,6 @@ def main():
 
     args = parser.parse_args()
 
-    print(args)
-
     chain_class = FuzzingChain.configure(
         __name__ = 'Fuzzing Chain',
         vm_configuration = (
@@ -44,12 +44,12 @@ def main():
 
     contracts = compile(args.files, args.fork)
 
+    logging.basicConfig(filename="fuzzing_log", level=logging.INFO)
+
     chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules)
 
-    log = {}
-
     for _ in range(args.iterations):
-        chain.fuzz(log=log)
+        chain.fuzz()
 
 def getEvmVersion(fork):
     if fork == forks.FrontierVM or fork == forks.HomesteadVM:
@@ -85,32 +85,33 @@ def compile(files, fork):
     evmVersion = getEvmVersion(fork)
 
     result = subprocess.run([
-        solc_path,
-        "--standard-json",
-        "--allow-paths",
-        ",".join(allow_paths)
-    ],
-    input = dumps({
-        'language': 'Solidity',
-        'sources': sources,
-        'settings': {
-            'evmVersion': evmVersion,
-            'outputSelection': {
-                "*": {
-                    "*": [
-                        "abi",
-                        "evm.bytecode.object",
-                        "evm.methodIdentifiers",
-                        "evm.gasEstimates"
-                    ]
+            solc_path,
+            "--standard-json",
+            "--allow-paths",
+            ",".join(allow_paths)
+        ],
+        input = dumps({
+            'language': 'Solidity',
+            'sources': sources,
+            'settings': {
+                'evmVersion': evmVersion,
+                'outputSelection': {
+                    "*": {
+                        "*": [
+                            "abi",
+                            "evm.bytecode.object",
+                            "evm.methodIdentifiers",
+                            "evm.gasEstimates"
+                        ]
+                    }
                 }
             }
-        }
-    }),
-    stdout = subprocess.PIPE,
-    stderr = subprocess.PIPE,
-    check = True,
-    encoding = "utf-8")
+        }),
+        stdout = subprocess.PIPE,
+        stderr = subprocess.PIPE,
+        check = True,
+        encoding = "utf-8"
+    )
 
     output = loads(result.stdout)
 
