@@ -4,12 +4,12 @@ from eth.db.atomic import AtomicDB
 from eth.consensus.pow import mine_pow_nonce
 
 from eth_typing import Address
-from eth_utils import decode_hex
+from eth_utils import decode_hex, to_wei
 from eth_keys import keys
 
 from eth_abi import decode_abi, decode_single
 
-from random import choice
+from random import choice, randint
 
 from fuzzer import SolidityFuzzer
 
@@ -34,14 +34,36 @@ class FuzzingChain(MiningChain):
             'nonce': constants.GENESIS_NONCE
         }
 
-        chain = cls.from_genesis(AtomicDB(), GENESIS_PARAMS)
+        sk = keys.PrivateKey(randint(1, 2 ** 32 - 1).to_bytes(32, byteorder='big'))
+        pk = Address(sk.public_key.to_canonical_address())
 
-        chain.fuzzer = SolidityFuzzer(chain, **kwargs)
+        _faucet = {
+            'sk': sk,
+            'pk': pk
+        }
+
+        GENESIS_STATE = {
+            _faucet['pk']: {
+                # Practically infinite
+                'balance': to_wei(2 ** 32 - 1, 'ether'),
+                'nonce': 0,
+                'code': b'',
+                'storage': {}
+            }
+        }
+
+        chain = cls.from_genesis(AtomicDB(), GENESIS_PARAMS, GENESIS_STATE)
+
+        chain._faucet = _faucet
+
+        chain.fuzzer = SolidityFuzzer(
+            chain.transfer_from_faucet,
+            faucet_sk =_faucet['sk'], 
+            **kwargs
+        )
 
         # Number of transactions per block
         chain.txs = tx
-        
-        vm = chain.get_vm()
 
         """
         Adresses of all the contracts being tested
@@ -121,7 +143,8 @@ class FuzzingChain(MiningChain):
 
             print(f"Total gas used in call of function {function_name}: {computation.get_gas_used()}")
             out_types = [arg['type'] for arg in self.contracts[contract_address][function_name]['out']]
-            print(f"Returned value: {[decode_abi(out_types, computation.output)]}")
+            if not computation.is_error:
+                print(f"Returned value: {[decode_abi(out_types, computation.output)]}")
         
 
         block = self.get_vm().finalize_block(self.get_block())
@@ -135,8 +158,6 @@ class FuzzingChain(MiningChain):
         self.mine_block(mix_hash=mix_hash, nonce=nonce)
 
     def call_function(self, to, function_hash, call):
-        self.get_vm().state.account_db.set_balance(call['pk'], call['value'])
-
         nonce = self.get_vm().state.account_db.get_nonce(call['pk'])
 
         tx = self.get_vm().create_unsigned_transaction(
@@ -150,4 +171,19 @@ class FuzzingChain(MiningChain):
 
         signed_tx = tx.as_signed_transaction(call['sk'])
 
-        return self.apply_transaction(signed_tx)
+        header, receipt, computation = self.apply_transaction(signed_tx)
+
+        return (header, receipt, computation)
+
+    def transfer_from_faucet(self, pk, value):
+        _, _, computation = self.call_function(
+            pk, 
+            b'',
+            {
+                'pk': self._faucet['pk'],
+                'sk': self._faucet['sk'],
+                'args': b'',
+                'value': value
+            }
+        )
+        computation.raise_if_error()
