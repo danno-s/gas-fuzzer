@@ -29,6 +29,7 @@ def main():
     parser.add_argument("-bf", "--byzantium", action='store_const', dest="fork", const=forks.ByzantiumVM, help="use Byzantium VM (default)")
     parser.add_argument("-cf", "--constantinople", action='store_const', dest="fork", const=forks.ConstantinopleVM, help="use Constantinople VM")
     parser.add_argument("files", nargs="+", help="List of compiled files")
+    parser.add_argument("-r", "--rules", help="file with fuzzing rules")
 
     args = parser.parse_args()
 
@@ -43,7 +44,7 @@ def main():
 
     contracts = compile(args.files, args.fork)
 
-    chain = chain_class.init(contracts, tx=args.block_tx)
+    chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules)
 
     log = {}
 

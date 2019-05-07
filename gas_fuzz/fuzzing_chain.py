@@ -7,15 +7,17 @@ from eth_typing import Address
 from eth_utils import decode_hex
 from eth_keys import keys
 
-from eth_abi import decode_abi
+from eth_abi import decode_abi, decode_single
 
 from random import choice
 
 from fuzzer import SolidityFuzzer
 
+from pprint import pprint
+
 class FuzzingChain(MiningChain):
     @classmethod
-    def init(cls, standard_output, tx = 10):
+    def init(cls, standard_output, tx = 10, **kwargs):
         '''Builds a new MiningChain, with the given contract bytecodes, and an AtomicDB database.
         '''
         GENESIS_PARAMS = {
@@ -34,12 +36,7 @@ class FuzzingChain(MiningChain):
 
         chain = cls.from_genesis(AtomicDB(), GENESIS_PARAMS)
 
-        chain.fuzzer = SolidityFuzzer()
-
-        # Private key of adress from which all transactions will be sent.
-        chain.sk = keys.PrivateKey((1).to_bytes(32, byteorder='big'))
-        # Public key of said address.
-        chain.pk = Address(chain.sk.public_key.to_canonical_address())
+        chain.fuzzer = SolidityFuzzer(chain, **kwargs)
 
         # Number of transactions per block
         chain.txs = tx
@@ -65,22 +62,18 @@ class FuzzingChain(MiningChain):
         """
         chain.contracts = {}
 
-        for file, contracts in standard_output.items():
-            for contract, desc in contracts.items():
-                nonce = vm.state.account_db.get_nonce(chain.pk)
+        for _, contracts in standard_output.items():
+            for _, desc in contracts.items():
+                constructor = [abi for abi in desc['abi'] if abi['type'] == 'constructor'][0]
+                call = chain.fuzzer.generate_args('__constructor__', [arg['type'] for arg in constructor['inputs']])
 
-                tx = vm.create_unsigned_transaction(
-                    nonce = nonce,
-                    gas_price = 0,
-                    gas = 1000000,
-                    to = constants.CREATE_CONTRACT_ADDRESS,
-                    value = 0,
-                    data = decode_hex(desc['evm']['bytecode']['object'])
+                _, _, computation = chain.call_function(
+                    constants.CREATE_CONTRACT_ADDRESS, 
+                    decode_hex(desc['evm']['bytecode']['object']), 
+                    call
                 )
 
-                signed_tx = tx.as_signed_transaction(chain.sk)
-
-                _, _, computation = chain.apply_transaction(signed_tx)
+                print(f"Total gas consumed in constructor: {computation.get_gas_used()}")
 
                 contract_address = computation.msg.storage_address
 
@@ -122,22 +115,9 @@ class FuzzingChain(MiningChain):
             function_name = choice(list(self.contracts[contract_address]))
 
             function_hash = self.contracts[contract_address][function_name]['hash']
-            encoded_args = self.fuzzer.generate_args([arg['type'] for arg in self.contracts[contract_address][function_name]['in']])
+            call = self.fuzzer.generate_args(function_name, [arg['type'] for arg in self.contracts[contract_address][function_name]['in']])
 
-            nonce = self.get_vm().state.account_db.get_nonce(self.pk)
-
-            tx = self.get_vm().create_unsigned_transaction(
-                nonce = nonce,
-                gas_price = 0,
-                gas = 100000,
-                to = contract_address,
-                value = 0,
-                data = b''.join([function_hash, encoded_args])
-            )
-
-            signed_tx = tx.as_signed_transaction(self.sk)
-
-            _, _, computation = self.apply_transaction(signed_tx)
+            _, _, computation = self.call_function(contract_address, function_hash, call)
 
             print(f"Total gas used in call of function {function_name}: {computation.get_gas_used()}")
             out_types = [arg['type'] for arg in self.contracts[contract_address][function_name]['out']]
@@ -153,3 +133,21 @@ class FuzzingChain(MiningChain):
         )
 
         self.mine_block(mix_hash=mix_hash, nonce=nonce)
+
+    def call_function(self, to, function_hash, call):
+        self.get_vm().state.account_db.set_balance(call['pk'], call['value'])
+
+        nonce = self.get_vm().state.account_db.get_nonce(call['pk'])
+
+        tx = self.get_vm().create_unsigned_transaction(
+            nonce = nonce,
+            gas_price = 0,
+            gas = 1000000,
+            to = to,
+            value = call['value'],
+            data = b''.join([function_hash, call['args']])
+        )
+
+        signed_tx = tx.as_signed_transaction(call['sk'])
+
+        return self.apply_transaction(signed_tx)
