@@ -9,11 +9,15 @@ contract Counter {
 
     function deposit() public payable returns (uint) {
         count += msg.value;
-        return msg.value;
+        return count;
     }
-    
+
     function add(uint8 value) public returns (uint) {
         count += value;
         return count;
+    }
+ 
+    function stringFunc() public view returns (string) {
+        return "string de prueba";
     }
 }

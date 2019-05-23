@@ -2,6 +2,7 @@ from eth import constants
 from eth.chains.base import MiningChain
 from eth.db.atomic import AtomicDB
 from eth.consensus.pow import mine_pow_nonce
+from eth.exceptions import VMError, Revert
 
 from eth_typing import Address
 from eth_utils import decode_hex, to_wei
@@ -12,6 +13,8 @@ from eth_abi import decode_abi, decode_single
 from random import choice, randint
 
 from fuzzer import SolidityFuzzer
+
+from re import search
 
 from pprint import pprint
 
@@ -100,12 +103,12 @@ class FuzzingChain(MiningChain):
                     call
                 )
 
-                log_function_call(f"constructor {contract_name}", call['args'], call['value'], computation.get_gas_used())
+                log_function_call(f"constructor {contract_name}", call['pk'], call['args'], call['value'], computation.get_gas_used())
 
                 contract_address = computation.msg.storage_address
 
                 chain.contracts[contract_address] = {}
-                
+
                 for abi in desc['abi']:
                     if abi['type'] != 'function':
                         continue
@@ -114,16 +117,20 @@ class FuzzingChain(MiningChain):
                     fout = [out for out in abi['outputs']]
                     chain.contracts[contract_address][fname] = {
                         'in': fin,
-                        'out': fout
+                        'out': fout,
+                        'payable': abi['payable']
                     }
                 
-                logging.info("Compilation gas estimates:")
+                logging.info(" Compilation gas estimates:")
 
                 for function, fhash in desc['evm']['methodIdentifiers'].items():
                     fname = function.split("(")[0]
                     chain.contracts[contract_address][fname]['hash'] = decode_hex(fhash)
                     chain.contracts[contract_address][fname]['compilation_estimate'] = desc['evm']['gasEstimates']['external'][function]
-                    logging.info(f"{function}: {desc['evm']['gasEstimates']['external'][function]}")
+
+                    function_signature = f"{function} => ({', '.join(arg['type'] for arg in chain.contracts[contract_address][fname]['out'])})"
+
+                    logging.info(f" {function_signature}: {desc['evm']['gasEstimates']['external'][function]}{' payable' if chain.contracts[contract_address][fname]['payable'] else ''}")
 
         block = chain.get_vm().finalize_block(chain.get_block())
 
@@ -145,14 +152,25 @@ class FuzzingChain(MiningChain):
             function_name = choice(list(self.contracts[contract_address]))
 
             function_hash = self.contracts[contract_address][function_name]['hash']
-            call = self.fuzzer.generate_args(function_name, [arg for arg in self.contracts[contract_address][function_name]['in']])
+            call = self.fuzzer.generate_args(
+                function_name, 
+                [arg for arg in self.contracts[contract_address][function_name]['in']], 
+                value=self.contracts[contract_address][function_name]['payable']
+            )
 
             _, _, computation = self.call_function(contract_address, function_hash, call)
 
-            log_function_call(function_name, call['args'], call['value'], computation.get_gas_used())
+            log_function_call(function_name, call['pk'], call['args'], call['value'], computation.get_gas_used())
             out_types = [arg['type'] for arg in self.contracts[contract_address][function_name]['out']]
-            if not computation.is_error:
-                logging.info(f"Returned value: {[decode_abi(out_types, computation.output)]}")
+            try: 
+                computation.raise_if_error()
+                logging.info(f" Returned value: {decode_abi(out_types, computation.output)}")
+            except Revert as r:
+                logging.info(f" Call reverted. {r.args[0]}")
+            except VMError as e:
+                logging.info(f" Call resulted in error: {e}")
+            except Exception as e:
+                logging.info(f" Something went wrong while decoding the output. {e}")
         
 
         block = self.get_vm().finalize_block(self.get_block())
@@ -173,7 +191,7 @@ class FuzzingChain(MiningChain):
             gas_price = 0,
             gas = 1000000,
             to = to,
-            value = 0,
+            value = call['value'],
             data = b''.join([function_hash, call['data']])
         )
 
@@ -196,5 +214,10 @@ class FuzzingChain(MiningChain):
         )
         computation.raise_if_error()
 
-def log_function_call(fname, primitive_args, value, gas_used):
-    logging.info(f''' FUNCTION CALL: {fname}({", ".join(f"{_type} {name}: {value}" for name, _type, value in primitive_args)}) VALUE: {value} GAS SPENT: {gas_used}''')
+def log_function_call(fname, pk, primitive_args, value, gas_used):
+    logging.info(
+        f''' 
+        FUNCTION CALL: {fname} ({", ".join(f"{_type} {name}: {value}" for name, _type, value in primitive_args)})
+            CALLER: 0x{pk.hex()} 
+            VALUE: {value} 
+            GAS SPENT: {gas_used}''')

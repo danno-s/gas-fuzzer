@@ -6,12 +6,14 @@ from .primitive_types import (
     CharFuzzer
 )
 
+from random import expovariate
+
 class DynamicLengthFuzzer(BaseTypeFuzzer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def get_length(self):
-        raise NotImplementedError()
+        return int(expovariate(1 / 64)) + 1
 
 class DynamicArrayFuzzer(ArrayFuzzer, DynamicLengthFuzzer):
     def __init__(self, subtype, **kwargs):
