@@ -15,7 +15,6 @@ class FuzzingData:
         self.functions[fun].append(gas_cost)
 
     def export(self):
-        print(self.expected_costs)
         with PdfPages("report.pdf") as export_pdf:
             for fun in self.functions.keys():
                 plt.hist(self.functions[fun])
