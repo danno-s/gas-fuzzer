@@ -4,7 +4,7 @@ from fuzzing_rules.selectors import BaseRuleSelector
 
 class BaseTypeFuzzer():
     def __init__(self, rules=None, selector=None):
-        self.rules = instantiate_rules(rules) if rules is not None else BaseFuzzerRule(self)
+        self.rules = instantiate_rules(rules) if rules is not None else [BaseFuzzerRule(self)]
         self.selector = instantiate_selector(selector) if selector is not None else BaseRuleSelector()
 
     def __call__(self):
