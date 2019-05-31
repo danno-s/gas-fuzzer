@@ -5,8 +5,13 @@ from decimal import Decimal
 from string import printable
 
 from .base import BaseTypeFuzzer
+from fuzzing_rules.rules import Limits
 
 class UIntFuzzer(BaseTypeFuzzer):
+    valid_rules = [
+        Limits
+    ]
+
     def __init__(self, bits, **kwargs):
         assert bits % 8 == 0 and 0 < bits <= 256, f"invalid bit number {bits} for type uint"
         self.bits = bits
