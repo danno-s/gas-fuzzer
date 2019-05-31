@@ -5,17 +5,26 @@ from decimal import Decimal
 from string import printable
 
 from .base import BaseTypeFuzzer
-from fuzzing_rules.rules import Limits
+from fuzzing_rules.rules import (
+    Limits,
+    Constant
+)
 
 class UIntFuzzer(BaseTypeFuzzer):
     valid_rules = [
-        Limits
+        Limits,
+        Constant
     ]
 
     def __init__(self, bits, **kwargs):
         assert bits % 8 == 0 and 0 < bits <= 256, f"invalid bit number {bits} for type uint"
         self.bits = bits
         super().__init__(**kwargs)
+
+    def validate(self, value):
+        assert value >= 0, f"{self} values must be higher than 0. (got {value})"
+        assert value < 2 ** self.bits - 1, f"{self} values must be lower than {2 ** self.bits - 1}. (got {value})"
+        return value
 
     def next(self):
         return randint(0, 2 ** self.bits - 1)
@@ -41,6 +50,9 @@ class IntFuzzer(UIntFuzzer):
 class AddressFuzzer(UIntFuzzer):
     def __init__(self, **kwargs):
         super().__init__(160, **kwargs)
+
+    def validate(self, value):
+        return value
 
     def __str__(self):
         return "address"

@@ -15,11 +15,12 @@ class FuzzingData:
         self.functions[fun].append(gas_cost)
 
     def export(self):
+        print(self.expected_costs)
         with PdfPages("report.pdf") as export_pdf:
             for fun in self.functions.keys():
                 plt.hist(self.functions[fun])
                 plt.xlabel("Gas cost")
                 plt.ylabel("Frequency")
-                plt.title(f"Gas costs of {fun}")
+                plt.title(f"Gas costs of {fun} {('[Expected: ' + self.expected_costs[fun] + ']') if fun in self.expected_costs else ''}")
                 export_pdf.savefig()
                 plt.close()

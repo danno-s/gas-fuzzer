@@ -1,8 +1,13 @@
-from fuzzing_rules.rules import *
+from fuzzing_rules.rules import (
+    Limits,
+    Constant
+)
+
 from re import search
 
 rules = {
-    "limits": Limits
+    "limits": Limits,
+    "constant": Constant
 }
 
 selectors = {

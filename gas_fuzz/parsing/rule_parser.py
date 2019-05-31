@@ -1,10 +1,20 @@
 def parse_rules(rules, contract, function, _type):
+    # Try to find in the contract
     type_object = pipeline(
         rules,
         find(contract),
         find(function),
         find_strict(_type)
     )
+
+    if type_object is None:
+        # Search in the wildcards
+        type_object = pipeline(
+            rules,
+            find("*"),
+            find(function),
+            find_strict(_type)
+        )
 
     try:
         return (

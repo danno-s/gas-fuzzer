@@ -10,8 +10,15 @@ class BaseFuzzerRule():
 
     def validate_rules(self, rule):
         raise NotImplementedError("Subclasses of BaseFuzzerRule must implement validate_rules")
+    
+    def validate_args(self, rules, *args):
+        for arg in args:
+            assert arg in rules, f"{type(self).__name__} rules must have a {arg} argument"
 
 class NoneFuzzerRule(BaseFuzzerRule):
+    def __init__(self, fuzzer):
+        self.fuzzer = fuzzer
+
     def __call__(self):
         return self.fuzzer.next()
 
@@ -27,10 +34,20 @@ class Limits(BaseFuzzerRule):
 
     def validate_rules(self, rules):
         self.fuzzer.validate_rule(self)
-        assert "min" in rules, "limit rules must have a min argument"
-        assert "max" in rules, "limit rules must have a max argument"
-        assert rules["min"] > 0, f"{self.fuzzer} value cannot be lower than 0. (got {rules['min']})"
-        assert rules["max"] < 2 ** self.fuzzer.bits - 1, f"{self.fuzzer} value cannot be higher than {2 ** self.fuzzer.bits - 1}. (got {rules['max']})"
+        self.validate_args(rules, "min", "max")
 
     def __call__(self):
         return randint(self.min, self.max)
+
+class Constant(BaseFuzzerRule):
+    def __init__(self, rules, fuzzer):
+        super().__init__(rules, fuzzer)
+        self.value = rules["value"]
+
+    def validate_rules(self, rules):
+        self.fuzzer.validate_rule(self)
+        self.validate_args(rules, "value")
+
+    def __call__(self):
+        return self.value
+

@@ -7,8 +7,8 @@ contract Counter {
         count = 1;
     }
 
-    function deposit() public payable returns (uint) {
-        count += msg.value;
+    function divide(uint8 factor) public returns (uint) {
+        count /= factor;
         return count;
     }
 

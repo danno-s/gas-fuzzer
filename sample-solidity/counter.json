@@ -1,7 +1,7 @@
 {
     "*": {
         "*": {
-            "uint": {
+            "uint8": {
                 "rules": [
                     {
                         "rule-type": "constant",
@@ -12,7 +12,7 @@
         }
     },
     "Counter": {
-        "*": {
+        "add": {
             "uint8": {
                 "rules": [
                     {

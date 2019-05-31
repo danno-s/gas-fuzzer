@@ -10,6 +10,8 @@ import json
 
 from pprint import pprint
 
+import logging
+
 class SolidityFuzzer():
     def __init__(self,
                  faucet_callback,
@@ -26,6 +28,7 @@ class SolidityFuzzer():
 
         self.faucet_sk = faucet_sk
         self.type_fuzzers = {}
+
         self.prob = {
             'new_account': new_account_chance
         }
@@ -58,11 +61,31 @@ class SolidityFuzzer():
 
     def fuzz_arg(self, contract, function, _type):
         # Load fuzzers dynamically based on the given type
-        if _type not in self.type_fuzzers:
+        if not self.get_type_fuzzer(contract, function, _type):
+            logging.info(f" Assigning rules for {contract}.{function} ({_type})")
             rules, selector = parse_rules(self.rules, contract, function, _type)
-            self.type_fuzzers[_type] = fuzzer_from_type(_type, rules=rules, selector=selector)
+            logging.info(f" Rules: {(', '.join(rule['rule-type'] for rule in rules) if rules is not None else None)}")
+            logging.info(f" Selector: {selector['selector-type'] if selector is not None else None}")
 
-        return self.type_fuzzers[_type]()
+            fuzzer = fuzzer_from_type(_type, rules=rules, selector=selector)
+            self.add_type_fuzzer(contract, function, _type, fuzzer)
+
+        return self.get_type_fuzzer(contract, function, _type)()
+
+    def add_type_fuzzer(self, contract, function, _type, fuzzer): 
+        if contract not in self.type_fuzzers:
+            self.type_fuzzers[contract] = {}
+
+        if function not in self.type_fuzzers[contract]:
+            self.type_fuzzers[contract][function] = {}
+        
+        self.type_fuzzers[contract][function][_type] = fuzzer
+
+    def get_type_fuzzer(self, contract, function, _type):
+        try:
+            return self.type_fuzzers[contract][function][_type]
+        except KeyError:
+            return None
 
     def get_account(self):
         if random() < self.prob['new_account']:
