@@ -5,11 +5,11 @@ from fuzzing_rules.selectors import BaseRuleSelector
 class BaseTypeFuzzer():
     def __init__(self, rules=None, selector=None):
         self.rules = instantiate_rules(rules) if rules is not None else [BaseFuzzerRule(self)]
-        self.selector = instantiate_selector(selector) if selector is not None else BaseRuleSelector()
+        self.selector = instantiate_selector(selector) if selector is not None else BaseRuleSelector(self.rules)
 
     def __call__(self):
         # Select a rule, and delegate the generation to it.
-        return self.selector(self.rules)()
+        return self.selector()()
 
     def __str__(self):
         """Prints the solidity type this fuzzer generates"""
