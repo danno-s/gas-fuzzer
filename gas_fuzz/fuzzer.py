@@ -3,7 +3,7 @@ from eth_keys import keys
 from eth_typing import Address
 
 from type_fuzzing.utils import fuzzer_from_type
-from rule_parser import parse_rules
+from parsing.rule_parser import parse_rules
 
 from random import random, randint, choice
 import json
@@ -23,8 +23,6 @@ class SolidityFuzzer():
         if rules:
             with open(rules) as rule_file:
                 self.rules = json.load(rule_file)
-        
-        pprint(self.rules)
 
         self.faucet_sk = faucet_sk
         self.type_fuzzers = {}

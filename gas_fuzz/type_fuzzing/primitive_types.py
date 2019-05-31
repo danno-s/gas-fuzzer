@@ -12,7 +12,7 @@ class UIntFuzzer(BaseTypeFuzzer):
         self.bits = bits
         super().__init__(**kwargs)
 
-    def __call__(self):
+    def next(self):
         return randint(0, 2 ** self.bits - 1)
 
     def __str__(self):
@@ -27,7 +27,7 @@ class IntFuzzer(UIntFuzzer):
     def __init__(self, bits, **kwargs):
         super().__init__(bits, **kwargs)
 
-    def __call__(self):
+    def next(self):
         return randint(-2 ** (self.bits - 1), 2 ** (self.bits - 1) - 1)
 
     def __str__(self):
@@ -40,14 +40,14 @@ class AddressFuzzer(UIntFuzzer):
     def __str__(self):
         return "address"
 
-    def __call__(self):
-        return super().__call__().to_bytes(length=20, byteorder='big')
+    def next(self):
+        return super().next().to_bytes(length=20, byteorder='big')
 
 class BoolFuzzer(BaseTypeFuzzer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def __call__(self):
+    def next(self):
         return choice([True, False])
 
     def __str__(self):
@@ -61,7 +61,7 @@ class UFixedFuzzer(BaseTypeFuzzer):
         self.n_bits = n_bits
         super().__init__(**kwargs)
 
-    def __call__(self):
+    def next(self):
         return Decimal(randint(0, 2 ** self.m_bits - 1)) / Decimal(10 ** self.n_bits)
 
     def __str__(self):
@@ -77,7 +77,7 @@ class FixedFuzzer(UFixedFuzzer):
     def __init__(self, m_bits, n_bits, **kwargs):
         super().__init__(**kwargs)
 
-    def __call__(self):
+    def next(self):
         return Decimal(randint(-2 ** (self.m_bits - 1), 2 ** (self.m_bits - 1) - 1)) / Decimal(10 ** self.n_bits)
 
     def __str__(self):
@@ -89,7 +89,7 @@ class BytesFuzzer(BaseTypeFuzzer):
         self.byte_n = byte_n
         super().__init__(**kwargs)
 
-    def __call__(self):
+    def next(self):
         return bytearray(getrandbits(8) for _ in range(self.byte_n))
 
     def __str__(self):
@@ -109,7 +109,7 @@ class ArrayFuzzer(BaseTypeFuzzer):
         self.subfuzzer = fuzzer_from_type(subtype, **kwargs)
         super().__init__(**kwargs)
 
-    def __call__(self):
+    def next(self):
         return [self.subfuzzer() for _ in range(self.m)]
 
     def __str__(self):
@@ -119,5 +119,5 @@ class CharFuzzer(BaseTypeFuzzer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def __call__(self):
+    def next(self):
         return choice(printable)

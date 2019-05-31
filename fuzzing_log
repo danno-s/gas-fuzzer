@@ -7100,3 +7100,819 @@ INFO:root:
                 VALUE: 0 
                 GAS SPENT: 649
 INFO:root: Returned value: (b'string de prueba',)
+INFO:root:Faucet initialized at address: b'\xf5\x94\xec\x9e\xfb\x9a\xdb$\x92\xe5CX,\xf5|\xa4\xba\xd9~{'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor Counter ()
+                CALLER: 0xcbe69236b8d67ef14c5118996d309da83757dbe7 
+                VALUE: 0 
+                GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root: count() => (uint256): 416
+INFO:root: deposit() => (uint256): 20676 payable
+INFO:root: stringFunc() => (string): infinite
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x2c17a5c6583b995d45d8c7caefa223396d458c02 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x2c17a5c6583b995d45d8c7caefa223396d458c02 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xcbe69236b8d67ef14c5118996d309da83757dbe7 
+                VALUE: 26 
+                GAS SPENT: 5676
+INFO:root: Returned value: (27,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x9266275da4a220714a5433e8e56b2a52a0546b92 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (27,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x5881d3bce37f5f821dcda4e691f00b177b95663c 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x5881d3bce37f5f821dcda4e691f00b177b95663c 
+                VALUE: 539 
+                GAS SPENT: 5676
+INFO:root: Returned value: (566,)
+INFO:root:Faucet initialized at address: b'\x1d\x0c\x06\xe0\x94\x923\xdb\x0e_\xce\n\xa3D\xf7=\xed\x97\x89R'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor Counter ()
+                CALLER: 0xa836b2ffe686b1165bd03b1e0c91c80e0eb3a6ad 
+                VALUE: 0 
+                GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root: count() => (uint256): 416
+INFO:root: deposit() => (uint256): 20676 payable
+INFO:root: stringFunc() => (string): infinite
+INFO:root:Faucet initialized at address: b'\xca\xb6)\x90\x0b\x1c1`~l*\xbb*G\xcc\xd9r\x82\x8b\x18'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor Counter ()
+                CALLER: 0xbcd69c8f65b5fc25166b55425c2704220c1dacca 
+                VALUE: 0 
+                GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root: count() => (uint256): 416
+INFO:root: deposit() => (uint256): 20676 payable
+INFO:root: stringFunc() => (string): infinite
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x8c6469db06e51dba92fc7c9fed978458d3656330 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xbcd69c8f65b5fc25166b55425c2704220c1dacca 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x646faa0be4d3f65aadccfbf68e9863208bf3e530 
+                VALUE: 66 
+                GAS SPENT: 5676
+INFO:root: Returned value: (67,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x646faa0be4d3f65aadccfbf68e9863208bf3e530 
+                VALUE: 20 
+                GAS SPENT: 5676
+INFO:root: Returned value: (87,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xcfa6784dd9ca1fb9830f148734d0cdbbfebd9e4b 
+                VALUE: 498 
+                GAS SPENT: 5676
+INFO:root: Returned value: (585,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xbcd69c8f65b5fc25166b55425c2704220c1dacca 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (585,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x646faa0be4d3f65aadccfbf68e9863208bf3e530 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x646faa0be4d3f65aadccfbf68e9863208bf3e530 
+                VALUE: 81 
+                GAS SPENT: 5676
+INFO:root: Returned value: (666,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xe3b8114c0be83ca54a154719bfa10dfc956c370a 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (666,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xe3b8114c0be83ca54a154719bfa10dfc956c370a 
+                VALUE: 318 
+                GAS SPENT: 5676
+INFO:root: Returned value: (984,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xe3b8114c0be83ca54a154719bfa10dfc956c370a 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x3d50b4932c66283f698ac6648707c7bf51ba1fd5 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (984,)
+INFO:root:Faucet initialized at address: b'\xaf\xb6\xc4\x7f\xac\x8e\xfb\xad\xe9\xbe\x07\x9c\xd0\xca\x98$[1\x04X'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor Counter ()
+                CALLER: 0x1f9c9e9505f6abcdbd7aa5f1f2c6306d0a45e478 
+                VALUE: 0 
+                GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root: count() => (uint256): 416
+INFO:root: deposit() => (uint256): 20676 payable
+INFO:root: stringFunc() => (string): infinite
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x1f9c9e9505f6abcdbd7aa5f1f2c6306d0a45e478 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1,)
+INFO:root:Faucet initialized at address: b'\xa6\x94b\xc6*\xfc\x92\x0fFDV\xd0\x8f\x0f\xebT=P.\xeb'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor Counter ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root: count() => (uint256): 416
+INFO:root: deposit() => (uint256): 20676 payable
+INFO:root: stringFunc() => (string): infinite
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 189 
+                GAS SPENT: 5676
+INFO:root: Returned value: (190,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (190,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (190,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 2)
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (192,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 151)
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (343,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 319 
+                GAS SPENT: 5676
+INFO:root: Returned value: (662,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 253)
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (915,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xed9f3b6423598b203cc01f0607fcb606bddfbe9b 
+                VALUE: 0 
+                GAS SPENT: 5676
+INFO:root: Returned value: (915,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 36 
+                GAS SPENT: 5676
+INFO:root: Returned value: (951,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xed9f3b6423598b203cc01f0607fcb606bddfbe9b 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (951,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (951,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 47)
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (998,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (998,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x63c5ac9b9f9c1a9ab1e6091489caebd8d757cc69 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (998,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (998,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 111)
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1109,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1109,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 215)
+                CALLER: 0x63c5ac9b9f9c1a9ab1e6091489caebd8d757cc69 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1324,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1324,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 202)
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1526,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xc062e4215e6d5f8815fcea6bd7cf4785530ca119 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1526,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xc062e4215e6d5f8815fcea6bd7cf4785530ca119 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 181)
+                CALLER: 0x91a65c3cdce945936ba9fbbea152d6ecef7a3a82 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1707,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1707,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 97)
+                CALLER: 0xe191c3a3e4324bd18055966509404fd75bdb5f67 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1804,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 44)
+                CALLER: 0xc062e4215e6d5f8815fcea6bd7cf4785530ca119 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1848,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x63c5ac9b9f9c1a9ab1e6091489caebd8d757cc69 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1848,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 165)
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (2013,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x91a65c3cdce945936ba9fbbea152d6ecef7a3a82 
+                VALUE: 79 
+                GAS SPENT: 5676
+INFO:root: Returned value: (2092,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 295 
+                GAS SPENT: 5676
+INFO:root: Returned value: (2387,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 156)
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (2543,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xe191c3a3e4324bd18055966509404fd75bdb5f67 
+                VALUE: 5 
+                GAS SPENT: 5676
+INFO:root: Returned value: (2548,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (2548,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xe191c3a3e4324bd18055966509404fd75bdb5f67 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (2548,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 62)
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (2610,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 225)
+                CALLER: 0x04766aabedadb5ac9d56cb98c696161b6ae0f5b2 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (2835,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 180)
+                CALLER: 0xd833e9cb6b3cf2ae636f9a01960314a17a87456b 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (3015,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x63c5ac9b9f9c1a9ab1e6091489caebd8d757cc69 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (3015,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x04766aabedadb5ac9d56cb98c696161b6ae0f5b2 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (3015,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xed9f3b6423598b203cc01f0607fcb606bddfbe9b 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (3015,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 25)
+                CALLER: 0xc062e4215e6d5f8815fcea6bd7cf4785530ca119 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (3040,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xe2072563c9870f0e7211e3fc782359d6187bb44b 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x3f35bebffa781bc5bb793746275fbf63152e23c9 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x3f35bebffa781bc5bb793746275fbf63152e23c9 
+                VALUE: 280 
+                GAS SPENT: 5676
+INFO:root: Returned value: (3320,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x04766aabedadb5ac9d56cb98c696161b6ae0f5b2 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x91a65c3cdce945936ba9fbbea152d6ecef7a3a82 
+                VALUE: 215 
+                GAS SPENT: 5676
+INFO:root: Returned value: (3535,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 216 
+                GAS SPENT: 5676
+INFO:root: Returned value: (3751,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x12aba8d43da9bec1188583c1074bc2fb97247f76 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (3751,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x97c72f0062127b20b7a84bc9bd0cd2cb5d29fc22 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (3751,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 183)
+                CALLER: 0xb4d2d90ba27b5f60a34bd7074f52607539f718e0 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (3934,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 122)
+                CALLER: 0xf9979c2d241771a81a4f20ae63aae89d46f75651 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (4056,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xf9979c2d241771a81a4f20ae63aae89d46f75651 
+                VALUE: 2 
+                GAS SPENT: 5676
+INFO:root: Returned value: (4058,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x91a65c3cdce945936ba9fbbea152d6ecef7a3a82 
+                VALUE: 3 
+                GAS SPENT: 5676
+INFO:root: Returned value: (4061,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 88)
+                CALLER: 0x033cc3c3ce2d992b7e01c47a626fff0ca5baf36a 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (4149,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x3f35bebffa781bc5bb793746275fbf63152e23c9 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (4149,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x6569f566efedaf262b63c28e807d825c2da16c28 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xf53034cac8113bd2f8fbdfa4cbe96b001e0f66bf 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x033cc3c3ce2d992b7e01c47a626fff0ca5baf36a 
+                VALUE: 44 
+                GAS SPENT: 5676
+INFO:root: Returned value: (4193,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 221)
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (4414,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xcb4d5f08e585b98e9ee6561d167d1de736cf4cdc 
+                VALUE: 272 
+                GAS SPENT: 5676
+INFO:root: Returned value: (4686,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xd833e9cb6b3cf2ae636f9a01960314a17a87456b 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x3f35bebffa781bc5bb793746275fbf63152e23c9 
+                VALUE: 3 
+                GAS SPENT: 5676
+INFO:root: Returned value: (4689,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 142)
+                CALLER: 0xd83572380f6994b1baa44c61e88411795fa4b2b8 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (4831,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 163)
+                CALLER: 0x12aba8d43da9bec1188583c1074bc2fb97247f76 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (4994,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xf9979c2d241771a81a4f20ae63aae89d46f75651 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 141)
+                CALLER: 0x12aba8d43da9bec1188583c1074bc2fb97247f76 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5135,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x7357d597a25321fa23a5db688eb5bd1abeed5f93 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x63c5ac9b9f9c1a9ab1e6091489caebd8d757cc69 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x3a6b11d4c621be033b97615db275ec13a632c480 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xe191c3a3e4324bd18055966509404fd75bdb5f67 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5135,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xecd51eefd52decef104a26cdf41cb1f383331455 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5135,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 29)
+                CALLER: 0x033cc3c3ce2d992b7e01c47a626fff0ca5baf36a 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5164,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 15)
+                CALLER: 0xed9f3b6423598b203cc01f0607fcb606bddfbe9b 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5179,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x2b05a8f9e7f4bc82c47a7542b9c3e35d391fcc46 
+                VALUE: 125 
+                GAS SPENT: 5676
+INFO:root: Returned value: (5304,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 97)
+                CALLER: 0x91a65c3cdce945936ba9fbbea152d6ecef7a3a82 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5401,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 170)
+                CALLER: 0xd83572380f6994b1baa44c61e88411795fa4b2b8 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5571,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x91a65c3cdce945936ba9fbbea152d6ecef7a3a82 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5571,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xe2fb70cc0da1cf6b48d7d70abd0dfe7b85854a1e 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5571,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xf53034cac8113bd2f8fbdfa4cbe96b001e0f66bf 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5571,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 169)
+                CALLER: 0xa278b204d6d827a3f3b5e892a7de88edc93e8ada 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5740,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 12)
+                CALLER: 0x2b05a8f9e7f4bc82c47a7542b9c3e35d391fcc46 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5752,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x3f35bebffa781bc5bb793746275fbf63152e23c9 
+                VALUE: 8 
+                GAS SPENT: 5676
+INFO:root: Returned value: (5760,)
+INFO:root:Faucet initialized at address: b'\xc5\x7f\x93X\\\x17\r\x1d\x8c\xccMy\x9cD+\xdf\x1b\xa3\xb9\xfd'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor Counter ()
+                CALLER: 0xa322b71db0a14fbba4a3f42d42bb9a16796f26a3 
+                VALUE: 0 
+                GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root: count() => (uint256): 416
+INFO:root: deposit() => (uint256): 20676 payable
+INFO:root: stringFunc() => (string): infinite
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xa322b71db0a14fbba4a3f42d42bb9a16796f26a3 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xa322b71db0a14fbba4a3f42d42bb9a16796f26a3 
+                VALUE: 114 
+                GAS SPENT: 5676
+INFO:root: Returned value: (115,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xa322b71db0a14fbba4a3f42d42bb9a16796f26a3 
+                VALUE: 137 
+                GAS SPENT: 5676
+INFO:root: Returned value: (252,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xa322b71db0a14fbba4a3f42d42bb9a16796f26a3 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
