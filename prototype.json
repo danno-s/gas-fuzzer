@@ -1,0 +1,18 @@
+{
+    "contract-name": {
+        "function-name": {
+            "type-name": {
+                "selector": {
+                    "selector-type": "selector-name",
+                    "selector-args": "..."
+                },
+                "rule-array": [
+                    {
+                        "rule-type": "rule-name",
+                        "rule-args": "..."
+                    }
+                ]
+            }
+        }
+    }
+}

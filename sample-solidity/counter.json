@@ -1,0 +1,27 @@
+{
+    "*": {
+        "*": {
+            "uint": {
+                "rules": [
+                    {
+                        "rule-type": "constant",
+                        "value": 25
+                    }
+                ]
+            }
+        }
+    },
+    "Counter": {
+        "*": {
+            "uint8": {
+                "rules": [
+                    {
+                        "rule-type": "limits",
+                        "min": 15,
+                        "max": 60
+                    }
+                ]
+            }
+        }
+    }
+}

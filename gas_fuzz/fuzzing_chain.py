@@ -65,7 +65,7 @@ class FuzzingChain(MiningChain):
 
         chain.fuzzer = SolidityFuzzer(
             chain.transfer_from_faucet,
-            faucet_sk =_faucet['sk'], 
+            faucet_sk =_faucet['sk'],
             **kwargs
         )
 
@@ -92,13 +92,14 @@ class FuzzingChain(MiningChain):
         }
         """
         chain.contracts = {}
+        chain.contract_names = {}
 
         logging.info("CONTRACT TRANSACTIONS BEGIN\n")
 
         for _, contracts in standard_output.items():
             for contract_name, desc in contracts.items():
                 constructor = [abi for abi in desc['abi'] if abi['type'] == 'constructor'][0]
-                call = chain.fuzzer.generate_args('__constructor__', [arg for arg in constructor['inputs']], value=False)
+                call = chain.fuzzer.generate_args(contract_name, '__constructor__', [arg for arg in constructor['inputs']], value=False)
 
                 _, _, computation = chain.call_function(
                     constants.CREATE_CONTRACT_ADDRESS, 
@@ -110,6 +111,7 @@ class FuzzingChain(MiningChain):
 
                 contract_address = computation.msg.storage_address
 
+                chain.contract_names[contract_address] = contract_name
                 chain.contracts[contract_address] = {}
 
                 for abi in desc['abi']:
@@ -153,10 +155,12 @@ class FuzzingChain(MiningChain):
         '''
         for _ in range(self.txs):
             contract_address = choice(list(self.contracts))
+            contract_name = self.contract_names[contract_address]
             function_name = choice(list(self.contracts[contract_address]))
 
             function_hash = self.contracts[contract_address][function_name]['hash']
             call = self.fuzzer.generate_args(
+                contract_name,
                 function_name, 
                 [arg for arg in self.contracts[contract_address][function_name]['in']], 
                 value=self.contracts[contract_address][function_name]['payable']

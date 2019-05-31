@@ -3,8 +3,12 @@ from eth_keys import keys
 from eth_typing import Address
 
 from type_fuzzing.utils import fuzzer_from_type
+from rule_parser import parse_rules
 
 from random import random, randint, choice
+import json
+
+from pprint import pprint
 
 class SolidityFuzzer():
     def __init__(self,
@@ -14,7 +18,14 @@ class SolidityFuzzer():
                  max_balance = 1000,
                  rules = None):
         self.max_balance = max_balance
-        self.rules = rules
+        
+        self.rules = None
+        if rules:
+            with open(rules) as rule_file:
+                self.rules = json.load(rule_file)
+        
+        pprint(self.rules)
+
         self.faucet_sk = faucet_sk
         self.type_fuzzers = {}
         self.prob = {
@@ -29,10 +40,16 @@ class SolidityFuzzer():
 
         self.new_account()
 
-    def generate_args(self, func, args, value=True):
-        func_rules = self.rules[func] if self.rules and func in self.rules else None
+    def generate_args(self, contract, function, args, value=True):
         sk, pk = self.get_account()
-        primitive_args = [(arg['name'], arg['type'], self.fuzz_arg(arg['type'], func_rules)) for arg in args]
+        primitive_args = [
+            (
+                arg['name'], 
+                arg['type'], 
+                self.fuzz_arg(contract, function, arg['type'])
+            ) for arg in args
+        ]
+
         return {
             'sk': sk,
             'pk': pk,
@@ -41,10 +58,11 @@ class SolidityFuzzer():
             'data': b''.join(encode_single(_type, arg) for _, _type, arg in primitive_args)
         }
 
-    def fuzz_arg(self, _type, func_rules):
+    def fuzz_arg(self, contract, function, _type):
         # Load fuzzers dynamically based on the given type
         if _type not in self.type_fuzzers:
-            self.type_fuzzers[_type] = fuzzer_from_type(_type, rules=func_rules)
+            rules, selector = parse_rules(self.rules, contract, function, _type)
+            self.type_fuzzers[_type] = fuzzer_from_type(_type, rules=rules, selector=selector)
 
         return self.type_fuzzers[_type]()
 
@@ -79,3 +97,4 @@ class SolidityFuzzer():
         value = randint(0, self.balances[pk]) 
         self.balances[pk] -= value
         return value
+
