@@ -1,23 +1,6 @@
 from re import search
 
-from .primitive_types import (
-    UIntFuzzer, 
-    IntFuzzer,
-    AddressFuzzer,
-    UFixedFuzzer,
-    FixedFuzzer,
-    BytesFuzzer,
-    BoolFuzzer,
-    FunctionFuzzer,
-    ArrayFuzzer
-)
-
-from .dynamic_types import (
-    DynamicArrayFuzzer,
-    DynamicBytesFuzzer,
-    StringFuzzer,
-    TupleFuzzer
-)
+from . import *
 
 def fuzzer_from_type(_type, **kwargs):
     '''Given a valid EVM primitive type, return an instance of a fuzzer of the given type

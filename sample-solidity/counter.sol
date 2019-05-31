@@ -16,8 +16,4 @@ contract Counter {
         count += value;
         return count;
     }
- 
-    function stringFunc() public view returns (string) {
-        return "string de prueba";
-    }
 }

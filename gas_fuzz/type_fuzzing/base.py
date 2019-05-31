@@ -1,11 +1,11 @@
 from parsing.instantiators import instantiate_rules, instantiate_selector
-from fuzzing_rules.rules import BaseFuzzerRule
+from fuzzing_rules.rules import NoneFuzzerRule
 from fuzzing_rules.selectors import BaseRuleSelector
 
 class BaseTypeFuzzer():
     def __init__(self, rules=None, selector=None):
-        self.rules = instantiate_rules(rules) if rules is not None else [BaseFuzzerRule(self)]
-        self.selector = instantiate_selector(selector) if selector is not None else BaseRuleSelector(self.rules)
+        rule_instances = instantiate_rules(rules, str(self), self) if rules is not None else [NoneFuzzerRule(self)]
+        self.selector = instantiate_selector(selector) if selector is not None else BaseRuleSelector(rule_instances)
 
     def __call__(self):
         # Select a rule, and delegate the generation to it.

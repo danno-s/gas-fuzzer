@@ -1,3 +1,5 @@
+from random import choice
+
 class BaseRuleSelector():
     def __init__(self, rules):
         self.rules = rules
@@ -7,4 +9,4 @@ class BaseRuleSelector():
         Return the first rule, as a base case (when no rules 
         are defined, the only rule is a BaseFuzzerRule)
         """
-        return self.rules[0]
+        return choice(self.rules)
