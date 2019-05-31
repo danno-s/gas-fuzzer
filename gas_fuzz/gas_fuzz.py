@@ -51,6 +51,8 @@ def main():
     for _ in range(args.iterations):
         chain.fuzz()
 
+    chain.fuzzing_data.export()
+
 def getEvmVersion(fork):
     if fork == forks.FrontierVM or fork == forks.HomesteadVM:
         # warning, version incompatible with compiler

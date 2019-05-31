@@ -13,6 +13,7 @@ from eth_abi import decode_abi, decode_single
 from random import choice, randint
 
 from fuzzer import SolidityFuzzer
+from fuzzing_data import FuzzingData
 
 from re import search
 
@@ -68,6 +69,8 @@ class FuzzingChain(MiningChain):
             **kwargs
         )
 
+        chain.fuzzing_data = FuzzingData()
+
         # Number of transactions per block
         chain.txs = tx
 
@@ -103,7 +106,7 @@ class FuzzingChain(MiningChain):
                     call
                 )
 
-                log_function_call(f"constructor {contract_name}", call['pk'], call['args'], call['value'], computation.get_gas_used())
+                chain.log_function_call(f"constructor {contract_name}", call['pk'], call['args'], call['value'], computation.get_gas_used())
 
                 contract_address = computation.msg.storage_address
 
@@ -131,6 +134,7 @@ class FuzzingChain(MiningChain):
                     function_signature = f"{function} => ({', '.join(arg['type'] for arg in chain.contracts[contract_address][fname]['out'])})"
 
                     logging.info(f" {function_signature}: {desc['evm']['gasEstimates']['external'][function]}{' payable' if chain.contracts[contract_address][fname]['payable'] else ''}")
+                    chain.fuzzing_data.set_expected_cost(fname, desc['evm']['gasEstimates']['external'][function])
 
         block = chain.get_vm().finalize_block(chain.get_block())
 
@@ -160,7 +164,7 @@ class FuzzingChain(MiningChain):
 
             _, _, computation = self.call_function(contract_address, function_hash, call)
 
-            log_function_call(function_name, call['pk'], call['args'], call['value'], computation.get_gas_used())
+            self.log_function_call(function_name, call['pk'], call['args'], call['value'], computation.get_gas_used())
             out_types = [arg['type'] for arg in self.contracts[contract_address][function_name]['out']]
             try: 
                 computation.raise_if_error()
@@ -214,10 +218,12 @@ class FuzzingChain(MiningChain):
         )
         computation.raise_if_error()
 
-def log_function_call(fname, pk, primitive_args, value, gas_used):
-    logging.info(
-        f''' 
-        FUNCTION CALL: {fname} ({", ".join(f"{_type} {name}: {value}" for name, _type, value in primitive_args)})
-            CALLER: 0x{pk.hex()} 
-            VALUE: {value} 
-            GAS SPENT: {gas_used}''')
+    def log_function_call(self, fname, pk, primitive_args, value, gas_used):
+        logging.info(
+            f''' 
+            FUNCTION CALL: {fname} ({", ".join(f"{_type} {name}: {value}" for name, _type, value in primitive_args)})
+                CALLER: 0x{pk.hex()} 
+                VALUE: {value} 
+                GAS SPENT: {gas_used}''')
+
+        self.fuzzing_data.register_call(fname, gas_used)

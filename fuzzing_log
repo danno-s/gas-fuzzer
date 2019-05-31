@@ -1,0 +1,2469 @@
+INFO:root:Faucet initialized at address: b'\x02\x85\xbd\xc7\x9c\xa5_8\x8d&\xae\xe2"M\xf7\x16|/h\xbd'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+        FUNCTION CALL: constructor Counter ()
+            CALLER: 0xce2a528543c8673782e24fa3fe9f8a40bd1ed92c 
+            VALUE: 0 
+            GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root:Faucet initialized at address: b'\x8b\xea\xca?\xd7=\xb7R\xfc\x8f\r#\x1f/\xf2c\x0e\xb6\xff\x0c'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+        FUNCTION CALL: constructor Counter ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 0 
+            GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root: count() => (uint256): 416
+INFO:root: deposit() => (uint256): 20676 payable
+INFO:root: stringFunc() => (string): infinite
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 156)
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (157,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 36 
+            GAS SPENT: 5676
+INFO:root: Returned value: (193,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 44 
+            GAS SPENT: 5676
+INFO:root: Returned value: (237,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (237,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (237,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 8 
+            GAS SPENT: 5676
+INFO:root: Returned value: (245,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 194)
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (439,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x2feca4e47b1bfe9844cd3cc0734ce0cad647c29f 
+            VALUE: 69 
+            GAS SPENT: 5676
+INFO:root: Returned value: (508,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 11)
+            CALLER: 0x2feca4e47b1bfe9844cd3cc0734ce0cad647c29f 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (519,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 3 
+            GAS SPENT: 5676
+INFO:root: Returned value: (522,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 84)
+            CALLER: 0x2feca4e47b1bfe9844cd3cc0734ce0cad647c29f 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (606,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 30)
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (636,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xbfcfe14ef9d41c404f329d2dd56216df6a8d2d95 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 536 
+            GAS SPENT: 5676
+INFO:root: Returned value: (1172,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x14452b807286a4ffaa5d10bcdee252e2c28fae7f 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (1172,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 66)
+            CALLER: 0xf05ceccd25906847c28cc5586d6a37d19843d965 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (1238,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 63)
+            CALLER: 0x87d4f2c4eaad24af20d7bac0ed9dfa73ce5bff7a 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (1301,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (1301,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xc8f0c16e91247460a4bd47d3b7db15de98c5ce5f 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (1301,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xf05ceccd25906847c28cc5586d6a37d19843d965 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xab9d6d7be85e3304e0411390ab54e4b8c971b9ec 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (1301,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (1301,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 5 
+            GAS SPENT: 5676
+INFO:root: Returned value: (1306,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 195)
+            CALLER: 0x1632b31d4157b43fae70d498548e430ebddaf1da 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (1501,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x121a3b316199b68ebd168b3a02a9df6ad832bac2 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (1501,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xc8f0c16e91247460a4bd47d3b7db15de98c5ce5f 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xab9d6d7be85e3304e0411390ab54e4b8c971b9ec 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 45)
+            CALLER: 0x87d4f2c4eaad24af20d7bac0ed9dfa73ce5bff7a 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (1546,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 123 
+            GAS SPENT: 5676
+INFO:root: Returned value: (1669,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 17)
+            CALLER: 0x121a3b316199b68ebd168b3a02a9df6ad832bac2 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (1686,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xba2692dc848ecd12c32411aa8fae0be7eb804862 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 51 
+            GAS SPENT: 5676
+INFO:root: Returned value: (1737,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xb541eb42a5dd47eac1b0d35031b137ab0ccf21ed 
+            VALUE: 550 
+            GAS SPENT: 5676
+INFO:root: Returned value: (2287,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x2feca4e47b1bfe9844cd3cc0734ce0cad647c29f 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 122)
+            CALLER: 0x2feca4e47b1bfe9844cd3cc0734ce0cad647c29f 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (2409,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x361d33605ad3b85f474e975c8cc18b00ca576eb6 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (2409,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xb541eb42a5dd47eac1b0d35031b137ab0ccf21ed 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (2409,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 198)
+            CALLER: 0x2feca4e47b1bfe9844cd3cc0734ce0cad647c29f 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (2607,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 27)
+            CALLER: 0xc8f0c16e91247460a4bd47d3b7db15de98c5ce5f 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (2634,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x3465e35692198c9e8d0c85c52ee760a4ca78e48a 
+            VALUE: 183 
+            GAS SPENT: 5676
+INFO:root: Returned value: (2817,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x936e4b2ec3909b7629a7631677ae5809326ae8ef 
+            VALUE: 229 
+            GAS SPENT: 5676
+INFO:root: Returned value: (3046,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xa126a3b05bdbee6383cc12b55ac45b16b44bb431 
+            VALUE: 109 
+            GAS SPENT: 5676
+INFO:root: Returned value: (3155,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xba2692dc848ecd12c32411aa8fae0be7eb804862 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (3155,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xbfcfe14ef9d41c404f329d2dd56216df6a8d2d95 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (3155,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xc84160729136ba0dff86bafba877ea905b195d4c 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (3155,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 59)
+            CALLER: 0xb541eb42a5dd47eac1b0d35031b137ab0ccf21ed 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (3214,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 206)
+            CALLER: 0x9dc9c16bf83a34d4960d436e6ed73bf149f05f7c 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (3420,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x936e4b2ec3909b7629a7631677ae5809326ae8ef 
+            VALUE: 69 
+            GAS SPENT: 5676
+INFO:root: Returned value: (3489,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x19ea4a5d2a2855693ec666e9f0f3285a5a392c36 
+            VALUE: 0 
+            GAS SPENT: 5676
+INFO:root: Returned value: (3489,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xc84160729136ba0dff86bafba877ea905b195d4c 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (3489,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 76)
+            CALLER: 0x1632b31d4157b43fae70d498548e430ebddaf1da 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (3565,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 49)
+            CALLER: 0x1632b31d4157b43fae70d498548e430ebddaf1da 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (3614,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x79f9af4ed63d78107755066a6f1f62d8e1da41e8 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xe4e6481ac9c4e627e70117f24a776ae2e7ec6a9b 
+            VALUE: 414 
+            GAS SPENT: 5676
+INFO:root: Returned value: (4028,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 3)
+            CALLER: 0x3465e35692198c9e8d0c85c52ee760a4ca78e48a 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (4031,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 120)
+            CALLER: 0xf05ceccd25906847c28cc5586d6a37d19843d965 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (4151,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xab9d6d7be85e3304e0411390ab54e4b8c971b9ec 
+            VALUE: 202 
+            GAS SPENT: 5676
+INFO:root: Returned value: (4353,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xe795a0e6f5b34f9f46b528107d4e5d1bb0626fc5 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xe795a0e6f5b34f9f46b528107d4e5d1bb0626fc5 
+            VALUE: 98 
+            GAS SPENT: 5676
+INFO:root: Returned value: (4451,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 196)
+            CALLER: 0x1632b31d4157b43fae70d498548e430ebddaf1da 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (4647,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 47)
+            CALLER: 0x14452b807286a4ffaa5d10bcdee252e2c28fae7f 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (4694,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x14452b807286a4ffaa5d10bcdee252e2c28fae7f 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xbfcfe14ef9d41c404f329d2dd56216df6a8d2d95 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x94c62d9181a4d855f5aa0a87917f27ab037e043b 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (4694,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 4 
+            GAS SPENT: 5676
+INFO:root: Returned value: (4698,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x2b465ca547a53c7e09d189826e354cf25f428278 
+            VALUE: 326 
+            GAS SPENT: 5676
+INFO:root: Returned value: (5024,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xb541eb42a5dd47eac1b0d35031b137ab0ccf21ed 
+            VALUE: 115 
+            GAS SPENT: 5676
+INFO:root: Returned value: (5139,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x361d33605ad3b85f474e975c8cc18b00ca576eb6 
+            VALUE: 64 
+            GAS SPENT: 5676
+INFO:root: Returned value: (5203,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x14452b807286a4ffaa5d10bcdee252e2c28fae7f 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (5203,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xae4b597eb660c7c6d2145a8eb425c4a15b10063a 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (5203,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x2b465ca547a53c7e09d189826e354cf25f428278 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xe795a0e6f5b34f9f46b528107d4e5d1bb0626fc5 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (5203,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x14452b807286a4ffaa5d10bcdee252e2c28fae7f 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xa126a3b05bdbee6383cc12b55ac45b16b44bb431 
+            VALUE: 301 
+            GAS SPENT: 5676
+INFO:root: Returned value: (5504,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xe4e6481ac9c4e627e70117f24a776ae2e7ec6a9b 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (5504,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 151)
+            CALLER: 0x94c62d9181a4d855f5aa0a87917f27ab037e043b 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (5655,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 64)
+            CALLER: 0x361d33605ad3b85f474e975c8cc18b00ca576eb6 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (5719,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x2feca4e47b1bfe9844cd3cc0734ce0cad647c29f 
+            VALUE: 415 
+            GAS SPENT: 5676
+INFO:root: Returned value: (6134,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 14)
+            CALLER: 0xbfcfe14ef9d41c404f329d2dd56216df6a8d2d95 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (6148,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x1632b31d4157b43fae70d498548e430ebddaf1da 
+            VALUE: 221 
+            GAS SPENT: 5676
+INFO:root: Returned value: (6369,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xc84160729136ba0dff86bafba877ea905b195d4c 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xba2692dc848ecd12c32411aa8fae0be7eb804862 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xd9045a8dad7a05ef3ad895ae0a29d003a78e038d 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0x36ee18e251f4867fb9e7715b4fda8fab9bbba3b0 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 174)
+            CALLER: 0xa126a3b05bdbee6383cc12b55ac45b16b44bb431 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (6543,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0x65f8bc196b425b3d053be1eae22c3bc3d321fd47 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (6543,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x1632b31d4157b43fae70d498548e430ebddaf1da 
+            VALUE: 263 
+            GAS SPENT: 5676
+INFO:root: Returned value: (6806,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xec2bd8c5a76382575c17b609a21fa974c3960f3e 
+            VALUE: 148 
+            GAS SPENT: 5676
+INFO:root: Returned value: (6954,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 177)
+            CALLER: 0xba2692dc848ecd12c32411aa8fae0be7eb804862 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (7131,)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 108)
+            CALLER: 0xba300eb3e26ff10cf776fc3f69232879a6f23e7c 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (7239,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0x13d7814146b37fa1cc9a73dc051a9231a0fb22f4 
+            VALUE: 304 
+            GAS SPENT: 5676
+INFO:root: Returned value: (7543,)
+INFO:root: 
+        FUNCTION CALL: stringFunc ()
+            CALLER: 0xb541eb42a5dd47eac1b0d35031b137ab0ccf21ed 
+            VALUE: 0 
+            GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+        FUNCTION CALL: add (uint8 value: 192)
+            CALLER: 0xee72d0a965a8ba1b621ccb8f5e8bb70a37b779b6 
+            VALUE: 0 
+            GAS SPENT: 5708
+INFO:root: Returned value: (7735,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xee72d0a965a8ba1b621ccb8f5e8bb70a37b779b6 
+            VALUE: 318 
+            GAS SPENT: 5676
+INFO:root: Returned value: (8053,)
+INFO:root: 
+        FUNCTION CALL: count ()
+            CALLER: 0xba300eb3e26ff10cf776fc3f69232879a6f23e7c 
+            VALUE: 0 
+            GAS SPENT: 416
+INFO:root: Returned value: (8053,)
+INFO:root: 
+        FUNCTION CALL: deposit ()
+            CALLER: 0xae4b597eb660c7c6d2145a8eb425c4a15b10063a 
+            VALUE: 68 
+            GAS SPENT: 5676
+INFO:root: Returned value: (8121,)
+INFO:root:Faucet initialized at address: b"\xf7I\x17\xf4Z\x96\x1a\x1aN'\x0e\x08\xc9\x8d\x83\xfc4\xb1$U"
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root:Faucet initialized at address: b'\x1f\x0f\x9a\xa0Z\xdc.\xa9\x97y\xe9\xc8\xb9~\xcf\x91\xd1\xfdM\xb5'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor Counter ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 130973
+INFO:root: Compilation gas estimates:
+INFO:root: add(uint8) => (uint256): 20708
+INFO:root: count() => (uint256): 416
+INFO:root: deposit() => (uint256): 20676 payable
+INFO:root: stringFunc() => (string): infinite
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 845 
+                GAS SPENT: 5676
+INFO:root: Returned value: (846,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (846,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 53 
+                GAS SPENT: 5676
+INFO:root: Returned value: (899,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 205)
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1104,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 40 
+                GAS SPENT: 5676
+INFO:root: Returned value: (1144,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1144,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 128)
+                CALLER: 0x15b03d30709db14100ee8cb5eb86500a89f342f0 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1272,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1272,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x15b03d30709db14100ee8cb5eb86500a89f342f0 
+                VALUE: 614 
+                GAS SPENT: 5676
+INFO:root: Returned value: (1886,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 16)
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (1902,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x15b03d30709db14100ee8cb5eb86500a89f342f0 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1902,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x6618256f146e40c805e5a1b6a182de369a697fe2 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (1902,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 234)
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (2136,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (2136,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 69)
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (2205,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 199)
+                CALLER: 0x6618256f146e40c805e5a1b6a182de369a697fe2 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (2404,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 162)
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (2566,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x15b03d30709db14100ee8cb5eb86500a89f342f0 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (2566,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 262 
+                GAS SPENT: 5676
+INFO:root: Returned value: (2828,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x15b03d30709db14100ee8cb5eb86500a89f342f0 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x6618256f146e40c805e5a1b6a182de369a697fe2 
+                VALUE: 88 
+                GAS SPENT: 5676
+INFO:root: Returned value: (2916,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 94)
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (3010,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 332 
+                GAS SPENT: 5676
+INFO:root: Returned value: (3342,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xe950c857f7b1ea945448b84f437a434d117c8624 
+                VALUE: 532 
+                GAS SPENT: 5676
+INFO:root: Returned value: (3874,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 310 
+                GAS SPENT: 5676
+INFO:root: Returned value: (4184,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 249)
+                CALLER: 0xb1c20348e57e70216c58af7a9280e162c84e5da1 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (4433,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 130)
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (4563,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 226)
+                CALLER: 0x30a2517146e6a001c07a52a3d96ba801c40ea83a 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (4789,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x30a2517146e6a001c07a52a3d96ba801c40ea83a 
+                VALUE: 293 
+                GAS SPENT: 5676
+INFO:root: Returned value: (5082,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xb1c20348e57e70216c58af7a9280e162c84e5da1 
+                VALUE: 345 
+                GAS SPENT: 5676
+INFO:root: Returned value: (5427,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5427,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0xe950c857f7b1ea945448b84f437a434d117c8624 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 170)
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5597,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5597,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5597,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 215)
+                CALLER: 0xbe4f3df52a662db61bf6f36e20e66ed2f1b1d6b5 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (5812,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x6618256f146e40c805e5a1b6a182de369a697fe2 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x6618256f146e40c805e5a1b6a182de369a697fe2 
+                VALUE: 91 
+                GAS SPENT: 5676
+INFO:root: Returned value: (5903,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x15b03d30709db14100ee8cb5eb86500a89f342f0 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (5903,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xb1c20348e57e70216c58af7a9280e162c84e5da1 
+                VALUE: 307 
+                GAS SPENT: 5676
+INFO:root: Returned value: (6210,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xb1c20348e57e70216c58af7a9280e162c84e5da1 
+                VALUE: 31 
+                GAS SPENT: 5676
+INFO:root: Returned value: (6241,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x15b03d30709db14100ee8cb5eb86500a89f342f0 
+                VALUE: 23 
+                GAS SPENT: 5676
+INFO:root: Returned value: (6264,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (6264,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 204)
+                CALLER: 0xbe4f3df52a662db61bf6f36e20e66ed2f1b1d6b5 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (6468,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xbe4f3df52a662db61bf6f36e20e66ed2f1b1d6b5 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (6468,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 160)
+                CALLER: 0xe950c857f7b1ea945448b84f437a434d117c8624 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (6628,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xbe4f3df52a662db61bf6f36e20e66ed2f1b1d6b5 
+                VALUE: 202 
+                GAS SPENT: 5676
+INFO:root: Returned value: (6830,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xe950c857f7b1ea945448b84f437a434d117c8624 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (6830,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xbe4f3df52a662db61bf6f36e20e66ed2f1b1d6b5 
+                VALUE: 4 
+                GAS SPENT: 5676
+INFO:root: Returned value: (6834,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x15b03d30709db14100ee8cb5eb86500a89f342f0 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (6834,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 172)
+                CALLER: 0xb8747881b107886dc7c3c5e4714b54f3490e0054 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (7006,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x3e8acad0a34e991c6e1c231cb55d03fbe1739645 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 9)
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (7015,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x6162c44a4e2121ec326de05f0c4ce7916272661f 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (7015,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xb1c20348e57e70216c58af7a9280e162c84e5da1 
+                VALUE: 87 
+                GAS SPENT: 5676
+INFO:root: Returned value: (7102,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xeefb4be9e46a5fae787584b57d301e1e5e0833b2 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (7102,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xb1c20348e57e70216c58af7a9280e162c84e5da1 
+                VALUE: 2 
+                GAS SPENT: 5676
+INFO:root: Returned value: (7104,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x44849a7494d9b33d75083ffd392746919389d038 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (7104,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xb1c20348e57e70216c58af7a9280e162c84e5da1 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (7104,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xe950c857f7b1ea945448b84f437a434d117c8624 
+                VALUE: 273 
+                GAS SPENT: 5676
+INFO:root: Returned value: (7377,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xeefb4be9e46a5fae787584b57d301e1e5e0833b2 
+                VALUE: 60 
+                GAS SPENT: 5676
+INFO:root: Returned value: (7437,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xe950c857f7b1ea945448b84f437a434d117c8624 
+                VALUE: 20 
+                GAS SPENT: 5676
+INFO:root: Returned value: (7457,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 76 
+                GAS SPENT: 5676
+INFO:root: Returned value: (7533,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x3e8acad0a34e991c6e1c231cb55d03fbe1739645 
+                VALUE: 581 
+                GAS SPENT: 5676
+INFO:root: Returned value: (8114,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x44849a7494d9b33d75083ffd392746919389d038 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xdf5e3e12f071cbcbb7f444fb375a9140bd7545fe 
+                VALUE: 152 
+                GAS SPENT: 5676
+INFO:root: Returned value: (8266,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 20)
+                CALLER: 0xeefb4be9e46a5fae787584b57d301e1e5e0833b2 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (8286,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 1 
+                GAS SPENT: 5676
+INFO:root: Returned value: (8287,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 205)
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (8492,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 65 
+                GAS SPENT: 5676
+INFO:root: Returned value: (8557,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x6618256f146e40c805e5a1b6a182de369a697fe2 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 252)
+                CALLER: 0x44849a7494d9b33d75083ffd392746919389d038 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (8809,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x4d5dd2ae55ac554c4ca6e43f037ab7ca18df248d 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (8809,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 26 
+                GAS SPENT: 5676
+INFO:root: Returned value: (8835,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 18)
+                CALLER: 0x30a2517146e6a001c07a52a3d96ba801c40ea83a 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (8853,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x3e8acad0a34e991c6e1c231cb55d03fbe1739645 
+                VALUE: 77 
+                GAS SPENT: 5676
+INFO:root: Returned value: (8930,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x6618256f146e40c805e5a1b6a182de369a697fe2 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (8930,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xf283fcee865695e283c4783b31309a0b729bd07e 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (8930,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xbe4f3df52a662db61bf6f36e20e66ed2f1b1d6b5 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (8930,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 54)
+                CALLER: 0x56d0a1495f19fe557a70159470940138b3f77162 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (8984,)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0xbe4f3df52a662db61bf6f36e20e66ed2f1b1d6b5 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (8984,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 192)
+                CALLER: 0xeefb4be9e46a5fae787584b57d301e1e5e0833b2 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (9176,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x9567d860d6c9fafd9637967164670fafa07606be 
+                VALUE: 99 
+                GAS SPENT: 5676
+INFO:root: Returned value: (9275,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x3bc30a73b8bffb7148f3e2f33e1603348f30bfc2 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: count ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 416
+INFO:root: Returned value: (9275,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xb8747881b107886dc7c3c5e4714b54f3490e0054 
+                VALUE: 296 
+                GAS SPENT: 5676
+INFO:root: Returned value: (9571,)
+INFO:root: 
+            FUNCTION CALL: add (uint8 value: 207)
+                CALLER: 0x3bc30a73b8bffb7148f3e2f33e1603348f30bfc2 
+                VALUE: 0 
+                GAS SPENT: 5708
+INFO:root: Returned value: (9778,)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x4d5dd2ae55ac554c4ca6e43f037ab7ca18df248d 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: stringFunc ()
+                CALLER: 0x9edda6c625eeb18c6993e86cb1ab6f0ca066389c 
+                VALUE: 0 
+                GAS SPENT: 649
+INFO:root: Returned value: (b'string de prueba',)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0xeefb4be9e46a5fae787584b57d301e1e5e0833b2 
+                VALUE: 203 
+                GAS SPENT: 5676
+INFO:root: Returned value: (9981,)
+INFO:root: 
+            FUNCTION CALL: deposit ()
+                CALLER: 0x027d6e86289688c9bf2dbf9ca2c2ff8f482fccc9 
+                VALUE: 305 
+                GAS SPENT: 5676
+INFO:root: Returned value: (10286,)
+INFO:root:Faucet initialized at address: b'\xa5\x9c\xceyb\x8dm\x86\xbf\xa2@\xa4\xdb\x8fo\xe2\x81rB\x1a'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor SimpleAuction (uint256 _biddingTime: 49002033565355348220852919743727352805482524624474654627378740865809311444113, address _beneficiary: b'\x98\xa9\xff\xf5|\xe6\xa2\xc1\xbd\xb4\xf1\x19O.\x91M\x1d\x8a|\xe6')
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 433034
+INFO:root: Compilation gas estimates:
+INFO:root: auctionEnd() => (): infinite
+INFO:root: beneficiary() => (address): 486
+INFO:root: bid() => (): 63191 payable
+INFO:root: highestBid() => (uint256): 504
+INFO:root: highestBidder() => (address): 530
+INFO:root: withdraw() => (bool): infinite
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xe7eaa74ba02d077481231f74ffb3c49eb710840c 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x0000000000000000000000000000000000000000',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 318 
+                GAS SPENT: 42432
+INFO:root: Returned value: ()
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xe7eaa74ba02d077481231f74ffb3c49eb710840c 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 720 
+                GAS SPENT: 33191
+INFO:root: Returned value: ()
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x9924d52eeb83c7a9b2084426bdb0f9ccae07ec92 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x9124e28e6d956ee3b889c1dce7f405a088798db2',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xe7eaa74ba02d077481231f74ffb3c49eb710840c 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xe7eaa74ba02d077481231f74ffb3c49eb710840c 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 13210
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x9124e28e6d956ee3b889c1dce7f405a088798db2',)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x9124e28e6d956ee3b889c1dce7f405a088798db2',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x22156a05640b42663bde0f2d4180a0e262ad7f26 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x9124e28e6d956ee3b889c1dce7f405a088798db2',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (720,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x22156a05640b42663bde0f2d4180a0e262ad7f26 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x76a8585e6c2dcf100cce7dda0f5819f8fb74491e 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (720,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x76a8585e6c2dcf100cce7dda0f5819f8fb74491e 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x9124e28e6d956ee3b889c1dce7f405a088798db2',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 56 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (720,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xe7eaa74ba02d077481231f74ffb3c49eb710840c 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x9124e28e6d956ee3b889c1dce7f405a088798db2',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x9924d52eeb83c7a9b2084426bdb0f9ccae07ec92 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (720,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x76a8585e6c2dcf100cce7dda0f5819f8fb74491e 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (720,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x9924d52eeb83c7a9b2084426bdb0f9ccae07ec92 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x9124e28e6d956ee3b889c1dce7f405a088798db2',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x76a8585e6c2dcf100cce7dda0f5819f8fb74491e 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x76a8585e6c2dcf100cce7dda0f5819f8fb74491e 
+                VALUE: 446 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x9924d52eeb83c7a9b2084426bdb0f9ccae07ec92 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xc8e848581979613f79f03ca70ebd33befd113949 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (720,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xeb8b0474add1b9fa284acf0fe0f04164880958db 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x9124e28e6d956ee3b889c1dce7f405a088798db2',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be 
+                VALUE: 907 
+                GAS SPENT: 33191
+INFO:root: Returned value: ()
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xe7eaa74ba02d077481231f74ffb3c49eb710840c 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x9924d52eeb83c7a9b2084426bdb0f9ccae07ec92 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x50290d5d05e66e9264b102fe804097e0ee57aa9b 
+                VALUE: 1 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (907,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xecacca2d748f54cb72ef2002cdd31f9f4f367e3c 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xe7eaa74ba02d077481231f74ffb3c49eb710840c 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (907,)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xeb8b0474add1b9fa284acf0fe0f04164880958db 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xc8e848581979613f79f03ca70ebd33befd113949 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xeb8b0474add1b9fa284acf0fe0f04164880958db 
+                VALUE: 677 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x76a8585e6c2dcf100cce7dda0f5819f8fb74491e 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xeb8b0474add1b9fa284acf0fe0f04164880958db 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x60c66e79ddc29edfa83c467fc7deb42a3b37688c 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x50290d5d05e66e9264b102fe804097e0ee57aa9b 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x7313180b277be59b792eb779ef557cecdf9cb542 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be',)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x377e78be1dee47d2528d053ea837b8ec2e055b91 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be',)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xe7eaa74ba02d077481231f74ffb3c49eb710840c 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x377e78be1dee47d2528d053ea837b8ec2e055b91 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xecacca2d748f54cb72ef2002cdd31f9f4f367e3c 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x9924d52eeb83c7a9b2084426bdb0f9ccae07ec92 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xecacca2d748f54cb72ef2002cdd31f9f4f367e3c 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 139 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x52f72ab25d08c73cff99e886c4cfb10d91ff4e29 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (907,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xecacca2d748f54cb72ef2002cdd31f9f4f367e3c 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (907,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x22156a05640b42663bde0f2d4180a0e262ad7f26 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (907,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x70eb49fa7e5fd10f88047a709dc3bb5d299967b2 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xc716b124426a19530d985047da065023f4cc2124 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x509e3294522ddf1cbc46bf3497e9f5959e6867b5 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xc8e848581979613f79f03ca70ebd33befd113949 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x9021a398f8ae181a1a2dd59c284b590b49f9ba41 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 0 
+                GAS SPENT: 13210
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x85ec0e23ee13153fac69c98879640eab20ba17c9 
+                VALUE: 9 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x85ec0e23ee13153fac69c98879640eab20ba17c9 
+                VALUE: 12 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (907,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (907,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x0bfe6a8342fe68f7650050b40b0c34de1a13873a 
+                VALUE: 314 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xeb8b0474add1b9fa284acf0fe0f04164880958db 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x9021a398f8ae181a1a2dd59c284b590b49f9ba41 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x3ea227dad5a12c5219f0b551d4d874a27f0ec3be',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x509e3294522ddf1cbc46bf3497e9f5959e6867b5 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0x98a9fff57ce6a2c1bdb4f1194f2e914d1d8a7ce6',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x9124e28e6d956ee3b889c1dce7f405a088798db2 
+                VALUE: 11 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xeee29c78a239e7e512c1b70212058959ba740206 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x1468a66f9c7a578f325bcf4799b55c6910e618b9 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root:Faucet initialized at address: b'uE\x14\xb4\x8d\x124\xe7+\x81\xcdUe\x14WJ\xad\x1a2\xdc'
+INFO:root:CONTRACT TRANSACTIONS BEGIN
+
+INFO:root: 
+            FUNCTION CALL: constructor SimpleAuction (uint256 _biddingTime: 70898774221772136143593297172407860015660611808047724842838231331837587565776, address _beneficiary: b'\xd7\x03KJ\x95\xda\xdbZ\xec\x99\xf8ZfZW\x95\x8c\xccWJ')
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 433034
+INFO:root: Compilation gas estimates:
+INFO:root: auctionEnd() => (): infinite
+INFO:root: beneficiary() => (address): 486
+INFO:root: bid() => (): 63191 payable
+INFO:root: highestBid() => (uint256): 504
+INFO:root: highestBidder() => (address): 530
+INFO:root: withdraw() => (bool): infinite
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x3940cbb0e6f85d731c536b7e45b55b659c1b8fb6 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x2744a50430fa4e44dbcf9f2ff6bd69062a30d0e0 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x4fb0f926a90487b05d46d66f03ed54fb440a56c0 
+                VALUE: 603 
+                GAS SPENT: 42432
+INFO:root: Returned value: ()
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x2744a50430fa4e44dbcf9f2ff6bd69062a30d0e0 
+                VALUE: 546 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x2744a50430fa4e44dbcf9f2ff6bd69062a30d0e0 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x4fb0f926a90487b05d46d66f03ed54fb440a56c0 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xf7bbb754784a2a7808f5980096b8437934011324 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xf7bbb754784a2a7808f5980096b8437934011324 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x3940cbb0e6f85d731c536b7e45b55b659c1b8fb6 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xf7bbb754784a2a7808f5980096b8437934011324 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xb5c45247cfa48fb4460560cf5fa2671a89af3759 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x2744a50430fa4e44dbcf9f2ff6bd69062a30d0e0 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x7644cc18195e1ace29f92a4fbb9fc465b34ceb84 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xb5c45247cfa48fb4460560cf5fa2671a89af3759 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x3940cbb0e6f85d731c536b7e45b55b659c1b8fb6 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 136 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x4fb0f926a90487b05d46d66f03ed54fb440a56c0 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x2744a50430fa4e44dbcf9f2ff6bd69062a30d0e0 
+                VALUE: 2 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x9fadea9ad89389b2e3db917cd0d5d7cd23483d56 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xb5c45247cfa48fb4460560cf5fa2671a89af3759 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xea50ce70e89a30d3ec9e393de62c404cc48be545 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x7644cc18195e1ace29f92a4fbb9fc465b34ceb84 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xf7bbb754784a2a7808f5980096b8437934011324 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 146 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xea50ce70e89a30d3ec9e393de62c404cc48be545 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x4fb0f926a90487b05d46d66f03ed54fb440a56c0 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xb475d46efda79fdaf7a45ef86266c19408f4757c 
+                VALUE: 234 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x2744a50430fa4e44dbcf9f2ff6bd69062a30d0e0 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xe6c3cec2a36b777289c63a007f83960d53e483d2 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xc404b4d1630053f90c1859bba8e2cafa6a99b67b 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xdae967860725e8a4faaf91f773ffaee52c87610d 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xea50ce70e89a30d3ec9e393de62c404cc48be545 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xea50ce70e89a30d3ec9e393de62c404cc48be545 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xa6f075b137b2c06db205de5d5ed323ef42a20475 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xc404b4d1630053f90c1859bba8e2cafa6a99b67b 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xa6f075b137b2c06db205de5d5ed323ef42a20475 
+                VALUE: 216 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x4fb0f926a90487b05d46d66f03ed54fb440a56c0 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xea50ce70e89a30d3ec9e393de62c404cc48be545 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x0244ab52bcc387bb72946d3c910127410772ad98 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xce669fc3e3501f0d7439f9a9100ccd564044f13c 
+                VALUE: 3 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x43950c12ad036e6e0412a8b3bff55bfb0312452d 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xdae967860725e8a4faaf91f773ffaee52c87610d 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xf7bbb754784a2a7808f5980096b8437934011324 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x7644cc18195e1ace29f92a4fbb9fc465b34ceb84 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xc404b4d1630053f90c1859bba8e2cafa6a99b67b 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x0244ab52bcc387bb72946d3c910127410772ad98 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x3940cbb0e6f85d731c536b7e45b55b659c1b8fb6 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x261eec02ad7b1e3d26ab191bfef2ae7c8396bd4e 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xc0bfe8121e72d7532fb2d765f887ee475f26628b 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xdae967860725e8a4faaf91f773ffaee52c87610d 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x3940cbb0e6f85d731c536b7e45b55b659c1b8fb6 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xc0bfe8121e72d7532fb2d765f887ee475f26628b 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x22eebd58bfa75cb673b9a5486ff99f8a58eeff3d 
+                VALUE: 151 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x42c641f9fd08031be96d4096dd034070f98ff18d 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xdae967860725e8a4faaf91f773ffaee52c87610d 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0xffd5e0774f8d06413f68750f92bb1870fd6251f2 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x9fadea9ad89389b2e3db917cd0d5d7cd23483d56 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x74b94baede5a7ebd0002b8dbfcf0e92c43439740 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x82bf8068eec09eec39557ab070959b55b286da62 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 38 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xf7bbb754784a2a7808f5980096b8437934011324 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x1eb30483e0de2fe27a14ca87956acfa4a997dd9f 
+                VALUE: 197 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x3940cbb0e6f85d731c536b7e45b55b659c1b8fb6 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x1ce283bde0bd9cb99a0b096808cf6e2f39b7f248 
+                VALUE: 125 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x1d4ad0a1005b4cf5337ea4db52d596fa9db44484 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x4fb0f926a90487b05d46d66f03ed54fb440a56c0',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x1d4ad0a1005b4cf5337ea4db52d596fa9db44484 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0xa603936ba365c76f499d18efd53dd976695fba47 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x43950c12ad036e6e0412a8b3bff55bfb0312452d 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x043bfda0b59f4319d32ec6744cc855bd0cf8a20d 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x34d7ba774163a70b43f648e81799180cf9d19803 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x7a07e56c7c88065a43e1c0d1277201b2dfaffe0e 
+                VALUE: 210 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x1ce283bde0bd9cb99a0b096808cf6e2f39b7f248 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x043bfda0b59f4319d32ec6744cc855bd0cf8a20d 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x9fadea9ad89389b2e3db917cd0d5d7cd23483d56 
+                VALUE: 506 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xb5c45247cfa48fb4460560cf5fa2671a89af3759 
+                VALUE: 96 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x4fb0f926a90487b05d46d66f03ed54fb440a56c0 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x477cd6f8bd64e55e44deb0db84f62cdbdfe6c399 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0x3940cbb0e6f85d731c536b7e45b55b659c1b8fb6 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (603,)
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0xea50ce70e89a30d3ec9e393de62c404cc48be545 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: auctionEnd ()
+                CALLER: 0x37b2b66eeeacf59bb2bbba9bc8b452c43e995c31 
+                VALUE: 0 
+                GAS SPENT: 499
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16Auction not yet ended.\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0x42c641f9fd08031be96d4096dd034070f98ff18d 
+                VALUE: 796 
+                GAS SPENT: 33191
+INFO:root: Returned value: ()
+INFO:root: 
+            FUNCTION CALL: highestBid ()
+                CALLER: 0xb5c45247cfa48fb4460560cf5fa2671a89af3759 
+                VALUE: 0 
+                GAS SPENT: 504
+INFO:root: Returned value: (796,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xb475d46efda79fdaf7a45ef86266c19408f4757c 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xc404b4d1630053f90c1859bba8e2cafa6a99b67b 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x37b2b66eeeacf59bb2bbba9bc8b452c43e995c31 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: bid ()
+                CALLER: 0xa6f075b137b2c06db205de5d5ed323ef42a20475 
+                VALUE: 232 
+                GAS SPENT: 681
+INFO:root: Call reverted. b'\x08\xc3y\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1eThere already is a higher bid.\x00\x00'
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x477cd6f8bd64e55e44deb0db84f62cdbdfe6c399 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0xdae967860725e8a4faaf91f773ffaee52c87610d 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: highestBidder ()
+                CALLER: 0x83248cf38cf9104270715ab1e97539c394903b13 
+                VALUE: 0 
+                GAS SPENT: 530
+INFO:root: Returned value: ('0x42c641f9fd08031be96d4096dd034070f98ff18d',)
+INFO:root: 
+            FUNCTION CALL: beneficiary ()
+                CALLER: 0x2744a50430fa4e44dbcf9f2ff6bd69062a30d0e0 
+                VALUE: 0 
+                GAS SPENT: 486
+INFO:root: Returned value: ('0xd7034b4a95dadb5aec99f85a665a57958ccc574a',)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x0c1c4d502e02f163776e2a553ffd36e77976bc23 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
+INFO:root: 
+            FUNCTION CALL: withdraw ()
+                CALLER: 0x0c9e1e48f3143eea2c8339308e2323886ce01bc2 
+                VALUE: 0 
+                GAS SPENT: 609
+INFO:root: Returned value: (True,)
