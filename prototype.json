@@ -1,14 +1,14 @@
 {
-    "contract-name": {
-        "function-name": {
-            "type-name": {
+    "<contract-name>": {
+        "<function-name>": {
+            "<type-name>": {
                 "selector": {
-                    "selector-type": "selector-name",
+                    "selector-type": "<selector-name>",
                     "selector-args": "..."
                 },
-                "rule-array": [
+                "rules": [
                     {
-                        "rule-type": "rule-name",
+                        "rule-type": "<rule-name>",
                         "rule-args": "..."
                     }
                 ]
