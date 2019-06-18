@@ -4,11 +4,13 @@ import argparse
 import os
 from os.path import abspath
 import subprocess
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import sys
 
 from json import dumps, loads
 
 from fuzzing_chain import FuzzingChain
+from fuzzing_data import FuzzingData
 from eth import constants
 from eth.vm import forks
 
@@ -20,7 +22,6 @@ import logging
 
 def main():
     # Receives a list of source files to fuzz.
-
     parser = argparse.ArgumentParser(description="Fuzz a contract to find out expected gas costs.")
     parser.add_argument("-n", "--iterations", metavar="N", type=int, default=100, help="number of blocks to mine in total")
     parser.add_argument("-tx", "--block-tx", metavar="T", type=int, default=20, help="number of transactions per block")
@@ -30,28 +31,44 @@ def main():
     parser.add_argument("-sdf", "--spurious-dragon", action='store_const', dest="fork", const=forks.SpuriousDragonVM, help="use Spurious Dragon VM")
     parser.add_argument("-bf", "--byzantium", action='store_const', dest="fork", const=forks.ByzantiumVM, help="use Byzantium VM (default)")
     parser.add_argument("-cf", "--constantinople", action='store_const', dest="fork", const=forks.ConstantinopleVM, help="use Constantinople VM")
+    parser.add_argument("-s", "--simulations", metavar="S", type=int, default=8, help="number of total simulations to execute")
     parser.add_argument("files", nargs="+", help="List of compiled files")
     parser.add_argument("-r", "--rules", help="file with fuzzing rules")
 
     args = parser.parse_args()
 
-    chain_class = FuzzingChain.configure(
-        __name__ = 'Fuzzing Chain',
-        vm_configuration = (
-            (constants.GENESIS_BLOCK_NUMBER, args.fork if args.fork else forks.ByzantiumVM),
-        )
-    )
-
     contracts = compile(args.files, args.fork)
 
-    logging.basicConfig(filename="fuzzing_log", level=logging.INFO)
+    def simulation_runner():
+        chain_class = FuzzingChain.configure(
+            __name__ = 'Fuzzing Chain',
+            vm_configuration = (
+                (constants.GENESIS_BLOCK_NUMBER, args.fork if args.fork else forks.ByzantiumVM),
+            )
+        )
+        logging.basicConfig(filename="fuzzing_log", level=logging.INFO)
 
-    chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules)
+        chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules)
 
-    for _ in range(args.iterations):
-        chain.fuzz()
+        for _ in range(args.iterations):
+            chain.fuzz()
 
-    chain.fuzzing_data.export()
+        return chain.fuzzing_data
+
+    total_data = FuzzingData()
+
+    with ThreadPoolExecutor() as executor:
+        future_to_id = {executor.submit(simulation_runner): i for i in range(args.simulations)}
+
+        for future in as_completed(future_to_id):
+            try:
+                total_data.merge(future.result())
+            except Exception:
+                print('generated an exception')
+
+    total_data.export()
+
+
 
 def getEvmVersion(fork):
     if fork == forks.FrontierVM or fork == forks.HomesteadVM:

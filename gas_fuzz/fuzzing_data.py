@@ -6,6 +6,15 @@ class FuzzingData:
         self.expected_costs = {}
         self.functions = {}
 
+    def merge(self, data):
+        self.expected_costs = data.expected_costs
+
+        for key in data.functions.keys():
+            if key in self.functions:
+                self.functions[key] += data.functions[key]
+            else:
+                self.functions[key] = data.functions[key]
+
     def set_expected_cost(self, fun, expected_cost):
         self.expected_costs[fun] = expected_cost
 
@@ -15,6 +24,7 @@ class FuzzingData:
         self.functions[fun].append(gas_cost)
 
     def export(self):
+        print(self.expected_costs)
         with PdfPages("report.pdf") as export_pdf:
             for fun in self.functions.keys():
                 plt.hist(self.functions[fun])
