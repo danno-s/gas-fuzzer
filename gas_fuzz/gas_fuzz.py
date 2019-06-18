@@ -11,6 +11,7 @@ from json import dumps, loads
 
 from fuzzing_chain import FuzzingChain
 from fuzzing_data import FuzzingData
+from progress import ProgressBar
 from eth import constants
 from eth.vm import forks
 
@@ -39,6 +40,8 @@ def main():
 
     contracts = compile(args.files, args.fork)
 
+    progress = ProgressBar(total_ops=args.simulations * args.iterations * args.block_tx)
+
     def simulation_runner():
         chain_class = FuzzingChain.configure(
             __name__ = 'Fuzzing Chain',
@@ -48,7 +51,7 @@ def main():
         )
         logging.basicConfig(filename="fuzzing_log", level=logging.INFO)
 
-        chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules)
+        chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules, progress=progress)
 
         for _ in range(args.iterations):
             chain.fuzz()
@@ -61,13 +64,13 @@ def main():
         future_to_id = {executor.submit(simulation_runner): i for i in range(args.simulations)}
 
         for future in as_completed(future_to_id):
+            sim_id = future_to_id[future]
             try:
                 total_data.merge(future.result())
-            except Exception:
-                print('generated an exception')
+            except Exception as exc:
+                print(f'Simulation {sim_id} generated an exception: {exc}')
 
     total_data.export()
-
 
 
 def getEvmVersion(fork):

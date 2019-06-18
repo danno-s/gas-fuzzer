@@ -23,7 +23,7 @@ import logging
 
 class FuzzingChain(MiningChain):
     @classmethod
-    def init(cls, standard_output, tx = 10, **kwargs):
+    def init(cls, standard_output, tx = 10, progress=None, **kwargs):
         '''Builds a new MiningChain, with the given contract bytecodes, and an AtomicDB database.
         '''
         GENESIS_PARAMS = {
@@ -70,6 +70,7 @@ class FuzzingChain(MiningChain):
         )
 
         chain.fuzzing_data = FuzzingData()
+        chain.progress = progress
 
         # Number of transactions per block
         chain.txs = tx
@@ -179,6 +180,10 @@ class FuzzingChain(MiningChain):
                 logging.info(f" Call resulted in error: {e}")
             except Exception as e:
                 logging.info(f" Something went wrong while decoding the output. {e}")
+
+            if self.progress:
+                with self.progress:
+                    self.progress.update()
         
 
         block = self.get_vm().finalize_block(self.get_block())
