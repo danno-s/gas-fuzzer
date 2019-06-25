@@ -28,9 +28,45 @@ class FuzzingData:
             dir = f"{folder}/{filename}/"
             if not os.path.exists(dir):
                 os.makedirs(dir)
-            plt.hist(self.functions[fun])
+            leg = []
+            if fun in self.expected_costs and self.expected_costs[fun] != 'infinite':
+                plt.axvline(
+                    x=int(self.expected_costs[fun]),
+                    color=(1, 100/255, 100/255, 0.8),
+                    linestyle='--',
+                    zorder=-1
+                )
+                leg.append("Expected cost")
+            plt.hist(x=self.functions[fun], range=self.get_range(fun), color=(100/255, 100/255, 1, 0.8))
             plt.xlabel("Gas cost")
             plt.ylabel("Frequency")
             plt.title(f"Gas costs of {fun} {('[Expected: ' + self.expected_costs[fun] + ']') if fun in self.expected_costs else ''}")
+
+            plt.axvline(
+                x=self.get_average(fun),
+                color=(150/255, 1, 150/255, 0.8),
+                linestyle='-',
+                zorder=-1
+            )
+            leg.append("Average cost")
+            plt.legend(leg)
+
             plt.savefig(f"{dir}{fun.replace(' ', '-')}.png")
             plt.close()
+
+    def get_average(self, fun):
+        s = 0
+        for v in self.functions[fun]:
+            s += v
+        return s / len(self.functions[fun])
+
+    def get_range(self, fun):
+        min_cost = min(self.functions[fun])
+        max_cost = max(self.functions[fun])
+        if fun in self.expected_costs and self.expected_costs[fun] != 'infinite':
+            exp_cost = int(self.expected_costs[fun])
+            if exp_cost < min_cost:
+                return (exp_cost, max_cost + 10)
+            elif exp_cost > max_cost:
+                return (min_cost - 10, exp_cost)
+        return (min_cost - 10, max_cost + 10)
