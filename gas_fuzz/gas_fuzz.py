@@ -7,6 +7,8 @@ import subprocess
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import sys
 
+from glob import glob
+
 from json import dumps, loads
 
 from fuzzing_chain import FuzzingChain
@@ -33,44 +35,54 @@ def main():
     parser.add_argument("-bf", "--byzantium", action='store_const', dest="fork", const=forks.ByzantiumVM, help="use Byzantium VM (default)")
     parser.add_argument("-cf", "--constantinople", action='store_const', dest="fork", const=forks.ConstantinopleVM, help="use Constantinople VM")
     parser.add_argument("-s", "--simulations", metavar="S", type=int, default=8, help="number of total simulations to execute")
-    parser.add_argument("files", nargs="+", help="List of compiled files")
+    parser.add_argument("file", help="File with all contracts to fuzz")
     parser.add_argument("-r", "--rules", help="file with fuzzing rules")
+    parser.add_argument("-b", "--batch", action='store_true', help="process all files in the directory pointed by file")
+
 
     args = parser.parse_args()
 
-    contracts = compile(args.files, args.fork)
+    files = [args.file]
+    if args.batch:
+        files = glob(f"{args.file}/*.sol")
 
-    progress = ProgressBar(total_ops=args.simulations * args.iterations * args.block_tx)
+    for file in files:
+        contracts = compile(file, args.fork)
 
-    def simulation_runner():
-        chain_class = FuzzingChain.configure(
-            __name__ = 'Fuzzing Chain',
-            vm_configuration = (
-                (constants.GENESIS_BLOCK_NUMBER, args.fork if args.fork else forks.ByzantiumVM),
+        progress = ProgressBar(total_ops=args.simulations * args.iterations * args.block_tx, preamble=f"fuzzing {getFileName(file)}.sol")
+
+        def simulation_runner():
+            chain_class = FuzzingChain.configure(
+                __name__ = 'Fuzzing Chain',
+                vm_configuration = (
+                    (constants.GENESIS_BLOCK_NUMBER, args.fork if args.fork else forks.ByzantiumVM),
+                )
             )
-        )
-        logging.basicConfig(filename="fuzzing_log", level=logging.INFO)
+            logging.basicConfig(filename="fuzzing_log", level=logging.INFO)
 
-        chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules, progress=progress)
+            chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules, progress=progress)
 
-        for _ in range(args.iterations):
-            chain.fuzz()
+            for _ in range(args.iterations):
+                chain.fuzz()
 
-        return chain.fuzzing_data
+            return chain.fuzzing_data
 
-    total_data = FuzzingData()
+        total_data = FuzzingData()
 
-    with ThreadPoolExecutor() as executor:
-        future_to_id = {executor.submit(simulation_runner): i for i in range(args.simulations)}
+        with ThreadPoolExecutor() as executor:
+            future_to_id = {executor.submit(simulation_runner): i for i in range(args.simulations)}
 
-        for future in as_completed(future_to_id):
-            sim_id = future_to_id[future]
-            try:
-                total_data.merge(future.result())
-            except Exception as exc:
-                print(f'Simulation {sim_id} generated an exception: {exc}')
+            for future in as_completed(future_to_id):
+                sim_id = future_to_id[future]
+                try:
+                    total_data.merge(future.result())
+                except Exception as exc:
+                    print(f'Simulation {sim_id} generated an exception: {type(exc)}: {exc}')
+                    raise exc
 
-    total_data.export()
+        sys.stdout.write("\033[K")
+        print("Saving results...", end="\r")
+        total_data.export(folder="results", filename=f"{getFileName(file)}")
 
 
 def getEvmVersion(fork):
@@ -85,7 +97,7 @@ def getEvmVersion(fork):
         return "constantinople"
     return "byzantium"
 
-def compile(files, fork):
+def compile(file, fork):
     solc_path = os.path.join(os.environ["HOME"], ".py-solc/solc-v0.4.25/bin/solc")
 
     if not os.path.isfile(solc_path):
@@ -93,16 +105,16 @@ def compile(files, fork):
 
     sources = {}
     allow_paths = []
-    for path in files:
-        name = path.split('/')[-1]
 
-        allowed_path = "/".join(abspath(path).split("/")[:-1])
-        if allowed_path not in allow_paths:
-            allow_paths.append("/".join(abspath(path).split("/")[:-1]))
+    name = file.split('/')[-1]
 
-        sources[name] = {
-            'urls': [path]
-        }
+    allowed_path = "/".join(abspath(file).split("/")[:-1])
+    if allowed_path not in allow_paths:
+        allow_paths.append("/".join(abspath(file).split("/")[:-1]))
+
+    sources[name] = {
+        'urls': [file]
+    }
 
     evmVersion = getEvmVersion(fork)
 
@@ -121,6 +133,7 @@ def compile(files, fork):
                     "*": {
                         "*": [
                             "abi",
+                            "metadata",
                             "evm.bytecode.object",
                             "evm.methodIdentifiers",
                             "evm.gasEstimates"
@@ -139,11 +152,23 @@ def compile(files, fork):
 
     if 'errors' in output:
         if any(error['type'] != "Warning" for error in output['errors']):
-            pprint(output['errors'])
-            sys.exit(1)
+            print(f"Errores al compilar {file}")
+            raise RuntimeError(output['errors'])
         # else: code compiled with errors
 
+
     return output['contracts']
+
+def getFileName(file):
+    fileNamePattern = re.compile(r'(?P<fileName>.*?).sol')
+
+    lastFileName = os.path.basename(os.path.normpath(file))
+
+    match = re.search(fileNamePattern, lastFileName)
+
+    if match:
+        return match.group(1)
+    raise ValueError("Invalid filename (couldn't parse)")
 
 if __name__ == '__main__':
     main()

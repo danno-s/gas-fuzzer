@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
+import os
 
 class FuzzingData:
     def __init__(self):
@@ -23,13 +23,14 @@ class FuzzingData:
             self.functions[fun] = []
         self.functions[fun].append(gas_cost)
 
-    def export(self):
-        print(self.expected_costs)
-        with PdfPages("report.pdf") as export_pdf:
-            for fun in self.functions.keys():
-                plt.hist(self.functions[fun])
-                plt.xlabel("Gas cost")
-                plt.ylabel("Frequency")
-                plt.title(f"Gas costs of {fun} {('[Expected: ' + self.expected_costs[fun] + ']') if fun in self.expected_costs else ''}")
-                export_pdf.savefig()
-                plt.close()
+    def export(self, folder="", filename="result"):
+        for fun in self.functions.keys():
+            dir = f"{folder}/{filename}/"
+            if not os.path.exists(dir):
+                os.makedirs(dir)
+            plt.hist(self.functions[fun])
+            plt.xlabel("Gas cost")
+            plt.ylabel("Frequency")
+            plt.title(f"Gas costs of {fun} {('[Expected: ' + self.expected_costs[fun] + ']') if fun in self.expected_costs else ''}")
+            plt.savefig(f"{dir}{fun.replace(' ', '-')}.png")
+            plt.close()

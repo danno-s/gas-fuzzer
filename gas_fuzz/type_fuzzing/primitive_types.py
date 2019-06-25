@@ -23,7 +23,7 @@ class UIntFuzzer(BaseTypeFuzzer):
 
     def validate(self, value):
         assert value >= 0, f"{self} values must be higher than 0. (got {value})"
-        assert value < 2 ** self.bits - 1, f"{self} values must be lower than {2 ** self.bits - 1}. (got {value})"
+        assert value < 2 ** self.bits, f"{self} values must be lower than {2 ** self.bits - 1}. (got {value})"
         return value
 
     def next(self):
@@ -40,6 +40,11 @@ class UIntFuzzer(BaseTypeFuzzer):
 class IntFuzzer(UIntFuzzer):
     def __init__(self, bits, **kwargs):
         super().__init__(bits, **kwargs)
+
+    def validate(self, value):
+        assert value < 2 ** (self.bits - 1), f"{self} values must be lower than {2 ** (self.bits - 1)}. (got {value})"
+        assert value >= -2 ** (self.bits - 1), f"{self} values must be greater than {-2 ** (self.bits - 1) - 1}. (got {value})"
+        return value
 
     def next(self):
         return randint(-2 ** (self.bits - 1), 2 ** (self.bits - 1) - 1)
@@ -64,6 +69,10 @@ class BoolFuzzer(BaseTypeFuzzer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+    def validate(self, value):
+        assert value in [True, False], f"got {value} non bool type"
+        return value
+
     def next(self):
         return choice([True, False])
 
@@ -77,6 +86,9 @@ class UFixedFuzzer(BaseTypeFuzzer):
         self.m_bits = m_bits
         self.n_bits = n_bits
         super().__init__(**kwargs)
+
+    def validate(self, value):
+        return value
 
     def next(self):
         return Decimal(randint(0, 2 ** self.m_bits - 1)) / Decimal(10 ** self.n_bits)
@@ -94,6 +106,9 @@ class FixedFuzzer(UFixedFuzzer):
     def __init__(self, m_bits, n_bits, **kwargs):
         super().__init__(**kwargs)
 
+    def validate(self, value):
+        return value
+
     def next(self):
         return Decimal(randint(-2 ** (self.m_bits - 1), 2 ** (self.m_bits - 1) - 1)) / Decimal(10 ** self.n_bits)
 
@@ -106,6 +121,9 @@ class BytesFuzzer(BaseTypeFuzzer):
         self.byte_n = byte_n
         super().__init__(**kwargs)
 
+    def validate(self, value):
+        return value
+
     def next(self):
         return bytearray(getrandbits(8) for _ in range(self.byte_n))
 
@@ -115,6 +133,9 @@ class BytesFuzzer(BaseTypeFuzzer):
 class FunctionFuzzer(BytesFuzzer):
     def __init__(self, **kwargs):
         super().__init__(24, **kwargs)
+
+    def validate(self, value):
+        return value
 
     def __str__(self):
         return "function"
@@ -126,6 +147,9 @@ class ArrayFuzzer(BaseTypeFuzzer):
         self.subfuzzer = fuzzer_from_type(subtype, **kwargs)
         super().__init__(**kwargs)
 
+    def validate(self, value):
+        return value
+
     def next(self):
         return [self.subfuzzer() for _ in range(self.m)]
 
@@ -135,6 +159,9 @@ class ArrayFuzzer(BaseTypeFuzzer):
 class CharFuzzer(BaseTypeFuzzer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+    def validate(self, value):
+        return value
 
     def next(self):
         return choice(printable)

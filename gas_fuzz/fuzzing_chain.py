@@ -34,7 +34,7 @@ class FuzzingChain(MiningChain):
             'receipt_root': constants.BLANK_ROOT_HASH,
             'difficulty': 1,
             'block_number': constants.GENESIS_BLOCK_NUMBER,
-            'gas_limit': 3141592,
+            'gas_limit': 100000000,
             'timestamp': 1514764800,
             'extra_data': constants.GENESIS_EXTRA_DATA,
             'nonce': constants.GENESIS_NONCE
@@ -99,6 +99,10 @@ class FuzzingChain(MiningChain):
 
         for _, contracts in standard_output.items():
             for contract_name, desc in contracts.items():
+                if all(abi['type'] != 'constructor' for abi in desc['abi']):
+                    logging.info(f"Skipped contract {contract_name} because it didn't have a constructor")
+                    continue
+
                 constructor = [abi for abi in desc['abi'] if abi['type'] == 'constructor'][0]
                 call = chain.fuzzer.generate_args(contract_name, '__constructor__', [arg for arg in constructor['inputs']], value=False)
 
@@ -202,7 +206,7 @@ class FuzzingChain(MiningChain):
         tx = self.get_vm().create_unsigned_transaction(
             nonce = nonce,
             gas_price = 0,
-            gas = 1000000,
+            gas = 10000000,
             to = to,
             value = call['value'],
             data = b''.join([function_hash, call['data']])
