@@ -4,69 +4,42 @@ import os
 class FuzzingData:
     def __init__(self):
         self.expected_costs = {}
-        self.functions = {}
+        self.actual_costs = {}
 
     def merge(self, data):
+        # Overwrite because they should be deterministic between the same inputs
         self.expected_costs = data.expected_costs
 
-        for key in data.functions.keys():
-            if key in self.functions:
-                self.functions[key] += data.functions[key]
-            else:
-                self.functions[key] = data.functions[key]
+        for contract_name in data.actual_costs.keys():
+            if contract_name not in self.actual_costs:
+                self.actual_costs[contract_name] = {}
+            for function_name in data.actual_costs[contract_name].keys():
+                if function_name in self.actual_costs[contract_name]:
+                    self.actual_costs[contract_name][function_name] += data.actual_costs[contract_name][function_name]
+                else:
+                    self.actual_costs[contract_name][function_name] = data.actual_costs[contract_name][function_name]
 
-    def set_expected_cost(self, fun, expected_cost):
-        self.expected_costs[fun] = expected_cost
+    def set_expected_cost(self, contract, fun, expected_cost):
+        if contract not in self.expected_costs:
+            self.expected_costs[contract] = {}
+        self.expected_costs[contract][fun] = expected_cost
 
-    def register_call(self, fun, gas_cost):
-        if fun not in self.functions:
-            self.functions[fun] = []
-        self.functions[fun].append(gas_cost)
+    def register_call(self, contract, fun, gas_cost):
+        if contract not in self.actual_costs:
+            self.actual_costs[contract] = {}
+        if fun not in self.actual_costs[contract]:
+            self.actual_costs[contract][fun] = []
+        self.actual_costs[contract][fun].append(gas_cost)
 
     def export(self, folder="", filename="result"):
-        for fun in self.functions.keys():
-            dir = f"{folder}/{filename}/"
-            if not os.path.exists(dir):
-                os.makedirs(dir)
-            leg = []
-            if fun in self.expected_costs and self.expected_costs[fun] != 'infinite':
-                plt.axvline(
-                    x=int(self.expected_costs[fun]),
-                    color=(1, 100/255, 100/255, 0.8),
-                    linestyle='--',
-                    zorder=-1
-                )
-                leg.append("Expected cost")
-            plt.hist(x=self.functions[fun], range=self.get_range(fun), color=(100/255, 100/255, 1, 0.8))
-            plt.xlabel("Gas cost")
-            plt.ylabel("Frequency")
-            plt.title(f"Gas costs of {fun} {('[Expected: ' + self.expected_costs[fun] + ']') if fun in self.expected_costs else ''}")
+        for contract in self.actual_costs.keys():
+            for function in self.actual_costs[contract].keys():
+                path = f"{folder}/{filename}/{contract}"
+                if not os.path.exists(path):
+                    os.makedirs(path)
+                with open(path + f"/{function}", "w") as file:
+                    lines = f"{self.expected_costs[contract][function]}\n"
+                    for cost in self.actual_costs[contract][function]:
+                        lines += f"{cost}\n"
 
-            plt.axvline(
-                x=self.get_average(fun),
-                color=(150/255, 1, 150/255, 0.8),
-                linestyle='-',
-                zorder=-1
-            )
-            leg.append("Average cost")
-            plt.legend(leg)
-
-            plt.savefig(f"{dir}{fun.replace(' ', '-')}.png")
-            plt.close()
-
-    def get_average(self, fun):
-        s = 0
-        for v in self.functions[fun]:
-            s += v
-        return s / len(self.functions[fun])
-
-    def get_range(self, fun):
-        min_cost = min(self.functions[fun])
-        max_cost = max(self.functions[fun])
-        if fun in self.expected_costs and self.expected_costs[fun] != 'infinite':
-            exp_cost = int(self.expected_costs[fun])
-            if exp_cost < min_cost:
-                return (exp_cost, max_cost + 10)
-            elif exp_cost > max_cost:
-                return (min_cost - 10, exp_cost)
-        return (min_cost - 10, max_cost + 10)
+                    file.writelines(lines)

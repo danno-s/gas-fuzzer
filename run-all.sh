@@ -1,10 +1,14 @@
 echo "" > exec.log
 
-for file in /home/HDD/Dropbox/Dropbox/ContractsDB/etherscan/*
+echo "starting..."
+
+for file in etherscan/*
 do
-    python3 gas_fuzz/gas_fuzz.py -n 5 -tx 5 $file
+    python3 gas_fuzz/gas_fuzz.py -tx 15 -s 10 $file
     if [ $? -ne 0 ]
     then
         echo "failure on $file" >> exec.log
     fi
 done
+
+echo "finished!"

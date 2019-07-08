@@ -26,8 +26,7 @@ import logging
 def main():
     # Receives a list of source files to fuzz.
     parser = argparse.ArgumentParser(description="Fuzz a contract to find out expected gas costs.")
-    parser.add_argument("-n", "--iterations", metavar="N", type=int, default=100, help="number of blocks to mine in total")
-    parser.add_argument("-tx", "--block-tx", metavar="T", type=int, default=20, help="number of transactions per block")
+    parser.add_argument("-tx", "--block-tx", metavar="T", type=int, default=10, help="average number of transactions executed per function")
     parser.add_argument("-ff", "--frontier", action='store_const', dest="fork", const=forks.FrontierVM, help="use Frontier VM")
     parser.add_argument("-hf", "--homestead", action='store_const', dest="fork", const=forks.HomesteadVM, help="use Homestead VM")
     parser.add_argument("-twf", "--tangerine-whistle", action='store_const', dest="fork", const=forks.TangerineWhistleVM, help="use Tangerine Whistle VM")
@@ -49,7 +48,8 @@ def main():
     for file in files:
         contracts = compile(file, args.fork)
 
-        progress = ProgressBar(total_ops=args.simulations * args.iterations * args.block_tx, preamble=f"fuzzing {getFileName(file)}.sol")
+        total_functions = count_functions(contracts)
+        progress = ProgressBar(total_ops=args.simulations * total_functions * args.block_tx, preamble=f"fuzzing {getFileName(file)}.sol")
 
         def simulation_runner():
             chain_class = FuzzingChain.configure(
@@ -62,7 +62,7 @@ def main():
 
             chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules, progress=progress)
 
-            for _ in range(args.iterations):
+            for _ in range(total_functions):
                 chain.fuzz()
 
             return chain.fuzzing_data
@@ -158,6 +158,15 @@ def compile(file, fork):
 
 
     return output['contracts']
+
+def count_functions(contracts):
+    counter = 0
+    for filename, file_contracts in contracts.items():
+        for contract, desc in file_contracts.items():
+            for obj in desc['abi']:
+                counter = counter + 1 if obj['type'] == 'function' else counter
+    
+    return counter
 
 def getFileName(file):
     fileNamePattern = re.compile(r'(?P<fileName>.*?).sol')
