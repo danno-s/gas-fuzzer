@@ -14,6 +14,7 @@ from random import choice, randint
 
 from fuzzer import SolidityFuzzer
 from fuzzing_data import FuzzingData
+from constraints import new_constraint
 
 from re import search
 
@@ -21,9 +22,10 @@ from pprint import pprint
 
 import logging
 
+
 class FuzzingChain(MiningChain):
     @classmethod
-    def init(cls, standard_output, tx = 10, progress=None, **kwargs):
+    def init(cls, contracts, ast, tx=10, progress=None, **kwargs):
         '''Builds a new MiningChain, with the given contract bytecodes, and an AtomicDB database.
         '''
         GENESIS_PARAMS = {
@@ -40,7 +42,8 @@ class FuzzingChain(MiningChain):
             'nonce': constants.GENESIS_NONCE
         }
 
-        sk = keys.PrivateKey(randint(1, 2 ** 32 - 1).to_bytes(32, byteorder='big'))
+        sk = keys.PrivateKey(
+            randint(1, 2 ** 32 - 1).to_bytes(32, byteorder='big'))
         pk = Address(sk.public_key.to_canonical_address())
 
         _faucet = {
@@ -65,7 +68,7 @@ class FuzzingChain(MiningChain):
 
         chain.fuzzer = SolidityFuzzer(
             chain.transfer_from_faucet,
-            faucet_sk =_faucet['sk'],
+            faucet_sk=_faucet['sk'],
             **kwargs
         )
 
@@ -97,23 +100,70 @@ class FuzzingChain(MiningChain):
 
         logging.info("CONTRACT TRANSACTIONS BEGIN\n")
 
-        for _, contracts in standard_output.items():
+        for filename, contracts in contracts.items():
+            # Find the ast for this file
+            ast_nodes = ast[filename]['ast']['nodes']
             for contract_name, desc in contracts.items():
                 if all(abi['type'] != 'constructor' for abi in desc['abi']):
-                    logging.info(f"Skipped contract {contract_name} because it didn't have a constructor")
+                    logging.info(
+                        f"Skipped contract {contract_name} because it didn't have a constructor")
                     continue
 
-                constructor = [abi for abi in desc['abi'] if abi['type'] == 'constructor'][0]
-                call = chain.fuzzer.generate_args(contract_name, '__constructor__', [arg for arg in constructor['inputs']], value=False)
+                # Find the ast object for this contract
+                contract_nodes = [
+                    node for node in ast_nodes
+                    if (
+                        node['nodeType'] == 'ContractDefinition' and
+                        node['name'] == contract_name
+                    )
+                ][0]['nodes']
+
+                # Find the variable definitions in this contract
+                variables = [
+                    [node['name'], node['typeName']['name']]
+                    for node in contract_nodes
+                    if node['nodeType'] == 'VariableDeclaration'
+                ]
+
+                chain.fuzzer.register_contract(contract_name, variables)
+
+                # Register all the functions in the fuzzer
+                for node in contract_nodes:
+                    if node['nodeType'] != 'FunctionDefinition':
+                        continue
+                    name = node['name'] if not node['isConstructor'] else '__constructor__'
+                    parameters = [
+                        [paramNode['name'], paramNode['typeName']['name']]
+                        for paramNode in node['parameters']['parameters']
+                    ]
+                    # Extract the explicit constraints defined in the source code
+                    constraints = [
+                        new_constraint(
+                            expression['expression']['arguments'][0])
+                        for expression in node['body']['statements']
+                        if expression['nodeType'] == 'ExpressionStatement'
+                        and expression['expression']['nodeType'] == 'FunctionCall'
+                        and expression['expression']['expression']['name'] == 'require'
+                    ]
+
+                    chain.fuzzer.register_function(
+                        contract_name, name, parameters, constraints)
+
+                constructor = [abi for abi in desc['abi']
+                               if abi['type'] == 'constructor'][0]
+                call = chain.fuzzer.generate_args(contract_name, '__constructor__', [
+                                                  arg for arg in constructor['inputs']], value=False)
 
                 _, _, computation = chain.call_function(
-                    constants.CREATE_CONTRACT_ADDRESS, 
-                    decode_hex(desc['evm']['bytecode']['object']), 
+                    constants.CREATE_CONTRACT_ADDRESS,
+                    decode_hex(desc['evm']['bytecode']['object']),
                     call
                 )
 
-                chain.log_function_call(contract_name, f"constructor", call['pk'], call['args'], call['value'], computation.get_gas_used())
-                chain.fuzzing_data.set_expected_cost(contract_name, f"constructor", desc['evm']['gasEstimates']['creation']['totalCost'])
+                chain.log_function_call(
+                    contract_name, f"constructor", call['pk'], call['args'], call['value'], computation.get_gas_used())
+                chain.fuzzing_data.set_expected_cost(
+                    contract_name, f"constructor", desc['evm']['gasEstimates']['creation']['totalCost'])
 
                 contract_address = computation.msg.storage_address
 
@@ -131,18 +181,21 @@ class FuzzingChain(MiningChain):
                         'out': fout,
                         'payable': abi['payable']
                     }
-                
+
                 logging.info(" Compilation gas estimates:")
 
                 for function, fhash in desc['evm']['methodIdentifiers'].items():
                     fname = function.split("(")[0]
-                    chain.contracts[contract_address][fname]['hash'] = decode_hex(fhash)
+                    chain.contracts[contract_address][fname]['hash'] = decode_hex(
+                        fhash)
                     chain.contracts[contract_address][fname]['compilation_estimate'] = desc['evm']['gasEstimates']['external'][function]
 
                     function_signature = f"{function} => ({', '.join(arg['type'] for arg in chain.contracts[contract_address][fname]['out'])})"
 
-                    logging.info(f" {function_signature}: {desc['evm']['gasEstimates']['external'][function]}{' payable' if chain.contracts[contract_address][fname]['payable'] else ''}")
-                    chain.fuzzing_data.set_expected_cost(contract_name, fname, desc['evm']['gasEstimates']['external'][function])
+                    logging.info(
+                        f" {function_signature}: {desc['evm']['gasEstimates']['external'][function]}{' payable' if chain.contracts[contract_address][fname]['payable'] else ''}")
+                    chain.fuzzing_data.set_expected_cost(
+                        contract_name, fname, desc['evm']['gasEstimates']['external'][function])
 
         block = chain.get_vm().finalize_block(chain.get_block())
 
@@ -156,7 +209,7 @@ class FuzzingChain(MiningChain):
 
         return chain
 
-    def fuzz(self, log = None):
+    def fuzz(self, log=None):
         '''Mines a block, executing a number of transactions to fuzz the contracts being tested.
         '''
         for _ in range(self.txs):
@@ -167,29 +220,33 @@ class FuzzingChain(MiningChain):
             function_hash = self.contracts[contract_address][function_name]['hash']
             call = self.fuzzer.generate_args(
                 contract_name,
-                function_name, 
-                [arg for arg in self.contracts[contract_address][function_name]['in']], 
+                function_name,
+                [arg for arg in self.contracts[contract_address][function_name]['in']],
                 value=self.contracts[contract_address][function_name]['payable']
             )
 
-            _, _, computation = self.call_function(contract_address, function_hash, call)
+            _, _, computation = self.call_function(
+                contract_address, function_hash, call)
 
-            self.log_function_call(contract_name, function_name, call['pk'], call['args'], call['value'], computation.get_gas_used())
-            out_types = [arg['type'] for arg in self.contracts[contract_address][function_name]['out']]
-            try: 
+            self.log_function_call(
+                contract_name, function_name, call['pk'], call['args'], call['value'], computation.get_gas_used())
+            out_types = [arg['type']
+                         for arg in self.contracts[contract_address][function_name]['out']]
+            try:
                 computation.raise_if_error()
-                logging.info(f" Returned value: {decode_abi(out_types, computation.output)}")
+                logging.info(
+                    f" Returned value: {decode_abi(out_types, computation.output)}")
             except Revert as r:
                 logging.info(f" Call reverted. {r.args[0]}")
             except VMError as e:
                 logging.info(f" Call resulted in error: {e}")
             except Exception as e:
-                logging.info(f" Something went wrong while decoding the output. {e}")
+                logging.info(
+                    f" Something went wrong while decoding the output. {e}")
 
             if self.progress:
                 with self.progress:
                     self.progress.update()
-        
 
         block = self.get_vm().finalize_block(self.get_block())
 
@@ -205,12 +262,12 @@ class FuzzingChain(MiningChain):
         nonce = self.get_vm().state.account_db.get_nonce(call['pk'])
 
         tx = self.get_vm().create_unsigned_transaction(
-            nonce = nonce,
-            gas_price = 0,
-            gas = 10000000,
-            to = to,
-            value = call['value'],
-            data = b''.join([function_hash, call['data']])
+            nonce=nonce,
+            gas_price=0,
+            gas=10000000,
+            to=to,
+            value=call['value'],
+            data=b''.join([function_hash, call['data']])
         )
 
         signed_tx = tx.as_signed_transaction(call['sk'])
@@ -221,7 +278,7 @@ class FuzzingChain(MiningChain):
 
     def transfer_from_faucet(self, pk, value):
         _, _, computation = self.call_function(
-            pk, 
+            pk,
             b'',
             {
                 'pk': self._faucet['pk'],

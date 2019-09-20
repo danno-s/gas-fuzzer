@@ -8,6 +8,7 @@ contract Counter {
     }
 
     function divide(uint8 factor) public returns (uint) {
+        require(factor != 0, "Can't divide by 0");
         count /= factor;
         return count;
     }
@@ -17,3 +18,5 @@ contract Counter {
         return count;
     }
 }
+
+contract Stub {}
