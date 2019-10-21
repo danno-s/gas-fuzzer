@@ -35,7 +35,7 @@ def binary_operation(function_ast):
 
 
 def negate(function_ast):
-    pprint(function_ast)
+    raise NotImplementedError()
 
 
 unary_operators = {
@@ -58,6 +58,7 @@ operations = {
 
 
 def new_constraint(function_ast):
+    print('============= CONSTRAINT FOUND ================')
     if function_ast['nodeType'] not in operations:
         raise NotImplementedError(
             f'Operation type {function_ast["nodeType"]} not supported')

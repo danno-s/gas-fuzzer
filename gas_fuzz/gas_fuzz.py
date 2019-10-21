@@ -48,6 +48,7 @@ def main():
     parser.add_argument("-r", "--rules", help="file with fuzzing rules")
     parser.add_argument("-b", "--batch", action='store_true',
                         help="process all files in the directory pointed by file")
+    parser.add_argument("-l", "--log", action='store_true', help="Log information about the fuzzing process to stdout")
 
     args = parser.parse_args()
 
@@ -70,7 +71,7 @@ def main():
                      args.fork if args.fork else forks.ByzantiumVM),
                 )
             )
-            logging.basicConfig(filename="fuzzing_log", level=logging.INFO)
+            logging.basicConfig(level=logging.CRITICAL if not args.log else logging.INFO)
 
             chain = chain_class.init(
                 compiled['contracts'], ast=compiled['sources'], tx=args.block_tx, rules=args.rules, progress=progress)

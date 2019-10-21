@@ -20,6 +20,8 @@ from re import search
 
 from pprint import pprint
 
+from functools import reduce
+
 import logging
 
 
@@ -136,15 +138,36 @@ class FuzzingChain(MiningChain):
                         [paramNode['name'], paramNode['typeName']['name']]
                         for paramNode in node['parameters']['parameters']
                     ]
+
+                    def gen_reduce(indentation = 0):
+                        def reduce_ast(acc, node):
+                            if (type(node) is dict
+                                and 'nodeType' in node
+                                and node['nodeType'] == 'ExpressionStatement'
+                                and node['expression']['nodeType'] == 'FunctionCall'
+                                and node['expression']['expression']['name'] == 'require'):
+                                acc.append(new_constraint(node['expression']['arguments'][0]))
+                            elif type(node) is list:
+                                acc += reduce(gen_reduce(indentation + 1), node, [])
+                            elif type(node) is dict:
+                                acc += reduce(gen_reduce(indentation + 1), node.values())
+
+                            return acc
+                        return reduce_ast
+
                     # Extract the explicit constraints defined in the source code
-                    constraints = [
+                    constraints = reduce(gen_reduce(), node['body']['statements'], [])
+                    """ 
+                    [
                         new_constraint(
                             expression['expression']['arguments'][0])
                         for expression in node['body']['statements']
                         if expression['nodeType'] == 'ExpressionStatement'
                         and expression['expression']['nodeType'] == 'FunctionCall'
                         and expression['expression']['expression']['name'] == 'require'
-                    ]
+                    ] """
+
+                    print(f'Constraints for {contract_name}.{name}: {constraints}')
 
                     chain.fuzzer.register_function(
                         contract_name, name, parameters, constraints)
