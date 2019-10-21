@@ -56,41 +56,23 @@ class SolidityFuzzer():
         }
 
     def generate_args(self, contract, function, args, value=True):
-        if function in self.contracts[contract]['functions']:
-            constraints = self.contracts[contract]['functions'][function]['constraints']
-        else:
-            constraints = []
+        sk, pk = self.get_account()
 
-        while True:
-            sk, pk = self.get_account()
-
-            primitive_args = [
-                (
-                    arg['name'],
-                    arg['type'],
-                    self.fuzz_arg(contract, function, arg['type'])
-                ) for arg in args
-            ]
-
-            if (
-                any([not constraint.passable(
-                    self.contracts[contract]['variables'],
-                    self.contracts[contract]['functions'][function]['parameters'])
-                    for constraint in constraints])
-                or all([constraint.passes(
-                    self.contracts[contract]['variables'],
-                    self.contracts[contract]['functions'][function]['parameters'],
-                    primitive_args) for constraint in constraints])
-            ):
-                return {
-                    'sk': sk,
-                    'pk': pk,
-                    'value': self.randvalue(pk) if value else 0,
-                    'args': primitive_args,
-                    'data': b''.join(encode_single(_type, arg) for _, _type, arg in primitive_args)
-                }
-
-            self.undo_account((sk, pk))
+        primitive_args = [
+            (
+                arg['name'],
+                arg['type'],
+                self.fuzz_arg(contract, function, arg['type'])
+            ) for arg in args
+        ]
+        
+        return {
+            'sk': sk,
+            'pk': pk,
+            'value': self.randvalue(pk) if value else 0,
+            'args': primitive_args,
+            'data': b''.join(encode_single(_type, arg) for _, _type, arg in primitive_args)
+        }
 
     def fuzz_arg(self, contract, function, _type):
         # Load fuzzers dynamically based on the given type
@@ -104,7 +86,12 @@ class SolidityFuzzer():
             logging.info(
                 f" Selector: {selector['selector-type'] if selector is not None else None}")
 
-            fuzzer = fuzzer_from_type(_type, rules=rules, selector=selector)
+            fuzzer = fuzzer_from_type(
+                _type,
+                rules=rules,
+                selector=selector,
+                rule_closures=self.contracts[contract]['functions'][function]['constraints']
+            )
             self.add_type_fuzzer(contract, function, _type, fuzzer)
 
         return self.get_type_fuzzer(contract, function, _type)()
@@ -115,6 +102,10 @@ class SolidityFuzzer():
 
         if function not in self.type_fuzzers[contract]:
             self.type_fuzzers[contract][function] = {}
+
+        print(f'Added fuzzer for {contract}.{function} with rules:')
+        for rule in fuzzer.selector.rules:
+            print(f'\t{type(rule)}')
 
         self.type_fuzzers[contract][function][_type] = fuzzer
 

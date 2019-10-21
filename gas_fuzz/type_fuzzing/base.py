@@ -5,9 +5,10 @@ from fuzzing_rules.selectors import BaseRuleSelector
 class BaseTypeFuzzer():
     valid_rules = []
 
-    def __init__(self, rules=None, selector=None):
-        rule_instances = instantiate_rules(rules, str(self), self) if rules is not None else [NoneFuzzerRule(self)]
-        self.selector = instantiate_selector(selector) if selector is not None else BaseRuleSelector(rule_instances)
+    def __init__(self, rules=None, selector=None, rule_closures=None):
+        rule_instances = instantiate_rules(rules, str(self), self) if rules is not None else []
+        rule_instances += [closure(self) for closure in rule_closures]
+        self.selector = instantiate_selector(selector) if selector is not None else BaseRuleSelector(rule_instances if len(rule_instances) > 0 else [NoneFuzzerRule(self)])
 
     def __call__(self):
         # Select a rule, and delegate the generation to it.

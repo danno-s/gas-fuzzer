@@ -7,13 +7,23 @@ from string import printable
 from .base import BaseTypeFuzzer
 from fuzzing_rules.rules import (
     Limits,
-    Constant
+    Constant,
+    NotEqual,
+    GreaterThan,
+    GreaterThanEqual,
+    LessThan,
+    LessThanEqual,
 )
 
 class UIntFuzzer(BaseTypeFuzzer):
     valid_rules = [
         Limits,
-        Constant
+        Constant,
+        NotEqual,
+        GreaterThan,
+        GreaterThanEqual,
+        LessThan,
+        LessThanEqual,
     ]
 
     def __init__(self, bits, **kwargs):

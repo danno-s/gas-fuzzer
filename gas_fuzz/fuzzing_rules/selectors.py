@@ -6,7 +6,7 @@ class BaseRuleSelector():
 
     def __call__(self):
         """
-        Return the first rule, as a base case (when no rules 
+        Return a random rule, as a base case (when no rules 
         are defined, the only rule is a BaseFuzzerRule)
         """
         return choice(self.rules)

@@ -51,3 +51,77 @@ class Constant(BaseFuzzerRule):
     def __call__(self):
         return self.value
 
+class NotEqual(BaseFuzzerRule):
+    def __init__(self, rules, fuzzer):
+        super().__init__(rules, fuzzer)
+        self.value = rules["value"]
+
+    def validate_rules(self, rules):
+        self.fuzzer.validate_rule(self)
+        self.validate_args(rules, "value")
+
+    def __call__(self):
+        while True:
+            num = self.fuzzer.next()
+            if num != self.value:
+                return num
+
+class GreaterThan(BaseFuzzerRule):
+    def __init__(self, rules, fuzzer):
+        super().__init__(rules, fuzzer)
+        self.min = rules["min"]
+
+    def validate_rules(self, rules):
+        self.fuzzer.validate_rule(self)
+        self.validate_args(rules, "min")
+
+    def __call__(self):
+        while True:
+            num = self.fuzzer.next()
+            if num > self.min:
+                return num
+
+class GreaterThanEqual(BaseFuzzerRule):
+    def __init__(self, rules, fuzzer):
+        super().__init__(rules, fuzzer)
+        self.min = rules["min"]
+
+    def validate_rules(self, rules):
+        self.fuzzer.validate_rule(self)
+        self.validate_args(rules, "min")
+
+    def __call__(self):
+        while True:
+            num = self.fuzzer.next()
+            if num >= self.min:
+                return num
+
+class LessThan(BaseFuzzerRule):
+    def __init__(self, rules, fuzzer):
+        super().__init__(rules, fuzzer)
+        self.max = rules["max"]
+
+    def validate_rules(self, rules):
+        self.fuzzer.validate_rule(self)
+        self.validate_args(rules, "max")
+
+    def __call__(self):
+        while True:
+            num = self.fuzzer.next()
+            if num < self.max:
+                return num
+
+class LessThanEqual(BaseFuzzerRule):
+    def __init__(self, rules, fuzzer):
+        super().__init__(rules, fuzzer)
+        self.max = rules["max"]
+
+    def validate_rules(self, rules):
+        self.fuzzer.validate_rule(self)
+        self.validate_args(rules, "max")
+
+    def __call__(self):
+        while True:
+            num = self.fuzzer.next()
+            if num <= self.max:
+                return num

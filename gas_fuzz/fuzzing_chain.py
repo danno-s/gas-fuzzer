@@ -14,7 +14,7 @@ from random import choice, randint
 
 from fuzzer import SolidityFuzzer
 from fuzzing_data import FuzzingData
-from constraints import new_constraint
+from fuzzing_rules.constraint_parsing import new_constraint
 
 from re import search
 
@@ -139,24 +139,24 @@ class FuzzingChain(MiningChain):
                         for paramNode in node['parameters']['parameters']
                     ]
 
-                    def gen_reduce(indentation = 0):
-                        def reduce_ast(acc, node):
-                            if (type(node) is dict
-                                and 'nodeType' in node
-                                and node['nodeType'] == 'ExpressionStatement'
-                                and node['expression']['nodeType'] == 'FunctionCall'
-                                and node['expression']['expression']['name'] == 'require'):
-                                acc.append(new_constraint(node['expression']['arguments'][0]))
-                            elif type(node) is list:
-                                acc += reduce(gen_reduce(indentation + 1), node, [])
-                            elif type(node) is dict:
-                                acc += reduce(gen_reduce(indentation + 1), node.values())
+                    def reduce_ast(acc, node):
+                        if (type(node) is dict
+                            and 'nodeType' in node
+                            and node['nodeType'] == 'ExpressionStatement'
+                            and node['expression']['nodeType'] == 'FunctionCall'
+                        and node['expression']['expression']['name'] == 'require'):
+                            constraint = new_constraint(node['expression']['arguments'][0], [name for name, type in parameters])
+                            if constraint:
+                                acc.append(constraint)
+                        elif type(node) is list:
+                            acc += reduce(reduce_ast, node, [])
+                        elif type(node) is dict:
+                            acc += reduce(reduce_ast, node.values(), [])
 
-                            return acc
-                        return reduce_ast
+                        return acc
 
                     # Extract the explicit constraints defined in the source code
-                    constraints = reduce(gen_reduce(), node['body']['statements'], [])
+                    constraints = reduce(reduce_ast, node['body']['statements'], [])
                     """ 
                     [
                         new_constraint(
