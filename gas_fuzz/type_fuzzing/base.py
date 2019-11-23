@@ -1,18 +1,53 @@
-from parsing.instantiators import instantiate_rules, instantiate_selector
-from fuzzing_rules.rules import NoneFuzzerRule
-from fuzzing_rules.selectors import BaseRuleSelector
+from parsing.instantiators import instantiate_rules
+from random import choice
+import logging
 
 class BaseTypeFuzzer():
     valid_rules = []
 
-    def __init__(self, rules=None, selector=None, rule_closures=None):
-        rule_instances = instantiate_rules(rules, str(self), self) if rules is not None else []
-        rule_instances += [closure(self) for closure in rule_closures]
-        self.selector = instantiate_selector(selector) if selector is not None else BaseRuleSelector(rule_instances if len(rule_instances) > 0 else [NoneFuzzerRule(self)])
+    def __init__(self, rules=None, rule_closures=None, max_attempts=10):
+        self.rules = instantiate_rules(rules, str(self), self) if rules is not None else []
+        self.rules += [closure(self) for closure in rule_closures]
+
+        self.rules.sort(key=lambda rule: rule.loc)
+
+        self.max_attempts = max_attempts
 
     def __call__(self):
-        # Select a rule, and delegate the generation to it.
-        return self.validate(self.selector()())
+        # No validation available
+        if not self.rules:
+            return self.next()
+
+        logging.info("Generating values for fuzzer with rules.")
+
+        ruleset = self.rules.copy()
+
+        while len(ruleset) > 0:
+            logging.info(f"Attempting with ruleset: {ruleset}")
+            base_rule = ruleset[0]
+
+            # Fuzzer has rules. Try to generate args that satisfy (one) of them.
+            for attempt in range(self.max_attempts):
+                # Generate the argument, depending on if the rule has knowledge on how to generate good arguments.
+                try:
+                    values = base_rule.next()
+                except AttributeError:
+                    values = self.next()
+
+                def validate_recursively(rules):        
+                    tested_rule, *others = rules
+                    logging.info(f'Testing {values} for fuzzer {self} and rule {tested_rule}')
+                    return tested_rule.valid_for(values) and (len(others) == 0 or validate_recursively(others))
+
+                if self.validate(values) and validate_recursively(ruleset):
+                    return values
+            
+            # Remove the last rule and attempt again.
+            ruleset.pop()
+
+        logging.warn("Failed to satisfy all rules. Generating a random number without any rules.")
+        return self.next()
+
 
     def validate_rule(self, rule):
         """Raises an exception if the given rule is not valid for this fuzzer"""

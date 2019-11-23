@@ -79,19 +79,16 @@ class SolidityFuzzer():
         if not self.get_type_fuzzer(contract, function, _type):
             logging.info(
                 f" Assigning rules for {contract}.{function} ({_type})")
-            rules, selector = parse_rules(
-                self.rules, contract, function, _type)
+            rules = parse_rules(self.rules, contract, function, _type)
             logging.info(
                 f" Rules: {(', '.join(rule['rule-type'] for rule in rules) if rules is not None else None)}")
-            logging.info(
-                f" Selector: {selector['selector-type'] if selector is not None else None}")
 
             fuzzer = fuzzer_from_type(
                 _type,
                 rules=rules,
-                selector=selector,
                 rule_closures=self.contracts[contract]['functions'][function]['constraints']
             )
+
             self.add_type_fuzzer(contract, function, _type, fuzzer)
 
         return self.get_type_fuzzer(contract, function, _type)()
@@ -104,7 +101,7 @@ class SolidityFuzzer():
             self.type_fuzzers[contract][function] = {}
 
         print(f'Added fuzzer for {contract}.{function} with rules:')
-        for rule in fuzzer.selector.rules:
+        for rule in fuzzer.rules:
             print(f'\t{type(rule)}')
 
         self.type_fuzzers[contract][function][_type] = fuzzer

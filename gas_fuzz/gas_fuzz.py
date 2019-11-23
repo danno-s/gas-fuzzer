@@ -71,7 +71,7 @@ def main():
                      args.fork if args.fork else forks.ByzantiumVM),
                 )
             )
-            logging.basicConfig(level=logging.CRITICAL if not args.log else logging.INFO)
+            logging.basicConfig(level=logging.WARN if not args.log else logging.INFO)
 
             chain = chain_class.init(
                 compiled['contracts'], ast=compiled['sources'], tx=args.block_tx, rules=args.rules, progress=progress)

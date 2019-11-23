@@ -7,6 +7,7 @@ from .rules import (
     LessThan,
     GreaterThanEqual,
     LessThanEqual,
+    Constant,
 )
 
 #### UTILITIES ####
@@ -75,6 +76,16 @@ def binary_operation(function_ast, parameters):
 
     return binary_operators[function_ast['operator']](function_ast, parameters)
 
+def equal(function_ast, parameters):
+    condition_sides = sides(function_ast, parameters)
+
+    if not condition_sides:
+        return None
+
+    value, _ = condition_sides
+
+    return lambda fuzzer: Constant({ 'value': value }, fuzzer=fuzzer, loc=function_ast['src'])
+
 def not_equal(function_ast, parameters):
     condition_sides = sides(function_ast, parameters)
 
@@ -83,7 +94,7 @@ def not_equal(function_ast, parameters):
 
     value, _ = condition_sides
 
-    return lambda fuzzer: NotEqual({ 'value': value }, fuzzer)
+    return lambda fuzzer: NotEqual({ 'value': value }, fuzzer=fuzzer, loc=function_ast['src'])
 
 def greater_than(function_ast, parameters):
     condition_sides = sides(function_ast, parameters)
@@ -95,13 +106,14 @@ def greater_than(function_ast, parameters):
 
     if on_left:
         # value > arg
-        return lambda fuzzer: LessThan({ 'max': value }, fuzzer)
+        return lambda fuzzer: LessThan({ 'max': value }, fuzzer=fuzzer, loc=function_ast['src'])
     else:
         # arg > value
-        return lambda fuzzer: GreaterThan({ 'min': value }, fuzzer)
+        return lambda fuzzer: GreaterThan({ 'min': value }, fuzzer=fuzzer, loc=function_ast['src'])
 
 ## AST to handler function binding
 binary_operators = {
+    '==': equal,
     '!=': not_equal,
     '>': greater_than,
 }
