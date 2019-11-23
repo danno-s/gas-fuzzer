@@ -5,7 +5,7 @@ from decimal import Decimal
 from string import printable
 
 from .base import BaseTypeFuzzer
-from fuzzing_rules.rules import (
+from fuzzing_rules import (
     Limits,
     Constant,
     NotEqual,

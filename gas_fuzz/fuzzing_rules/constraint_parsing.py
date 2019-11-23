@@ -1,7 +1,7 @@
 from pprint import pprint
 
 
-from .rules import (
+from . import (
     NotEqual,
     GreaterThan,
     LessThan,
