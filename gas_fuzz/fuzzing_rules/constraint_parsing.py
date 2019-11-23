@@ -9,6 +9,7 @@ from .rules import (
     LessThanEqual,
 )
 
+#### UTILITIES ####
 def side(exp, parameters):
     if exp['nodeType'] == 'Identifier':
         if exp['name'] in parameters:
@@ -66,6 +67,14 @@ def sides(function_ast, parameters):
 
     return None
 
+#### BINARY OPERATIONS ####
+def binary_operation(function_ast, parameters):
+    if function_ast['operator'] not in binary_operators:
+        raise NotImplementedError(
+            f'Operator {function_ast["operator"]} not supported for BinaryOperation')
+
+    return binary_operators[function_ast['operator']](function_ast, parameters)
+
 def not_equal(function_ast, parameters):
     condition_sides = sides(function_ast, parameters)
 
@@ -91,47 +100,38 @@ def greater_than(function_ast, parameters):
         # arg > value
         return lambda fuzzer: GreaterThan({ 'min': value }, fuzzer)
 
-
+## AST to handler function binding
 binary_operators = {
     '!=': not_equal,
     '>': greater_than,
 }
 
-
-def binary_operation(function_ast, parameters):
-    if function_ast['operator'] not in binary_operators:
-        raise NotImplementedError(
-            f'Operator {function_ast["operator"]} not supported for BinaryOperation')
-
-    return binary_operators[function_ast['operator']](function_ast, parameters)
-
-
-def negate(function_ast):
-    raise NotImplementedError()
-
-
-unary_operators = {
-    '!': negate
-}
-
-
-def unary_operation(function_ast):
+#### UNARY OPERATIONS ####
+def unary_operation(function_ast, parameters):
     if function_ast['operator'] not in unary_operators:
         raise NotImplementedError(
             f'Operator {function_ast["operator"]} not supported for UnaryOperation')
 
     return unary_operators[function_ast['operator']](function_ast, parameters)
 
+def negate(function_ast, parameters):
+    raise NotImplementedError()
 
-operations = {
-    'UnaryOperation': unary_operation,
-    'BinaryOperation': binary_operation
+## AST to handler function binding
+unary_operators = {
+    '!': negate
 }
 
+#### FUNCTION CALLS ####
+def function_call(function_ast, parameters):
+    raise NotImplementedError('FunctionCall constraints not yet implemented.')
 
+
+
+#### ENTRY POINT ####
 def new_constraint(function_ast, parameters):
     """
-    Returns a close that initializes the given constraint,
+    Returns a closure that initializes the given constraint,
     when fed a fuzzer instance.
     """
     if function_ast['nodeType'] not in operations:
@@ -139,3 +139,10 @@ def new_constraint(function_ast, parameters):
             f'Operation type {function_ast["nodeType"]} not supported')
 
     return operations[function_ast['nodeType']](function_ast, parameters)
+
+## AST to handler function binding
+operations = {
+    'UnaryOperation': unary_operation,
+    'BinaryOperation': binary_operation,
+    'FunctionCall': function_call,
+}

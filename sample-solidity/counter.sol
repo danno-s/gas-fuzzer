@@ -19,7 +19,13 @@ contract Counter {
     }
 
     function add(uint8 value) public returns (uint) {
+        require(always_true(), "How did this happen?");
+
         count += value;
         return count;
+    }
+
+    function always_true() public returns (bool) {
+        return true;
     }
 }
