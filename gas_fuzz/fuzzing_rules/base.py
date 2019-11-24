@@ -1,13 +1,15 @@
 from random import randint
 
 class BaseFuzzerRule():
-    def __init__(self, rule, fuzzer=None, loc=0):
+    def __init__(self, rule, fuzzer=None, loc=0, **kwargs):
         self.fuzzer = fuzzer
         self.validate_rules(rule)
 
         self.loc = loc
 
     def valid_for(self, values):
+        '''This is only called for root-level rules.
+        '''
         raise NotImplementedError(f"Subclass {type(self).__name__} must override valid_for")
 
     def validate_rules(self, rule):

@@ -145,7 +145,12 @@ class FuzzingChain(MiningChain):
                             and node['nodeType'] == 'ExpressionStatement'
                             and node['expression']['nodeType'] == 'FunctionCall'
                         and node['expression']['expression']['name'] == 'require'):
-                            constraint = new_constraint(node['expression']['arguments'][0], [name for name, type in parameters])
+                            constraint = new_constraint(
+                                node['expression']['arguments'][0],
+                                [name for name, type in parameters],
+                                chain.call_function
+                            )
+
                             if constraint:
                                 acc.append(constraint)
                         elif type(node) is list:
@@ -190,6 +195,8 @@ class FuzzingChain(MiningChain):
 
                 contract_address = computation.msg.storage_address
 
+                chain.fuzzer.set_contract_address(contract_name, contract_address)
+
                 chain.contract_names[contract_address] = contract_name
                 chain.contracts[contract_address] = {}
 
@@ -199,6 +206,25 @@ class FuzzingChain(MiningChain):
                     fname = abi['name']
                     fin = [inp for inp in abi['inputs']]
                     fout = [out for out in abi['outputs']]
+
+                    chain.fuzzer.set_args(
+                        contract_name,
+                        fname,
+                        [arg for arg in fin]
+                    )
+
+                    chain.fuzzer.set_out(
+                        contract_name,
+                        fname,
+                        [arg['type'] for arg in fout]
+                    )
+
+                    chain.fuzzer.set_mutability(
+                        contract_name,
+                        fname,
+                        abi['stateMutability'] == 'view' or abi['stateMutability'] == 'pure'
+                    )
+
                     chain.contracts[contract_address][fname] = {
                         'in': fin,
                         'out': fout,
@@ -207,10 +233,14 @@ class FuzzingChain(MiningChain):
 
                 logging.info(" Compilation gas estimates:")
 
-                for function, fhash in desc['evm']['methodIdentifiers'].items():
+                for function, fhash_encoded in desc['evm']['methodIdentifiers'].items():
                     fname = function.split("(")[0]
-                    chain.contracts[contract_address][fname]['hash'] = decode_hex(
-                        fhash)
+
+                    fhash = decode_hex(fhash_encoded)
+                    
+                    chain.fuzzer.set_function_hash(contract_name, fname, fhash)
+                    
+                    chain.contracts[contract_address][fname]['hash'] = fhash
                     chain.contracts[contract_address][fname]['compilation_estimate'] = desc['evm']['gasEstimates']['external'][function]
 
                     function_signature = f"{function} => ({', '.join(arg['type'] for arg in chain.contracts[contract_address][fname]['out'])})"

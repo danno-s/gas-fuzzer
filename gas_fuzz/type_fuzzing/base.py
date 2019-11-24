@@ -2,12 +2,14 @@ from parsing.instantiators import instantiate_rules
 from random import choice
 import logging
 
-class BaseTypeFuzzer():
-    valid_rules = []
+from fuzzing_rules import FunctionCall
 
-    def __init__(self, rules=None, rule_closures=None, max_attempts=10):
+class BaseTypeFuzzer():
+    valid_rules = [FunctionCall]
+
+    def __init__(self, rules=None, rule_closures=None, max_attempts=10, **kwargs):
         self.rules = instantiate_rules(rules, str(self), self) if rules is not None else []
-        self.rules += [closure(self) for closure in rule_closures]
+        self.rules += [closure(self, **kwargs) for closure in rule_closures]
 
         self.rules.sort(key=lambda rule: rule.loc)
 
@@ -45,13 +47,13 @@ class BaseTypeFuzzer():
             # Remove the last rule and attempt again.
             ruleset.pop()
 
-        logging.warn("Failed to satisfy all rules. Generating a random number without any rules.")
+        logging.warn(f"Failed to satisfy all rules for {self}. Generating a random number without any rules.")
         return self.next()
 
 
     def validate_rule(self, rule):
         """Raises an exception if the given rule is not valid for this fuzzer"""
-        assert type(rule) in self.valid_rules, f"Fuzzer of type {type(self).__name__} doesn't accept rule of type {type(rule).__name__}"
+        assert type(rule) in self.valid_rules + BaseTypeFuzzer.valid_rules, f"Fuzzer of type {type(self).__name__} doesn't accept rule of type {type(rule).__name__}"
 
     def __str__(self):
         """Prints the solidity type this fuzzer generates"""

@@ -46,14 +46,37 @@ class SolidityFuzzer():
     def register_contract(self, contract_name, variables):
         self.contracts[contract_name] = {
             'variables': [var for var in variables],
-            'functions': {}
+            'functions': {},
         }
 
+    def set_contract_address(self, contract_name, address):
+        self.contracts[contract_name]['address'] = address
+
     def register_function(self, contract_name, function_name, parameters, constraints):
+        print(f"Registering {contract_name}.{function_name}")
+
         self.contracts[contract_name]['functions'][function_name] = {
             'parameters': [par for par in parameters],
             'constraints': constraints
         }
+    
+    def set_function_hash(self, contract_name, function_name, f_hash):
+        self.contracts[contract_name]['functions'][function_name]['hash'] = f_hash
+    
+    def set_mutability(self, contract_name, function_name, mut):
+        self.contracts[contract_name]['functions'][function_name]['mutable'] = mut
+
+    def set_out(self, contract_name, function_name, out):
+        self.contracts[contract_name]['functions'][function_name]['out'] = out
+
+    def set_args(self, contract_name, function_name, args):
+        fxs = self.contracts[contract_name]['functions']
+
+        if function_name not in fxs:
+            fxs[function_name] = {}
+
+        fxs[function_name]['args'] = args
+
 
     def generate_args(self, contract, function, args, value=True):
         sk, pk = self.get_account()
@@ -86,7 +109,11 @@ class SolidityFuzzer():
             fuzzer = fuzzer_from_type(
                 _type,
                 rules=rules,
-                rule_closures=self.contracts[contract]['functions'][function]['constraints']
+                rule_closures=self.contracts[contract]['functions'][function]['constraints'],
+                # Assume all function calls will be within the same contract.
+                contract=contract,
+                contract_address=self.contracts[contract]['address'],
+                chain_fuzzer=self
             )
 
             self.add_type_fuzzer(contract, function, _type, fuzzer)
