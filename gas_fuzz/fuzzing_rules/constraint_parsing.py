@@ -12,10 +12,10 @@ from . import (
 )
 
 #### UTILITIES ####
-def from_value(cls, value, loc, **kwargs_outer):
+def from_value(cls, value, loc, related_args=[], **kwargs_outer):
     def from_fuzzer(fuzzer, **kwargs_inner):
         kwargs_outer.update(kwargs_inner)
-        return cls(value, fuzzer=fuzzer, loc=loc, **kwargs_outer)
+        return cls(value, fuzzer=fuzzer, loc=loc, related_args=related_args, **kwargs_outer)
     return from_fuzzer
 
 def side(exp, parameters):
@@ -68,10 +68,10 @@ def sides(function_ast, parameters):
         
     # Second example, extract value
     if 'value' in left and right:
-        return (int(left['value']), True)
+        return (int(left['value']), True, right['name'])
 
     if 'value' in right and left:
-        return (int(right['value']), False)
+        return (int(right['value']), False, left['name'])
 
     return None
 
@@ -89,9 +89,9 @@ def equal(function_ast, parameters, function_callback):
     if not condition_sides:
         return None
 
-    value, _ = condition_sides
+    value, _, name = condition_sides
 
-    return from_value(Constant, { 'value': value }, function_ast['src'])
+    return from_value(Constant, { 'value': value }, function_ast['src'], related_args=[name])
 
 def not_equal(function_ast, parameters, function_callback):
     condition_sides = sides(function_ast, parameters)
@@ -99,9 +99,9 @@ def not_equal(function_ast, parameters, function_callback):
     if not condition_sides:
         return None
 
-    value, _ = condition_sides
+    value, _, name = condition_sides
 
-    return from_value(NotEqual, { 'value': value }, loc=function_ast['src'])
+    return from_value(NotEqual, { 'value': value }, loc=function_ast['src'], related_args=[name])
 
 def greater_than(function_ast, parameters, function_callback):
     condition_sides = sides(function_ast, parameters)
@@ -109,14 +109,14 @@ def greater_than(function_ast, parameters, function_callback):
     if not condition_sides:
         return None
 
-    value, on_left = condition_sides
+    value, on_left, name = condition_sides
 
     if on_left:
         # value > arg
-        return from_value(LessThan, { 'max': value }, loc=function_ast['src'])
+        return from_value(LessThan, { 'max': value }, loc=function_ast['src'], related_args=[name])
     else:
         # arg > value
-        return from_value(GreaterThan, { 'min': value }, loc=function_ast['src'])
+        return from_value(GreaterThan, { 'min': value }, loc=function_ast['src'], related_args=[name])
 
 ## AST to handler function binding
 binary_operators = {

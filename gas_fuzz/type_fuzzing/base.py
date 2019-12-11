@@ -7,9 +7,10 @@ from fuzzing_rules import FunctionCall
 class BaseTypeFuzzer():
     valid_rules = [FunctionCall]
 
-    def __init__(self, rules=None, rule_closures=None, max_attempts=10, **kwargs):
+    def __init__(self, rules=None, rule_closures=None, max_attempts=10, argname=None, **kwargs):
         self.rules = instantiate_rules(rules, str(self), self) if rules is not None else []
-        self.rules += [closure(self, **kwargs) for closure in rule_closures]
+        possible_rules = [closure(self, **kwargs) for closure in rule_closures]
+        self.rules += [rule for rule in possible_rules if argname in rule.related_args]
 
         self.rules.sort(key=lambda rule: rule.loc)
 

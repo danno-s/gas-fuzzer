@@ -7,8 +7,10 @@ contract Counter {
         count = 1;
     }
 
-    function divide(uint8 factor) public returns (uint) {
+    function divide(uint8 factor, uint8 not_used) public returns (uint) {
         require(factor != 0, "Can't divide by 0");
+
+        not_used++;
 
         if (factor > 0) {
             require(factor == 150, "Must divide by 150");
@@ -19,7 +21,7 @@ contract Counter {
     }
 
     function add(uint8 value) public returns (uint) {
-        require(always_false(), "How did this happen?");
+        // require(always_false(), "How did this happen?");
 
         count += value;
         return count;

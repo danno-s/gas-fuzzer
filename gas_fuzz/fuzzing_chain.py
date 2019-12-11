@@ -172,7 +172,7 @@ class FuzzingChain(MiningChain):
                         and expression['expression']['expression']['name'] == 'require'
                     ] """
 
-                    print(f'Constraints for {contract_name}.{name}: {constraints}')
+                    print(f'{len(constraints)} constraint{"" if len(constraints) == 1 else "s"} extracted for {contract_name}.{name}')
 
                     chain.fuzzer.register_function(
                         contract_name, name, parameters, constraints)

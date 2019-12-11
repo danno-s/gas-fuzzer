@@ -85,7 +85,7 @@ class SolidityFuzzer():
             (
                 arg['name'],
                 arg['type'],
-                self.fuzz_arg(contract, function, arg['type'])
+                self.fuzz_arg(contract, function, arg['type'], arg['name'])
             ) for arg in args
         ]
         
@@ -97,11 +97,11 @@ class SolidityFuzzer():
             'data': b''.join(encode_single(_type, arg) for _, _type, arg in primitive_args)
         }
 
-    def fuzz_arg(self, contract, function, _type):
+    def fuzz_arg(self, contract, function, _type, name):
         # Load fuzzers dynamically based on the given type
-        if not self.get_type_fuzzer(contract, function, _type):
+        if not self.get_type_fuzzer(contract, function, _type, name):
             logging.info(
-                f" Assigning rules for {contract}.{function} ({_type})")
+                f" Assigning rules for {contract}.{function} ({_type} {name})")
             rules = parse_rules(self.rules, contract, function, _type)
             logging.info(
                 f" Rules: {(', '.join(rule['rule-type'] for rule in rules) if rules is not None else None)}")
@@ -110,32 +110,38 @@ class SolidityFuzzer():
                 _type,
                 rules=rules,
                 rule_closures=self.contracts[contract]['functions'][function]['constraints'],
+                argname=name,
                 # Assume all function calls will be within the same contract.
                 contract=contract,
                 contract_address=self.contracts[contract]['address'],
                 chain_fuzzer=self
             )
 
-            self.add_type_fuzzer(contract, function, _type, fuzzer)
+            self.add_type_fuzzer(contract, function, _type, name, fuzzer)
 
-        return self.get_type_fuzzer(contract, function, _type)()
+        return self.get_type_fuzzer(contract, function, _type, name)()
 
-    def add_type_fuzzer(self, contract, function, _type, fuzzer):
+    def add_type_fuzzer(self, contract, function, _type, name, fuzzer):
         if contract not in self.type_fuzzers:
             self.type_fuzzers[contract] = {}
 
         if function not in self.type_fuzzers[contract]:
             self.type_fuzzers[contract][function] = {}
 
-        print(f'Added fuzzer for {contract}.{function} with rules:')
+        if _type not in self.type_fuzzers[contract][function]:
+            self.type_fuzzers[contract][function][_type] = {}
+
+        has_rules = len(fuzzer.rules) != 0
+
+        print(f'Added fuzzer for {contract}.{function}, argument ({_type} {name}) {"with rules:" if has_rules else ""}')
         for rule in fuzzer.rules:
             print(f'\t{type(rule)}')
 
-        self.type_fuzzers[contract][function][_type] = fuzzer
+        self.type_fuzzers[contract][function][_type][name] = fuzzer
 
-    def get_type_fuzzer(self, contract, function, _type):
+    def get_type_fuzzer(self, contract, function, _type, name):
         try:
-            return self.type_fuzzers[contract][function][_type]
+            return self.type_fuzzers[contract][function][_type][name]
         except KeyError:
             return None
 

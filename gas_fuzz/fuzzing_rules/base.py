@@ -1,9 +1,10 @@
 from random import randint
 
 class BaseFuzzerRule():
-    def __init__(self, rule, fuzzer=None, loc=0, **kwargs):
+    def __init__(self, rule, fuzzer=None, loc=0, related_args=[], **kwargs):
         self.fuzzer = fuzzer
         self.validate_rules(rule)
+        self.related_args = related_args
 
         self.loc = loc
 
