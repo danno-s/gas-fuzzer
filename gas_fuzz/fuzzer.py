@@ -53,8 +53,6 @@ class SolidityFuzzer():
         self.contracts[contract_name]['address'] = address
 
     def register_function(self, contract_name, function_name, parameters, constraints):
-        print(f"Registering {contract_name}.{function_name}")
-
         self.contracts[contract_name]['functions'][function_name] = {
             'parameters': [par for par in parameters],
             'constraints': constraints
@@ -100,11 +98,10 @@ class SolidityFuzzer():
     def fuzz_arg(self, contract, function, _type, name):
         # Load fuzzers dynamically based on the given type
         if not self.get_type_fuzzer(contract, function, _type, name):
-            logging.info(
-                f" Assigning rules for {contract}.{function} ({_type} {name})")
+            logging.info(f"Creating new fuzzer for {contract}.{function}, argument ({_type} {name})")
+            logging.info(f"\tAssigning rules...")
             rules = parse_rules(self.rules, contract, function, _type)
-            logging.info(
-                f" Rules: {(', '.join(rule['rule-type'] for rule in rules) if rules is not None else None)}")
+
 
             fuzzer = fuzzer_from_type(
                 _type,
@@ -119,7 +116,9 @@ class SolidityFuzzer():
 
             self.add_type_fuzzer(contract, function, _type, name, fuzzer)
 
-        return self.get_type_fuzzer(contract, function, _type, name)()
+        logging.debug(f"Generating arguments for {contract}.{function} ({_type} {name})...")
+
+        return self.get_type_fuzzer(contract, function, _type, name).next_valid()
 
     def add_type_fuzzer(self, contract, function, _type, name, fuzzer):
         if contract not in self.type_fuzzers:
@@ -133,9 +132,9 @@ class SolidityFuzzer():
 
         has_rules = len(fuzzer.rules) != 0
 
-        print(f'Added fuzzer for {contract}.{function}, argument ({_type} {name}) {"with rules:" if has_rules else ""}')
+        logging.info(f'\tAdded fuzzer for {contract}.{function}, argument ({_type} {name}) {"with rules:" if has_rules else "without any rules"}')
         for rule in fuzzer.rules:
-            print(f'\t{type(rule)}')
+            logging.info(f'\t\t{rule}')
 
         self.type_fuzzers[contract][function][_type][name] = fuzzer
 

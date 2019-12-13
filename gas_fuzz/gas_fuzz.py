@@ -22,6 +22,7 @@ from solc import install_solc
 from pprint import pprint
 
 import logging
+import colorlog
 
 
 def main():
@@ -43,12 +44,13 @@ def main():
     parser.add_argument("-cf", "--constantinople", action='store_const',
                         dest="fork", const=forks.ConstantinopleVM, help="use Constantinople VM")
     parser.add_argument("-s", "--simulations", metavar="S", type=int,
-                        default=8, help="number of total simulations to execute")
+                        default=1, help="number of total simulations to execute")
     parser.add_argument("file", help="File with all contracts to fuzz")
     parser.add_argument("-r", "--rules", help="file with fuzzing rules")
     parser.add_argument("-b", "--batch", action='store_true',
                         help="process all files in the directory pointed by file")
-    parser.add_argument("-l", "--log", action='store_true', help="Log information about the fuzzing process to stdout")
+    parser.add_argument("-l", "--log", type=int, default=2,
+                        help="Log level to be used. From 0 to 5, CHAIN DEBUG (0), DEBUG (1), INFO (2, default), WARNING (3), ERROR (4), CRITICAL (5)")
 
     args = parser.parse_args()
 
@@ -61,7 +63,7 @@ def main():
 
         total_functions = count_functions(compiled['contracts'])
         progress = ProgressBar(total_ops=args.simulations * total_functions *
-                               args.block_tx, preamble=f"fuzzing {getFileName(file)}.sol")
+                               args.block_tx, preamble=f"Fuzzing {getFileName(file)}.sol")
 
         def simulation_runner():
             chain_class = FuzzingChain.configure(
@@ -71,7 +73,8 @@ def main():
                      args.fork if args.fork else forks.ByzantiumVM),
                 )
             )
-            logging.basicConfig(level=logging.WARN if not args.log else logging.INFO)
+            colorlog.basicConfig(level=args.log * 10, format='%(log_color)s[%(levelname)-8s %(threadName)10s]%(reset)s %(message)s')
+            logging.addLevelName(0, "CHAIN DEBUG")
 
             chain = chain_class.init(
                 compiled['contracts'], ast=compiled['sources'], tx=args.block_tx, rules=args.rules, progress=progress)
@@ -83,7 +86,7 @@ def main():
 
         total_data = FuzzingData()
 
-        with ThreadPoolExecutor() as executor:
+        with ThreadPoolExecutor(thread_name_prefix="Simulation") as executor:
             future_to_id = {executor.submit(
                 simulation_runner): i for i in range(args.simulations)}
 
@@ -92,9 +95,8 @@ def main():
                 try:
                     total_data.merge(future.result())
                 except Exception as exc:
-                    print(
-                        f'Simulation {sim_id} generated an exception: {type(exc)}: {exc}')
-                    raise exc
+                    logging.critical(
+                        f'Simulation {sim_id} generated an exception:\n{type(exc).__name__}:\n\t{exc}')
 
         sys.stdout.write("\033[K")
         print("Saving results...", end="\r")

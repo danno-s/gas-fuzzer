@@ -9,5 +9,4 @@ from .numeric_rules import (
 from .generic_rules import (
     Constant,
     NotEqual,
-    FunctionCall,
 )

@@ -1,6 +1,5 @@
 from pprint import pprint
 
-
 from . import (
     NotEqual,
     GreaterThan,
@@ -8,7 +7,6 @@ from . import (
     GreaterThanEqual,
     LessThanEqual,
     Constant,
-    FunctionCall,
 )
 
 #### UTILITIES ####
@@ -118,11 +116,59 @@ def greater_than(function_ast, parameters, function_callback):
         # arg > value
         return from_value(GreaterThan, { 'min': value }, loc=function_ast['src'], related_args=[name])
 
+def less_than(function_ast, parameters, function_callback):
+    condition_sides = sides(function_ast, parameters)
+
+    if not condition_sides:
+        return None
+
+    value, on_left, name = condition_sides
+
+    if on_left:
+        # value < arg
+        return from_value(GreaterThan, { 'min': value }, loc=function_ast['src'], related_args=[name])
+    else:
+        # arg < value
+        return from_value(LessThan, { 'max': value }, loc=function_ast['src'], related_args=[name])
+
+def greater_than_equal(function_ast, parameters, function_callback):
+    condition_sides = sides(function_ast, parameters)
+
+    if not condition_sides:
+        return None
+
+    value, on_left, name = condition_sides
+
+    if on_left:
+        # value > arg
+        return from_value(LessThanEqual, { 'max': value }, loc=function_ast['src'], related_args=[name])
+    else:
+        # arg > value
+        return from_value(GreaterThanEqual, { 'min': value }, loc=function_ast['src'], related_args=[name])
+
+def less_than_equal(function_ast, parameters, function_callback):
+    condition_sides = sides(function_ast, parameters)
+
+    if not condition_sides:
+        return None
+
+    value, on_left, name = condition_sides
+
+    if on_left:
+        # value < arg
+        return from_value(GreaterThanEqual, { 'min': value }, loc=function_ast['src'], related_args=[name])
+    else:
+        # arg < value
+        return from_value(LessThanEqual, { 'max': value }, loc=function_ast['src'], related_args=[name])
+
 ## AST to handler function binding
 binary_operators = {
     '==': equal,
     '!=': not_equal,
     '>': greater_than,
+    '<': less_than,
+    '>=': greater_than_equal,
+    '<=': less_than_equal,
 }
 
 #### UNARY OPERATIONS ####
@@ -141,18 +187,6 @@ unary_operators = {
     '!': negate
 }
 
-#### FUNCTION CALLS ####
-def function_call(function_ast, parameters, function_callback):
-    if len(function_ast['expression']['argumentTypes']) > 0:
-        # Not made for argument parsing yet :(
-        return None
-
-    name = function_ast['expression']['name']
-
-    return from_value(FunctionCall, { 'name': name }, function_ast['src'], callback=function_callback)
-
-
-
 #### ENTRY POINT ####
 def new_constraint(function_ast, parameters, function_callback):
     """
@@ -169,5 +203,4 @@ def new_constraint(function_ast, parameters, function_callback):
 operations = {
     'UnaryOperation': unary_operation,
     'BinaryOperation': binary_operation,
-    'FunctionCall': function_call,
 }

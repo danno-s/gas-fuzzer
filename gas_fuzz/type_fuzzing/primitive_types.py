@@ -5,31 +5,70 @@ from decimal import Decimal
 from string import printable
 
 from .base import BaseTypeFuzzer
-from fuzzing_rules import (
-    Limits,
-    Constant,
-    NotEqual,
-    GreaterThan,
-    GreaterThanEqual,
-    LessThan,
-    LessThanEqual,
-)
+
+import logging
 
 class UIntFuzzer(BaseTypeFuzzer):
-    valid_rules = [
-        Limits,
-        Constant,
-        NotEqual,
-        GreaterThan,
-        GreaterThanEqual,
-        LessThan,
-        LessThanEqual,
-    ]
-
     def __init__(self, bits, **kwargs):
         assert bits % 8 == 0 and 0 < bits <= 256, f"invalid bit number {bits} for type uint"
         self.bits = bits
+
+        # List of values to avoid
+        self._except = []
+
+        # If the value is requested to equal some constant
+        self.constant = None
+
+        # Lower bound for the generation, inclusive
+        self.min = 0
+
+        # Upper bound for the generation, inclusive
+        self.max = 2 ** self.bits - 1
+
         super().__init__(**kwargs)
+
+    def avoid(self, value):
+        '''Add value to the list of forbidden values for this fuzzer
+        '''
+        if value not in self._except:
+            self._except += [value]
+
+    def only(self, value):
+        '''Set this fuzzer to only generate a constant
+        '''
+        if self.constant is None:
+            self.constant = value
+
+    def greater_than(self, value):
+        '''Set this fuzzer to generate values greater than to value
+        '''
+        self.greater_than_equal(value + 1)
+    
+    def less_than(self, value):
+        '''Set this fuzzer to generate values less than to value
+        '''
+        self.less_than_equal(value - 1)
+
+    def greater_than_equal(self, value):
+        '''Set this fuzzer to generate values greater than or equal to value
+        '''
+        if self.min < value:
+            self.min = value
+    
+    def less_than_equal(self, value):
+        '''Set this fuzzer to generate values less than or equal to value
+        '''
+        if self.max > value:
+            self.max = value
+
+    def empty_set(self):
+        # x != b followed by x == b
+        if self.constant is not None and self.constant in self._except:
+            return True
+
+        # lower and upper bounds passed each other
+        if self.max < self.min:
+            return True
 
     def validate(self, value):
         assert value >= 0, f"{self} values must be higher than 0. (got {value})"
@@ -37,10 +76,24 @@ class UIntFuzzer(BaseTypeFuzzer):
         return value
 
     def next(self):
-        return randint(0, 2 ** self.bits - 1)
+        if self.constant is not None:
+            return self.constant
+
+        while True:
+            val = randint(self.min, self.max)
+            if val not in self._except:
+                return val
 
     def __str__(self):
         return "uint"
+
+    def constraints_to_str(self):
+        return f"""{self.pretty_str()}:
+        Minimum value: {self.min}
+        Maximum value: {self.max}
+
+        Constant value: {self.constant}
+        Avoided values: {self._except}"""
 
     def get_names(self):
         if self.bits == 256:

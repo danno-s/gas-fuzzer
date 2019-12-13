@@ -8,12 +8,11 @@ contract Counter {
     }
 
     function divide(uint8 factor, uint8 not_used) public returns (uint) {
-        require(factor != 0, "Can't divide by 0");
+        require(factor >= 0, "Can't divide by 0");
 
-        not_used++;
-
+        require(factor <= 15, "Arbitrary rule!");
+        
         if (factor > 0) {
-            require(factor == 150, "Must divide by 150");
             count /= -factor;
         }
         count /= factor;
