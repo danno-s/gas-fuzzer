@@ -11,15 +11,16 @@ class BaseTypeFuzzer():
         self.rules.sort(key=lambda rule: rule.loc)
 
         self.argname = argname
-
-        # Delay the application to the fuzzer to accurately point out impossible logical constraints
-        self.apply_rules()
-
+        
         # List of values to avoid
         self._except = []
 
         # If the value is requested to equal some constant
         self.constant = None
+
+        # Delay the application to the fuzzer to accurately point out impossible logical constraints
+        self.apply_rules()
+
 
     def avoid(self, value):
         '''Add value to the list of forbidden values for this fuzzer

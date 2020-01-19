@@ -51,6 +51,7 @@ def main():
                         help="process all files in the directory pointed by file")
     parser.add_argument("-l", "--log", type=int, default=2,
                         help="Log level to be used. From 0 to 5, CHAIN DEBUG (0), DEBUG (1), INFO (2, default), WARNING (3), ERROR (4), CRITICAL (5)")
+    parser.add_argument("-d", "--debug", action='store_true', help="print stack traces")
 
     args = parser.parse_args()
 
@@ -97,6 +98,9 @@ def main():
                 except Exception as exc:
                     logging.critical(
                         f'Simulation {sim_id} generated an exception:\n{type(exc).__name__}:\n\t{exc}')
+
+                    if (args.debug):
+                        raise exc
 
         sys.stdout.write("\033[K")
         print("Saving results...", end="\r")
