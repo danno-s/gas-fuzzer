@@ -17,10 +17,7 @@ def parse_rules(rules, contract, function, _type):
         )
 
     try:
-        return (
-            type_object["rules"],
-            type_object["selector"] if "selector" in type_object else None
-        ) if type_object is not None else (None, None)
+        return type_object["rules"] if type_object is not None else None
     except KeyError:
         raise InvalidRuleError("Types must define rules when declared.")
 

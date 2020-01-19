@@ -1,19 +1,7 @@
 {
-    "contract-selector": {
-        "selector-type": "<selector-name>",
-        "selector-args": "..."
-    },
     "<contract-name>": {
-        "function-selector": {
-            "selector-type": "<selector-name>",
-            "selector-args": "..."
-        },
         "<function-name>": {
             "<type-name>": {
-                "selector": {
-                    "selector-type": "<selector-name>",
-                    "selector-args": "..."
-                },
                 "rules": [
                     {
                         "rule-type": "<rule-name>",

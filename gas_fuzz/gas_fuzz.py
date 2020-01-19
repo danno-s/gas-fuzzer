@@ -22,22 +22,36 @@ from solc import install_solc
 from pprint import pprint
 
 import logging
+import colorlog
+
 
 def main():
     # Receives a list of source files to fuzz.
-    parser = argparse.ArgumentParser(description="Fuzz a contract to find out expected gas costs.")
-    parser.add_argument("-tx", "--block-tx", metavar="T", type=int, default=10, help="average number of transactions executed per function")
-    parser.add_argument("-ff", "--frontier", action='store_const', dest="fork", const=forks.FrontierVM, help="use Frontier VM")
-    parser.add_argument("-hf", "--homestead", action='store_const', dest="fork", const=forks.HomesteadVM, help="use Homestead VM")
-    parser.add_argument("-twf", "--tangerine-whistle", action='store_const', dest="fork", const=forks.TangerineWhistleVM, help="use Tangerine Whistle VM")
-    parser.add_argument("-sdf", "--spurious-dragon", action='store_const', dest="fork", const=forks.SpuriousDragonVM, help="use Spurious Dragon VM")
-    parser.add_argument("-bf", "--byzantium", action='store_const', dest="fork", const=forks.ByzantiumVM, help="use Byzantium VM (default)")
-    parser.add_argument("-cf", "--constantinople", action='store_const', dest="fork", const=forks.ConstantinopleVM, help="use Constantinople VM")
-    parser.add_argument("-s", "--simulations", metavar="S", type=int, default=8, help="number of total simulations to execute")
+    parser = argparse.ArgumentParser(
+        description="Fuzz a contract to find out expected gas costs.")
+    parser.add_argument("-tx", "--block-tx", metavar="T", type=int, default=10,
+                        help="average number of transactions executed per function")
+    parser.add_argument("-ff", "--frontier", action='store_const',
+                        dest="fork", const=forks.FrontierVM, help="use Frontier VM")
+    parser.add_argument("-hf", "--homestead", action='store_const',
+                        dest="fork", const=forks.HomesteadVM, help="use Homestead VM")
+    parser.add_argument("-twf", "--tangerine-whistle", action='store_const',
+                        dest="fork", const=forks.TangerineWhistleVM, help="use Tangerine Whistle VM")
+    parser.add_argument("-sdf", "--spurious-dragon", action='store_const',
+                        dest="fork", const=forks.SpuriousDragonVM, help="use Spurious Dragon VM")
+    parser.add_argument("-bf", "--byzantium", action='store_const', dest="fork",
+                        const=forks.ByzantiumVM, help="use Byzantium VM (default)")
+    parser.add_argument("-cf", "--constantinople", action='store_const',
+                        dest="fork", const=forks.ConstantinopleVM, help="use Constantinople VM")
+    parser.add_argument("-s", "--simulations", metavar="S", type=int,
+                        default=1, help="number of total simulations to execute")
     parser.add_argument("file", help="File with all contracts to fuzz")
     parser.add_argument("-r", "--rules", help="file with fuzzing rules")
-    parser.add_argument("-b", "--batch", action='store_true', help="process all files in the directory pointed by file")
-
+    parser.add_argument("-b", "--batch", action='store_true',
+                        help="process all files in the directory pointed by file")
+    parser.add_argument("-l", "--log", type=int, default=2,
+                        help="Log level to be used. From 0 to 5, CHAIN DEBUG (0), DEBUG (1), INFO (2, default), WARNING (3), ERROR (4), CRITICAL (5)")
+    parser.add_argument("-d", "--debug", action='store_true', help="print stack traces")
 
     args = parser.parse_args()
 
@@ -46,21 +60,25 @@ def main():
         files = glob(f"{args.file}/*.sol")
 
     for file in files:
-        contracts = compile(file, args.fork)
+        compiled = compile(file, args.fork)
 
-        total_functions = count_functions(contracts)
-        progress = ProgressBar(total_ops=args.simulations * total_functions * args.block_tx, preamble=f"fuzzing {getFileName(file)}.sol")
+        total_functions = count_functions(compiled['contracts'])
+        progress = ProgressBar(total_ops=args.simulations * total_functions *
+                               args.block_tx, preamble=f"Fuzzing {getFileName(file)}.sol")
 
         def simulation_runner():
             chain_class = FuzzingChain.configure(
-                __name__ = 'Fuzzing Chain',
-                vm_configuration = (
-                    (constants.GENESIS_BLOCK_NUMBER, args.fork if args.fork else forks.ByzantiumVM),
+                __name__='Fuzzing Chain',
+                vm_configuration=(
+                    (constants.GENESIS_BLOCK_NUMBER,
+                     args.fork if args.fork else forks.ByzantiumVM),
                 )
             )
-            logging.basicConfig(filename="fuzzing_log", level=logging.INFO)
+            colorlog.basicConfig(level=args.log * 10, format='%(log_color)s[%(levelname)-8s %(threadName)10s]%(reset)s %(message)s')
+            logging.addLevelName(0, "CHAIN DEBUG")
 
-            chain = chain_class.init(contracts, tx=args.block_tx, rules=args.rules, progress=progress)
+            chain = chain_class.init(
+                compiled['contracts'], ast=compiled['sources'], tx=args.block_tx, rules=args.rules, progress=progress)
 
             for _ in range(total_functions):
                 chain.fuzz()
@@ -69,16 +87,20 @@ def main():
 
         total_data = FuzzingData()
 
-        with ThreadPoolExecutor() as executor:
-            future_to_id = {executor.submit(simulation_runner): i for i in range(args.simulations)}
+        with ThreadPoolExecutor(thread_name_prefix="Simulation") as executor:
+            future_to_id = {executor.submit(
+                simulation_runner): i for i in range(args.simulations)}
 
             for future in as_completed(future_to_id):
                 sim_id = future_to_id[future]
                 try:
                     total_data.merge(future.result())
                 except Exception as exc:
-                    print(f'Simulation {sim_id} generated an exception: {type(exc)}: {exc}')
-                    raise exc
+                    logging.critical(
+                        f'Simulation {sim_id} generated an exception:\n{type(exc).__name__}:\n\t{exc}')
+
+                    if (args.debug):
+                        raise exc
 
         sys.stdout.write("\033[K")
         print("Saving results...", end="\r")
@@ -97,8 +119,10 @@ def getEvmVersion(fork):
         return "constantinople"
     return "byzantium"
 
+
 def compile(file, fork):
-    solc_path = os.path.join(os.environ["HOME"], ".py-solc/solc-v0.4.25/bin/solc")
+    solc_path = os.path.join(
+        os.environ["HOME"], ".py-solc/solc-v0.4.25/bin/solc")
 
     if not os.path.isfile(solc_path):
         install_solc('v0.4.25')
@@ -119,12 +143,12 @@ def compile(file, fork):
     evmVersion = getEvmVersion(fork)
 
     result = subprocess.run([
-            solc_path,
-            "--standard-json",
-            "--allow-paths",
-            ",".join(allow_paths)
-        ],
-        input = dumps({
+        solc_path,
+        "--standard-json",
+        "--allow-paths",
+        ",".join(allow_paths)
+    ],
+        input=dumps({
             'language': 'Solidity',
             'sources': sources,
             'settings': {
@@ -137,15 +161,18 @@ def compile(file, fork):
                             "evm.bytecode.object",
                             "evm.methodIdentifiers",
                             "evm.gasEstimates"
+                        ],
+                        "": [
+                            "ast"
                         ]
                     }
                 }
             }
         }),
-        stdout = subprocess.PIPE,
-        stderr = subprocess.PIPE,
-        check = True,
-        encoding = "utf-8"
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=True,
+        encoding="utf-8"
     )
 
     output = loads(result.stdout)
@@ -156,8 +183,8 @@ def compile(file, fork):
             raise RuntimeError(output['errors'])
         # else: code compiled with errors
 
+    return output
 
-    return output['contracts']
 
 def count_functions(contracts):
     counter = 0
@@ -165,8 +192,9 @@ def count_functions(contracts):
         for contract, desc in file_contracts.items():
             for obj in desc['abi']:
                 counter = counter + 1 if obj['type'] == 'function' else counter
-    
+
     return counter
+
 
 def getFileName(file):
     fileNamePattern = re.compile(r'(?P<fileName>.*?).sol')
@@ -178,6 +206,7 @@ def getFileName(file):
     if match:
         return match.group(1)
     raise ValueError("Invalid filename (couldn't parse)")
+
 
 if __name__ == '__main__':
     main()

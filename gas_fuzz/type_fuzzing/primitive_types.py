@@ -5,21 +5,16 @@ from decimal import Decimal
 from string import printable
 
 from .base import BaseTypeFuzzer
-from fuzzing_rules.rules import (
-    Limits,
-    Constant
-)
+from .numeric import NumericTypeFuzzer
 
-class UIntFuzzer(BaseTypeFuzzer):
-    valid_rules = [
-        Limits,
-        Constant
-    ]
+import logging
 
+class UIntFuzzer(NumericTypeFuzzer):
     def __init__(self, bits, **kwargs):
         assert bits % 8 == 0 and 0 < bits <= 256, f"invalid bit number {bits} for type uint"
         self.bits = bits
-        super().__init__(**kwargs)
+
+        super().__init__(min = 0, max = 2 ** self.bits - 1, **kwargs)
 
     def validate(self, value):
         assert value >= 0, f"{self} values must be higher than 0. (got {value})"
@@ -27,7 +22,13 @@ class UIntFuzzer(BaseTypeFuzzer):
         return value
 
     def next(self):
-        return randint(0, 2 ** self.bits - 1)
+        if self.constant is not None:
+            return self.constant
+
+        while True:
+            val = randint(self.min, self.max)
+            if val not in self._except:
+                return val
 
     def __str__(self):
         return "uint"
@@ -37,20 +38,34 @@ class UIntFuzzer(BaseTypeFuzzer):
             yield str(self)
         yield f"{str(self)}{self.bits}"
 
-class IntFuzzer(UIntFuzzer):
+class IntFuzzer(NumericTypeFuzzer):
     def __init__(self, bits, **kwargs):
-        super().__init__(bits, **kwargs)
+        assert bits % 8 == 0 and 0 < bits <= 256, f"invalid bit number {bits} for type uint"
+        self.bits = bits
+
+        super().__init__(min = -2 ** (self.bits - 1) , max = 2 ** (self.bits - 1) - 1, **kwargs)
 
     def validate(self, value):
-        assert value < 2 ** (self.bits - 1), f"{self} values must be lower than {2 ** (self.bits - 1)}. (got {value})"
-        assert value >= -2 ** (self.bits - 1), f"{self} values must be greater than {-2 ** (self.bits - 1) - 1}. (got {value})"
+        assert value >= 0, f"{self} values must be higher than 0. (got {value})"
+        assert value < 2 ** self.bits, f"{self} values must be lower than {2 ** self.bits - 1}. (got {value})"
         return value
 
     def next(self):
-        return randint(-2 ** (self.bits - 1), 2 ** (self.bits - 1) - 1)
+        if self.constant is not None:
+            return self.constant
+
+        while True:
+            val = randint(self.min, self.max)
+            if val not in self._except:
+                return val
 
     def __str__(self):
         return "int"
+
+    def get_names(self):
+        if self.bits == 256:
+            yield str(self)
+        yield f"{str(self)}{self.bits}"
 
 class AddressFuzzer(UIntFuzzer):
     def __init__(self, **kwargs):
@@ -63,7 +78,13 @@ class AddressFuzzer(UIntFuzzer):
         return "address"
 
     def next(self):
-        return super().next().to_bytes(length=20, byteorder='big')
+        if self.constant is not None:
+            return self.constant
+
+        while True:
+            val = super().next()
+            if val not in self._except:
+                return val.to_bytes(length=20, byteorder='big')
 
 class BoolFuzzer(BaseTypeFuzzer):
     def __init__(self, **kwargs):
@@ -72,6 +93,9 @@ class BoolFuzzer(BaseTypeFuzzer):
     def validate(self, value):
         assert value in [True, False], f"got {value} non bool type"
         return value
+
+    def empty_set(self):
+        return True in self._except and False in self._except
 
     def next(self):
         return choice([True, False])

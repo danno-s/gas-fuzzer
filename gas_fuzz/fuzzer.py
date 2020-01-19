@@ -12,20 +12,22 @@ from pprint import pprint
 
 import logging
 
+
 class SolidityFuzzer():
     def __init__(self,
                  faucet_callback,
-                 faucet_sk = None,
-                 new_account_chance = 0.25, 
-                 max_balance = 1000,
-                 rules = None):
+                 faucet_sk=None,
+                 new_account_chance=0.25,
+                 max_balance=1000,
+                 rules=None):
         self.max_balance = max_balance
-        
+
         self.rules = None
         if rules:
             with open(rules) as rule_file:
                 self.rules = json.load(rule_file)
 
+        self.contracts = {}
         self.faucet_sk = faucet_sk
         self.type_fuzzers = {}
 
@@ -34,23 +36,57 @@ class SolidityFuzzer():
         }
 
         self.faucet_callback = faucet_callback
-        
+
         self.accounts = []
 
         self.balances = {}
 
         self.new_account()
 
+    def register_contract(self, contract_name, variables):
+        self.contracts[contract_name] = {
+            'variables': [var for var in variables],
+            'functions': {},
+        }
+
+    def set_contract_address(self, contract_name, address):
+        self.contracts[contract_name]['address'] = address
+
+    def register_function(self, contract_name, function_name, parameters, constraints):
+        self.contracts[contract_name]['functions'][function_name] = {
+            'parameters': [par for par in parameters],
+            'constraints': constraints
+        }
+    
+    def set_function_hash(self, contract_name, function_name, f_hash):
+        self.contracts[contract_name]['functions'][function_name]['hash'] = f_hash
+    
+    def set_mutability(self, contract_name, function_name, mut):
+        self.contracts[contract_name]['functions'][function_name]['mutable'] = mut
+
+    def set_out(self, contract_name, function_name, out):
+        self.contracts[contract_name]['functions'][function_name]['out'] = out
+
+    def set_args(self, contract_name, function_name, args):
+        fxs = self.contracts[contract_name]['functions']
+
+        if function_name not in fxs:
+            fxs[function_name] = {}
+
+        fxs[function_name]['args'] = args
+
+
     def generate_args(self, contract, function, args, value=True):
         sk, pk = self.get_account()
+
         primitive_args = [
             (
-                arg['name'], 
-                arg['type'], 
-                self.fuzz_arg(contract, function, arg['type'])
+                arg['name'],
+                arg['type'],
+                self.fuzz_arg(contract, function, arg['type'], arg['name'])
             ) for arg in args
         ]
-
+        
         return {
             'sk': sk,
             'pk': pk,
@@ -59,31 +95,52 @@ class SolidityFuzzer():
             'data': b''.join(encode_single(_type, arg) for _, _type, arg in primitive_args)
         }
 
-    def fuzz_arg(self, contract, function, _type):
+    def fuzz_arg(self, contract, function, _type, name):
         # Load fuzzers dynamically based on the given type
-        if not self.get_type_fuzzer(contract, function, _type):
-            logging.info(f" Assigning rules for {contract}.{function} ({_type})")
-            rules, selector = parse_rules(self.rules, contract, function, _type)
-            logging.info(f" Rules: {(', '.join(rule['rule-type'] for rule in rules) if rules is not None else None)}")
-            logging.info(f" Selector: {selector['selector-type'] if selector is not None else None}")
+        if not self.get_type_fuzzer(contract, function, _type, name):
+            logging.info(f"Creating new fuzzer for {contract}.{function}, argument ({_type} {name})")
+            logging.info(f"\tAssigning rules...")
+            rules = parse_rules(self.rules, contract, function, _type)
 
-            fuzzer = fuzzer_from_type(_type, rules=rules, selector=selector)
-            self.add_type_fuzzer(contract, function, _type, fuzzer)
 
-        return self.get_type_fuzzer(contract, function, _type)()
+            fuzzer = fuzzer_from_type(
+                _type,
+                rules=rules,
+                rule_closures=self.contracts[contract]['functions'][function]['constraints'],
+                argname=name,
+                # Assume all function calls will be within the same contract.
+                contract=contract,
+                contract_address=self.contracts[contract]['address'],
+                chain_fuzzer=self
+            )
 
-    def add_type_fuzzer(self, contract, function, _type, fuzzer): 
+            self.add_type_fuzzer(contract, function, _type, name, fuzzer)
+
+        logging.debug(f"Generating arguments for {contract}.{function} ({_type} {name})...")
+
+        return self.get_type_fuzzer(contract, function, _type, name).next_valid()
+
+    def add_type_fuzzer(self, contract, function, _type, name, fuzzer):
         if contract not in self.type_fuzzers:
             self.type_fuzzers[contract] = {}
 
         if function not in self.type_fuzzers[contract]:
             self.type_fuzzers[contract][function] = {}
-        
-        self.type_fuzzers[contract][function][_type] = fuzzer
 
-    def get_type_fuzzer(self, contract, function, _type):
+        if _type not in self.type_fuzzers[contract][function]:
+            self.type_fuzzers[contract][function][_type] = {}
+
+        has_rules = len(fuzzer.rules) != 0
+
+        logging.info(f'\tAdded fuzzer for {contract}.{function}, argument ({_type} {name}) {"with rules:" if has_rules else "without any rules"}')
+        for rule in fuzzer.rules:
+            logging.info(f'\t\t{rule}')
+
+        self.type_fuzzers[contract][function][_type][name] = fuzzer
+
+    def get_type_fuzzer(self, contract, function, _type, name):
         try:
-            return self.type_fuzzers[contract][function][_type]
+            return self.type_fuzzers[contract][function][_type][name]
         except KeyError:
             return None
 
@@ -94,7 +151,8 @@ class SolidityFuzzer():
 
     def new_account(self):
         while True:
-            sk = keys.PrivateKey(randint(1, 2 ** 32 - 1).to_bytes(32, byteorder='big'))
+            sk = keys.PrivateKey(
+                randint(1, 2 ** 32 - 1).to_bytes(32, byteorder='big'))
 
             breakable = not sk == self.faucet_sk
             for ac_sk, _ in self.accounts:
@@ -109,13 +167,16 @@ class SolidityFuzzer():
         self.accounts.append(account)
 
         self.balances[pk] = randint(0, self.max_balance)
-        
+
         self.faucet_callback(pk, self.balances[pk])
 
         return account
 
+    def undo_account(self, account):
+        self.accounts.remove(account)
+        del self.balances[account[1]]
+
     def randvalue(self, pk):
-        value = randint(0, self.balances[pk]) 
+        value = randint(0, self.balances[pk])
         self.balances[pk] -= value
         return value
-

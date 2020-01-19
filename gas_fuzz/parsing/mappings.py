@@ -9,7 +9,3 @@ rules = {
     "limits": Limits,
     "constant": Constant
 }
-
-selectors = {
-
-}
