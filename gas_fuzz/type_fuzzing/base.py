@@ -15,6 +15,28 @@ class BaseTypeFuzzer():
         # Delay the application to the fuzzer to accurately point out impossible logical constraints
         self.apply_rules()
 
+        # List of values to avoid
+        self._except = []
+
+        # If the value is requested to equal some constant
+        self.constant = None
+
+    def avoid(self, value):
+        '''Add value to the list of forbidden values for this fuzzer
+        '''
+        if value not in self._except:
+            self._except += [value]
+
+    def only(self, value):
+        '''Set this fuzzer to only generate a constant
+        '''
+        if self.constant is None:
+            self.constant = value
+
+    def empty_set(self):
+        # x != b followed by x == b
+        return self.constant is not None and self.constant in self._except
+
     def apply_rules(self):
         for rule in self.rules:
             rule.apply_to(self)
@@ -37,7 +59,9 @@ class BaseTypeFuzzer():
 
     def constraints_to_str(self):
         """Prints the solidity type this fuzzer generates"""
-        raise NotImplementedError(f"Subclass {type(self).__name__} must override constraints_to_str")
+        return """
+        Constant value: {self.constant}
+        Avoided values: {self._except}"""
 
     def __str__(self):
         """Prints the solidity type this fuzzer generates"""
@@ -50,7 +74,3 @@ class BaseTypeFuzzer():
     def next(self):
         """Generates a new random value, without any generation rules"""
         raise NotImplementedError(f"Subclass {type(self).__name__} must override next")
-    
-    def empty_set(self):
-        """Returns true if the set of possible values is empty"""
-        raise NotImplementedError(f"Subclass {type(self).__name__} must override empty_set")

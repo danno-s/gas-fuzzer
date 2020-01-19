@@ -13,7 +13,7 @@ class Constant(BaseFuzzerRule):
         self.value = rules["value"]
 
     def applicable_to(self, fuzzer):
-        return type(fuzzer) in [UIntFuzzer]
+        return fuzzer.validate(self.value)
 
     def apply_to(self, fuzzer):
         fuzzer.only(self.value)
@@ -27,7 +27,7 @@ class NotEqual(BaseFuzzerRule):
         self.value = rules["value"]
 
     def applicable_to(self, fuzzer):
-        return type(fuzzer) in [UIntFuzzer]
+        return fuzzer.validate(self.value)
 
     def apply_to(self, fuzzer):
         fuzzer.avoid(self.value)
