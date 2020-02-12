@@ -6,10 +6,14 @@ from os.path import abspath
 import subprocess
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import sys
+import tempfile
+import io
 
 from glob import glob
 
 from json import dumps, loads
+
+from functools import reduce
 
 from fuzzing_chain import FuzzingChain
 from fuzzing_data import FuzzingData
@@ -60,7 +64,9 @@ def main():
         files = glob(f"{args.file}/*.sol")
 
     for file in files:
-        compiled = compile(file, args.fork)
+        compiled = process_and_compile(file, args.fork)
+
+        return
 
         total_functions = count_functions(compiled['contracts'])
         progress = ProgressBar(total_ops=args.simulations * total_functions *
@@ -118,6 +124,66 @@ def getEvmVersion(fork):
     if fork == forks.ConstantinopleVM:
         return "constantinople"
     return "byzantium"
+
+def process_and_compile(file, fork):
+    precompiled = compile(file, fork)
+
+    # Travel the AST to find all 'VariableDeclaration' nodes
+
+    def reduce_ast(acc, node):
+        if (type(node) is dict
+            and 'nodeType' in node
+            and node['nodeType'] == 'VariableDeclaration'
+            and 'stateVariable' in node
+            and node['stateVariable']
+            and node['visibility'] != 'public'
+        ):
+            acc.append({
+                'type': node['typeName']['name'],
+                'name': node['name'],
+                'offset': int(node['src'].split(':')[0]),
+                'length': int(node['src'].split(':')[1])
+            })
+        elif type(node) is list:
+            acc += reduce(reduce_ast, node, [])
+        elif type(node) is dict:
+            acc += reduce(reduce_ast, node.values(), [])
+
+        return acc
+
+    filename = file.split('/')[-1]
+
+    private_vars = reduce(reduce_ast, (precompiled['sources'][filename]['ast']['nodes']), [])
+
+    with tempfile.NamedTemporaryFile() as temp_file:
+        with io.open(file, 'r', newline='') as original_file:
+            temp_file.write(original_file.read().encode('utf-8'))
+
+        offset_diff = 0
+
+        for pvar in private_vars:
+            temp_file.seek(pvar['offset'] + offset_diff)
+            # Skip to the next line
+            temp_file.readline()
+
+            # Store the rest of the file
+            rest = temp_file.read()
+
+            # Return to where we were
+            temp_file.seek(pvar['offset'] + offset_diff)
+            
+            # Replace the state variable with a public one
+            temp_file.write(
+            f'''{pvar['type']} public {pvar['name']};
+'''.encode('utf-8'))
+
+            temp_file.write(rest)
+
+            offset_diff -= 2
+
+        temp_file.seek(0)
+
+        return compile(temp_file.name, fork)
 
 
 def compile(file, fork):
@@ -188,8 +254,8 @@ def compile(file, fork):
 
 def count_functions(contracts):
     counter = 0
-    for filename, file_contracts in contracts.items():
-        for contract, desc in file_contracts.items():
+    for _filename, file_contracts in contracts.items():
+        for _contract, desc in file_contracts.items():
             for obj in desc['abi']:
                 counter = counter + 1 if obj['type'] == 'function' else counter
 
