@@ -19,59 +19,28 @@ def from_value(cls, value, loc, related_args=[], **kwargs_outer):
 def side(exp, parameters):
     if exp['nodeType'] == 'Identifier':
         if exp['name'] in parameters:
-            side = {'name': exp['name']}
+            side = exp['name']
         else:
-            side = None
+            side = lambda: None
     elif exp['nodeType'] == 'Literal':
-        side = {'value': exp['value']}
+        side = lambda: exp['value']
     return side
 
 def sides(function_ast, parameters):
     """
     Given an ast, parses both sides of an expression.
-    Returns: 
-        None, if any identifier in the expression is not in the function's signature, or if both sides are identifiers.
-        The value of the literal side and a bool indicating if the value is in the left side, otherwise.
-    Examples (high level):
-        given:
-            func a()
-        then:
-            sides(b != 0) => None
-        
-        given:
-            func a(b)
-        then:
-            sides(b != 0) => (0, True)
-
-        given:
-            func a(b)
-        then:
-            sides(0 != b) => (0, False)
-
-        given:
-            func a(b, c)
-        then:
             sides(b != c) => None
     """
     left = side(function_ast['leftExpression'], parameters)
     right = side(function_ast['rightExpression'], parameters)
 
-    # First example
-    if not left and not right:
-        return None
+    return (left, right)
 
-    # Last example
-    if ('name' in left and 'name' in right):
-        return None
-        
-    # Second example, extract value
-    if 'value' in left and right:
-        return (int(left['value']), True, right['name'])
-
-    if 'value' in right and left:
-        return (int(right['value']), False, left['name'])
-
-    return None
+def valid_sides_for_constraint(left, right):
+    return (
+        left is not str and right is not str
+        and left is str and right is str
+    )
 
 #### BINARY OPERATIONS ####
 def binary_operation(function_ast, parameters, function_callback):
@@ -82,84 +51,104 @@ def binary_operation(function_ast, parameters, function_callback):
     return binary_operators[function_ast['operator']](function_ast, parameters, function_callback)
 
 def equal(function_ast, parameters, function_callback):
-    condition_sides = sides(function_ast, parameters)
+    left, right = sides(function_ast, parameters)
 
-    if not condition_sides:
+    # None were dependent on a parameter
+    if valid_sides_for_constraint(left, right):
         return None
 
-    value, _, name = condition_sides
+    thunk = left if left is not str else right
+    name = left if left is str else right
 
-    return from_value(Constant, { 'value': value }, function_ast['src'], related_args=[name])
+    return from_value(Constant, { 'value': thunk }, function_ast['src'], related_args=[name])
 
 def not_equal(function_ast, parameters, function_callback):
-    condition_sides = sides(function_ast, parameters)
+    left, right = sides(function_ast, parameters)
 
-    if not condition_sides:
+    # None were dependent on a parameter
+    if valid_sides_for_constraint(left, right):
         return None
 
-    value, _, name = condition_sides
+    thunk = left if left is not str else right
+    name = left if left is str else right
 
-    return from_value(NotEqual, { 'value': value }, loc=function_ast['src'], related_args=[name])
+    return from_value(NotEqual, { 'value': thunk }, loc=function_ast['src'], related_args=[name])
 
 def greater_than(function_ast, parameters, function_callback):
-    condition_sides = sides(function_ast, parameters)
+    left, right = sides(function_ast, parameters)
 
-    if not condition_sides:
+    # None were dependent on a parameter
+    if valid_sides_for_constraint(left, right):
         return None
 
-    value, on_left, name = condition_sides
+    thunk = left if left is not str else right
+    name = left if left is str else right
+
+    on_left = True if left is str else False
 
     if on_left:
         # value > arg
-        return from_value(LessThan, { 'max': value }, loc=function_ast['src'], related_args=[name])
+        return from_value(LessThan, { 'max': thunk }, loc=function_ast['src'], related_args=[name])
     else:
         # arg > value
-        return from_value(GreaterThan, { 'min': value }, loc=function_ast['src'], related_args=[name])
+        return from_value(GreaterThan, { 'min': thunk }, loc=function_ast['src'], related_args=[name])
 
 def less_than(function_ast, parameters, function_callback):
-    condition_sides = sides(function_ast, parameters)
+    left, right = sides(function_ast, parameters)
 
-    if not condition_sides:
+    # None were dependent on a parameter
+    if valid_sides_for_constraint(left, right):
         return None
 
-    value, on_left, name = condition_sides
+    thunk = left if left is not str else right
+    name = left if left is str else right
+
+    on_left = True if left is str else False
 
     if on_left:
         # value < arg
-        return from_value(GreaterThan, { 'min': value }, loc=function_ast['src'], related_args=[name])
+        return from_value(GreaterThan, { 'min': thunk }, loc=function_ast['src'], related_args=[name])
     else:
         # arg < value
-        return from_value(LessThan, { 'max': value }, loc=function_ast['src'], related_args=[name])
+        return from_value(LessThan, { 'max': thunk }, loc=function_ast['src'], related_args=[name])
 
 def greater_than_equal(function_ast, parameters, function_callback):
-    condition_sides = sides(function_ast, parameters)
+    left, right = sides(function_ast, parameters)
 
-    if not condition_sides:
+    # None were dependent on a parameter
+    if valid_sides_for_constraint(left, right):
         return None
 
-    value, on_left, name = condition_sides
+    thunk = left if left is not str else right
+    name = left if left is str else right
+
+    on_left = True if left is str else False
 
     if on_left:
         # value > arg
-        return from_value(LessThanEqual, { 'max': value }, loc=function_ast['src'], related_args=[name])
+        return from_value(LessThanEqual, { 'max': thunk }, loc=function_ast['src'], related_args=[name])
     else:
         # arg > value
-        return from_value(GreaterThanEqual, { 'min': value }, loc=function_ast['src'], related_args=[name])
+        return from_value(GreaterThanEqual, { 'min': thunk }, loc=function_ast['src'], related_args=[name])
 
 def less_than_equal(function_ast, parameters, function_callback):
-    condition_sides = sides(function_ast, parameters)
+    left, right = sides(function_ast, parameters)
 
-    if not condition_sides:
+    # None were dependent on a parameter
+    if valid_sides_for_constraint(left, right):
         return None
 
-    value, on_left, name = condition_sides
+    thunk = left if left is not str else right
+    name = left if left is str else right
+
+    on_left = True if left is str else False
 
     if on_left:
         # value < arg
-        return from_value(GreaterThanEqual, { 'min': value }, loc=function_ast['src'], related_args=[name])
+        return from_value(GreaterThanEqual, { 'min': thunk }, loc=function_ast['src'], related_args=[name])
     else:
         # arg < value
-        return from_value(LessThanEqual, { 'max': value }, loc=function_ast['src'], related_args=[name])
+        return from_value(LessThanEqual, { 'max': thunk }, loc=function_ast['src'], related_args=[name])
 
 ## AST to handler function binding
 binary_operators = {

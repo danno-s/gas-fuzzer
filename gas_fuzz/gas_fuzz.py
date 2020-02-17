@@ -66,8 +66,6 @@ def main():
     for file in files:
         compiled = process_and_compile(file, args.fork)
 
-        return
-
         total_functions = count_functions(compiled['contracts'])
         progress = ProgressBar(total_ops=args.simulations * total_functions *
                                args.block_tx, preamble=f"Fuzzing {getFileName(file)}.sol")
