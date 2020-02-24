@@ -26,7 +26,7 @@ class UIntFuzzer(NumericTypeFuzzer):
             return self.constant
 
         while True:
-            val = randint(self.min, self.max)
+            val = randint(self.min(), self.max())
             if val not in self._except:
                 return val
 
@@ -55,7 +55,7 @@ class IntFuzzer(NumericTypeFuzzer):
             return self.constant
 
         while True:
-            val = randint(self.min, self.max)
+            val = randint(self.min(), self.max())
             if val not in self._except:
                 return val
 
@@ -78,12 +78,12 @@ class AddressFuzzer(UIntFuzzer):
         return "address"
 
     def next(self):
-        if self.constant is not None:
-            return self.constant
+        if self.constant() is not None:
+            return self.constant()
 
         while True:
             val = super().next()
-            if val not in self._except:
+            if val not in self._except():
                 return val.to_bytes(length=20, byteorder='big')
 
 class BoolFuzzer(BaseTypeFuzzer):
@@ -95,7 +95,7 @@ class BoolFuzzer(BaseTypeFuzzer):
         return value
 
     def empty_set(self):
-        return True in self._except and False in self._except
+        return True in self._except() and False in self._except()
 
     def next(self):
         return choice([True, False])

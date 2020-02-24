@@ -1,8 +1,13 @@
 from .base import BaseFuzzerRule
 
 from type_fuzzing import (
-    UIntFuzzer
+    UIntFuzzer,
+    IntFuzzer,
+    FixedFuzzer,
+    UFixedFuzzer
 )
+
+import logging
 
 class GreaterThan(BaseFuzzerRule):
     def __init__(self, rules, **kwargs):
@@ -10,7 +15,7 @@ class GreaterThan(BaseFuzzerRule):
         self.min = rules["min"]
 
     def applicable_to(self, fuzzer):
-        return type(fuzzer) in [UIntFuzzer]
+        return type(fuzzer) in [UIntFuzzer, IntFuzzer, FixedFuzzer, UFixedFuzzer]
 
     def apply_to(self, fuzzer):
         fuzzer.greater_than(self.min)
@@ -24,7 +29,7 @@ class GreaterThanEqual(BaseFuzzerRule):
         self.min = rules["min"]
 
     def applicable_to(self, fuzzer):
-        return type(fuzzer) in [UIntFuzzer]
+        return type(fuzzer) in [UIntFuzzer, IntFuzzer, FixedFuzzer, UFixedFuzzer]
 
     def apply_to(self, fuzzer):
         fuzzer.greater_than_equal(self.min)
@@ -38,7 +43,7 @@ class LessThan(BaseFuzzerRule):
         self.max = rules["max"]
 
     def applicable_to(self, fuzzer):
-        return type(fuzzer) in [UIntFuzzer]
+        return type(fuzzer) in [UIntFuzzer, IntFuzzer, FixedFuzzer, UFixedFuzzer]
 
     def apply_to(self, fuzzer):
         fuzzer.less_than(self.max)
@@ -52,7 +57,7 @@ class LessThanEqual(BaseFuzzerRule):
         self.max = rules["max"]
 
     def applicable_to(self, fuzzer):
-        return type(fuzzer) in [UIntFuzzer]
+        return type(fuzzer) in [UIntFuzzer, IntFuzzer, FixedFuzzer, UFixedFuzzer]
 
     def apply_to(self, fuzzer):
         fuzzer.less_than_equal(self.max)

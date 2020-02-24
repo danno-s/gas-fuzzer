@@ -4,7 +4,7 @@ from random import choice
 import logging
 
 class BaseTypeFuzzer():
-    def __init__(self, rules=None, rule_closures=None, argname=None, **kwargs):
+    def __init__(self, rules=None, rule_closures=None, argname=None, contract_state_vars=[], **kwargs):
         self.rules = instantiate_rules(rules, str(self), self) if rules is not None else []
         possible_rules = [closure(self, **kwargs) for closure in rule_closures]
         self.rules += [rule for rule in possible_rules if argname in rule.related_args]
@@ -36,7 +36,7 @@ class BaseTypeFuzzer():
 
     def empty_set(self):
         # x != b followed by x == b
-        return self.constant is not None and self.constant in self._except
+        return self.constant is not None and self.constant() in self._except
 
     def apply_rules(self):
         for rule in self.rules:

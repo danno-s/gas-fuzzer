@@ -108,6 +108,7 @@ class SolidityFuzzer():
                 rules=rules,
                 rule_closures=self.contracts[contract]['functions'][function]['constraints'],
                 argname=name,
+                contract_state_vars=[var for var, _type in self.contracts[contract]['variables']],
                 # Assume all function calls will be within the same contract.
                 contract=contract,
                 contract_address=self.contracts[contract]['address'],

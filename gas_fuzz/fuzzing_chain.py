@@ -148,7 +148,7 @@ class FuzzingChain(MiningChain):
                             constraint = new_constraint(
                                 node['expression']['arguments'][0],
                                 [name for name, type in parameters],
-                                chain.call_function
+                                chain.get_state_contract(contract_name)
                             )
 
                             if constraint:
@@ -310,6 +310,49 @@ class FuzzingChain(MiningChain):
         )
 
         self.mine_block(mix_hash=mix_hash, nonce=nonce)
+
+    def get_state_contract(self, contract_name):
+        def get_state_variable(function_name):
+            logging.log(logging.DEBUG, f"Retrieving value for {contract_name}.{function_name}")
+
+            for address, name in self.contract_names.items():
+                if name == contract_name:
+                    contract_address = address
+
+            if contract_address is None:
+                logging.log(logging.CRITICAL, f"Could not find contract with name {contract_name}")
+
+            call = self.fuzzer.generate_args(
+                contract_name,
+                function_name,
+                [arg for arg in self.contracts[contract_address][function_name]['in']],
+                value=self.contracts[contract_address][function_name]['payable']
+            )
+
+            function_hash = self.contracts[contract_address][function_name]['hash']
+
+            _, _, computation = self.call_function(contract_address, function_hash, call)
+
+            
+            out_types = [
+                arg['type'] for arg in self.contracts[contract_address][function_name]['out']
+            ]
+
+            try:
+                computation.raise_if_error()
+                val = decode_abi(out_types, computation.output)[0]
+                logging.log(logging.DEBUG, f"Retrieved value {val} for {contract_name}.{function_name}")    
+                return decode_abi(out_types, computation.output)[0]
+            except Revert as r:
+                logging.log(0, f" Call reverted. {r.args[0]}")
+            except VMError as e:
+                logging.log(0, f" Call resulted in error: {e}")
+            except Exception as e:
+                logging.log(0, 
+                    f" Something went wrong while decoding the output. {e}")
+
+        return get_state_variable
+
 
     def call_function(self, to, function_hash, call):
         nonce = self.get_vm().state.account_db.get_nonce(call['pk'])
