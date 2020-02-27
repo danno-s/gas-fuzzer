@@ -57,10 +57,10 @@ class SolidityFuzzer():
             'parameters': [par for par in parameters],
             'constraints': constraints
         }
-    
+
     def set_function_hash(self, contract_name, function_name, f_hash):
         self.contracts[contract_name]['functions'][function_name]['hash'] = f_hash
-    
+
     def set_mutability(self, contract_name, function_name, mut):
         self.contracts[contract_name]['functions'][function_name]['mutable'] = mut
 
@@ -75,7 +75,6 @@ class SolidityFuzzer():
 
         fxs[function_name]['args'] = args
 
-
     def generate_args(self, contract, function, args, value=True):
         sk, pk = self.get_account()
 
@@ -86,7 +85,7 @@ class SolidityFuzzer():
                 self.fuzz_arg(contract, function, arg['type'], arg['name'])
             ) for arg in args
         ]
-        
+
         return {
             'sk': sk,
             'pk': pk,
@@ -98,26 +97,28 @@ class SolidityFuzzer():
     def fuzz_arg(self, contract, function, _type, name):
         # Load fuzzers dynamically based on the given type
         if not self.get_type_fuzzer(contract, function, _type, name):
-            logging.info(f"Creating new fuzzer for {contract}.{function}, argument ({_type} {name})")
+            logging.info(
+                f"Creating new fuzzer for {contract}.{function}, argument ({_type} {name})")
             logging.info(f"\tAssigning rules...")
             rules = parse_rules(self.rules, contract, function, _type)
 
+            function_obj = self.contracts[contract]['functions'][function]
 
             fuzzer = fuzzer_from_type(
                 _type,
                 rules=rules,
-                rule_closures=self.contracts[contract]['functions'][function]['constraints'],
+                rule_closures=function_obj['constraints'] if 'constraints' in function_obj else [
+                ],
                 argname=name,
-                contract_state_vars=[var for var, _type in self.contracts[contract]['variables']],
-                # Assume all function calls will be within the same contract.
-                contract=contract,
-                contract_address=self.contracts[contract]['address'],
-                chain_fuzzer=self
+                contract_state_vars=[
+                    var for var, _type in self.contracts[contract]['variables']
+                ],
             )
 
             self.add_type_fuzzer(contract, function, _type, name, fuzzer)
 
-        logging.debug(f"Generating arguments for {contract}.{function} ({_type} {name})...")
+        logging.debug(
+            f"Generating arguments for {contract}.{function} ({_type} {name})...")
 
         return self.get_type_fuzzer(contract, function, _type, name).next_valid()
 
@@ -133,7 +134,8 @@ class SolidityFuzzer():
 
         has_rules = len(fuzzer.rules) != 0
 
-        logging.info(f'\tAdded fuzzer for {contract}.{function}, argument ({_type} {name}) {"with rules:" if has_rules else "without any rules"}')
+        logging.info(
+            f'\tAdded fuzzer for {contract}.{function}, argument ({_type} {name}) {"with rules:" if has_rules else "without any rules"}')
         for rule in fuzzer.rules:
             logging.info(f'\t\t{rule}')
 

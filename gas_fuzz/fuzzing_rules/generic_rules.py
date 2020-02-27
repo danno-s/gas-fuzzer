@@ -7,10 +7,11 @@ from type_fuzzing import (
 
 from pprint import pprint
 
+
 class Constant(BaseFuzzerRule):
     def __init__(self, rules, **kwargs):
-        super().__init__(rules, **kwargs)
         self.value = rules["value"]
+        super().__init__(rules, **kwargs)
 
     def applicable_to(self, fuzzer):
         return fuzzer.validate(self.value)
@@ -21,10 +22,11 @@ class Constant(BaseFuzzerRule):
     def __str__(self):
         return f"Constant ({self.value})"
 
+
 class NotEqual(BaseFuzzerRule):
     def __init__(self, rules, **kwargs):
-        super().__init__(rules, **kwargs)
         self.value = rules["value"]
+        super().__init__(rules, **kwargs)
 
     def applicable_to(self, fuzzer):
         return fuzzer.validate(self.value)
@@ -34,4 +36,3 @@ class NotEqual(BaseFuzzerRule):
 
     def __str__(self):
         return f"Not Equal ({self.value})"
-

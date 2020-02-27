@@ -24,6 +24,8 @@ def side(exp, parameters, function_callback):
             side = lambda: function_callback(exp['name']), exp['name']
     elif exp['nodeType'] == 'Literal':
         side = lambda: exp['value'], None
+    else:
+        side = None, None
     return side
 
 def sides(function_ast, parameters, function_callback):

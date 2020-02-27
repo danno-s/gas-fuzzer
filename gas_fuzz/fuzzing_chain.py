@@ -107,8 +107,8 @@ class FuzzingChain(MiningChain):
             ast_nodes = ast[filename]['ast']['nodes']
             for contract_name, desc in contracts.items():
                 if all(abi['type'] != 'constructor' for abi in desc['abi']):
-                    logging.log(0, 
-                        f"Skipped contract {contract_name} because it didn't have a constructor")
+                    logging.log(0,
+                                f"Skipped contract {contract_name} because it didn't have a constructor")
                     continue
 
                 # Find the ast object for this contract
@@ -121,10 +121,12 @@ class FuzzingChain(MiningChain):
                 ][0]['nodes']
 
                 # Find the variable definitions in this contract
+
                 variables = [
                     [node['name'], node['typeName']['name']]
                     for node in contract_nodes
                     if node['nodeType'] == 'VariableDeclaration'
+                    and node['typeName']['nodeType'] == 'ElementaryTypeName'
                 ]
 
                 chain.fuzzer.register_contract(contract_name, variables)
@@ -137,6 +139,7 @@ class FuzzingChain(MiningChain):
                     parameters = [
                         [paramNode['name'], paramNode['typeName']['name']]
                         for paramNode in node['parameters']['parameters']
+                        if 'typeName' in paramNode and paramNode['typeName']['nodeType'] == 'ElementaryTypeName'
                     ]
 
                     def reduce_ast(acc, node):
@@ -144,15 +147,22 @@ class FuzzingChain(MiningChain):
                             and 'nodeType' in node
                             and node['nodeType'] == 'ExpressionStatement'
                             and node['expression']['nodeType'] == 'FunctionCall'
-                        and node['expression']['expression']['name'] == 'require'):
-                            constraint = new_constraint(
-                                node['expression']['arguments'][0],
-                                [name for name, type in parameters],
-                                chain.get_state_contract(contract_name)
-                            )
+                            and node['expression']['expression']['nodeType'] == 'Identifier'
+                                and node['expression']['expression']['name'] == 'require'):
 
-                            if constraint:
-                                acc.append(constraint)
+                            try:
+                                constraint = new_constraint(
+                                    node['expression']['arguments'][0],
+                                    [name for name, type in parameters],
+                                    chain.get_state_contract(contract_name)
+                                )
+
+                                if constraint:
+                                    acc.append(constraint)
+                            except NotImplementedError as e:
+                                logging.warning(
+                                    f'Operation {e} not implemented for constraints')
+
                         elif type(node) is list:
                             acc += reduce(reduce_ast, node, [])
                         elif type(node) is dict:
@@ -161,7 +171,8 @@ class FuzzingChain(MiningChain):
                         return acc
 
                     # Extract the explicit constraints defined in the source code
-                    constraints = reduce(reduce_ast, node['body']['statements'], [])
+                    constraints = reduce(
+                        reduce_ast, node['body']['statements'], [])
                     """ 
                     [
                         new_constraint(
@@ -172,7 +183,8 @@ class FuzzingChain(MiningChain):
                         and expression['expression']['expression']['name'] == 'require'
                     ] """
 
-                    logging.info(f'{len(constraints)} constraint{"" if len(constraints) == 1 else "s"} extracted for {contract_name}.{name}')
+                    logging.info(
+                        f'{len(constraints)} constraint{"" if len(constraints) == 1 else "s"} extracted for {contract_name}.{name}')
 
                     chain.fuzzer.register_function(
                         contract_name, name, parameters, constraints)
@@ -195,7 +207,8 @@ class FuzzingChain(MiningChain):
 
                 contract_address = computation.msg.storage_address
 
-                chain.fuzzer.set_contract_address(contract_name, contract_address)
+                chain.fuzzer.set_contract_address(
+                    contract_name, contract_address)
 
                 chain.contract_names[contract_address] = contract_name
                 chain.contracts[contract_address] = {}
@@ -237,16 +250,16 @@ class FuzzingChain(MiningChain):
                     fname = function.split("(")[0]
 
                     fhash = decode_hex(fhash_encoded)
-                    
+
                     chain.fuzzer.set_function_hash(contract_name, fname, fhash)
-                    
+
                     chain.contracts[contract_address][fname]['hash'] = fhash
                     chain.contracts[contract_address][fname]['compilation_estimate'] = desc['evm']['gasEstimates']['external'][function]
 
                     function_signature = f"{function} => ({', '.join(arg['type'] for arg in chain.contracts[contract_address][fname]['out'])})"
 
-                    logging.log(0, 
-                        f" {function_signature}: {desc['evm']['gasEstimates']['external'][function]}{' payable' if chain.contracts[contract_address][fname]['payable'] else ''}")
+                    logging.log(0,
+                                f" {function_signature}: {desc['evm']['gasEstimates']['external'][function]}{' payable' if chain.contracts[contract_address][fname]['payable'] else ''}")
                     chain.fuzzing_data.set_expected_cost(
                         contract_name, fname, desc['evm']['gasEstimates']['external'][function])
 
@@ -287,15 +300,15 @@ class FuzzingChain(MiningChain):
                          for arg in self.contracts[contract_address][function_name]['out']]
             try:
                 computation.raise_if_error()
-                logging.log(0, 
-                    f" Returned value: {decode_abi(out_types, computation.output)}")
+                logging.log(0,
+                            f" Returned value: {decode_abi(out_types, computation.output)}")
             except Revert as r:
                 logging.log(0, f" Call reverted. {r.args[0]}")
             except VMError as e:
                 logging.log(0, f" Call resulted in error: {e}")
             except Exception as e:
-                logging.log(0, 
-                    f" Something went wrong while decoding the output. {e}")
+                logging.log(0,
+                            f" Something went wrong while decoding the output. {e}")
 
             if self.progress:
                 with self.progress:
@@ -313,14 +326,16 @@ class FuzzingChain(MiningChain):
 
     def get_state_contract(self, contract_name):
         def get_state_variable(function_name):
-            logging.log(logging.DEBUG, f"Retrieving value for {contract_name}.{function_name}")
+            logging.log(
+                logging.DEBUG, f"Retrieving value for {contract_name}.{function_name}")
 
             for address, name in self.contract_names.items():
                 if name == contract_name:
                     contract_address = address
 
             if contract_address is None:
-                logging.log(logging.CRITICAL, f"Could not find contract with name {contract_name}")
+                logging.log(
+                    logging.CRITICAL, f"Could not find contract with name {contract_name}")
 
             call = self.fuzzer.generate_args(
                 contract_name,
@@ -331,9 +346,9 @@ class FuzzingChain(MiningChain):
 
             function_hash = self.contracts[contract_address][function_name]['hash']
 
-            _, _, computation = self.call_function(contract_address, function_hash, call)
+            _, _, computation = self.call_function(
+                contract_address, function_hash, call)
 
-            
             out_types = [
                 arg['type'] for arg in self.contracts[contract_address][function_name]['out']
             ]
@@ -341,18 +356,18 @@ class FuzzingChain(MiningChain):
             try:
                 computation.raise_if_error()
                 val = decode_abi(out_types, computation.output)[0]
-                logging.log(logging.DEBUG, f"Retrieved value {val} for {contract_name}.{function_name}")    
+                logging.log(
+                    logging.DEBUG, f"Retrieved value {val} for {contract_name}.{function_name}")
                 return decode_abi(out_types, computation.output)[0]
             except Revert as r:
                 logging.log(0, f" Call reverted. {r.args[0]}")
             except VMError as e:
                 logging.log(0, f" Call resulted in error: {e}")
             except Exception as e:
-                logging.log(0, 
-                    f" Something went wrong while decoding the output. {e}")
+                logging.log(0,
+                            f" Something went wrong while decoding the output. {e}")
 
         return get_state_variable
-
 
     def call_function(self, to, function_hash, call):
         nonce = self.get_vm().state.account_db.get_nonce(call['pk'])
@@ -386,8 +401,8 @@ class FuzzingChain(MiningChain):
         computation.raise_if_error()
 
     def log_function_call(self, cname, fname, pk, primitive_args, value, gas_used):
-        logging.log(0, 
-            f''' 
+        logging.log(0,
+                    f''' 
             FUNCTION CALL: {cname}: {fname} ({", ".join(f"{_type} {name}: {value}" for name, _type, value in primitive_args)})
                 CALLER: 0x{pk.hex()} 
                 VALUE: {value} 

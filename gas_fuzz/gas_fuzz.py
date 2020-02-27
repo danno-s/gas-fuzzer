@@ -134,7 +134,11 @@ def process_and_compile(file, fork):
             and node['nodeType'] == 'VariableDeclaration'
             and 'stateVariable' in node
             and node['stateVariable']
+            and 'visibility' in node
             and node['visibility'] != 'public'
+            and 'typeName' in node
+            and node['typeName'] == 'ElementaryTypeName'
+
         ):
             acc.append({
                 'type': node['typeName']['name'],
