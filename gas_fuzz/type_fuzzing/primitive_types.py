@@ -48,8 +48,8 @@ class IntFuzzer(NumericTypeFuzzer):
         super().__init__(min=-2 ** (self.bits - 1), max=2 ** (self.bits - 1) - 1, **kwargs)
 
     def validate(self, value):
-        assert value >= 0, f"{self} values must be higher than 0. (got {value})"
-        assert value < 2 ** self.bits, f"{self} values must be lower than {2 ** self.bits - 1}. (got {value})"
+        assert value >= -2 ** (self.bits - 1), f"{self} values must be higher than {-2 ** (self.bits - 1)}. (got {value})"
+        assert value < 2 ** (self.bits - 1), f"{self} values must be lower than {2 ** (self.bits - 1)}. (got {value})"
         return value
 
     def next(self):
