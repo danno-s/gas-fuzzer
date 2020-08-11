@@ -45,7 +45,7 @@ You can execute the fuzzer like so:
 python3 gas_fuzz [OPTIONS] files [files...]
 ```
 
-The default behaviour is to run 10 transactions each block, during 10 blocks, and record the behaviour of the gas costs of each function call.
+The default behaviour is to run 10 transactions each block, commiting 10 blocks in total, and record the behaviour of the gas costs of each function call.
 
 ### Command Line Arguments
 
@@ -63,11 +63,9 @@ The options you'll probably use the most are:
 
 You can define how the fuzzer should generate its arguments by using a JSON file. A prototype of the expected JSON files can be found in `prototype.json`
 
-<!-- LICENSE
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
--->
 
 
 <!-- CONTACT -->
